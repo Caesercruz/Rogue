@@ -1,0 +1,25 @@
+# ===== Ignorar pastas temporárias e de build do Unity =====
+PAP/Library/
+PAP/Temp/
+PAP/Obj/
+PAP/Build/
+PAP/Builds/
+PAP/Logs/
+PAP/MemoryCaptures/
+
+# ===== Ignorar arquivos de projeto temporários =====
+PAP/*.csproj
+PAP/*.unityproj
+PAP/*.sln
+PAP/*.user
+PAP/*.userprefs
+PAP/*.pidb
+PAP/*.suo
+
+# ===== Ignorar configurações de IDE (opcional) =====
+PAP/.idea/
+PAP/.vscode/
+
+# ===== Ignorar arquivos de sistema =====
+.DS_Store
+Thumbs.db
