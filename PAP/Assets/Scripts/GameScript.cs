@@ -46,14 +46,6 @@ public class GameScript : MonoBehaviour
         
         Gameplay();
     }
-    private void Update()
-    {
-        if(NumberOfEnemies == 0)
-        {
-            Gamestate = GameState.WonEncounter;
-        }
-
-    }
 
     private void Gameplay()
     {
@@ -62,6 +54,7 @@ public class GameScript : MonoBehaviour
         actors.SpawnCharacter(_playerInstance,"Player", true);
 
         Encounter currentEncounter = (Encounter)UnityEngine.Random.Range(0, Enum.GetValues(typeof(Encounter)).Length);
+        //Encounter currentEncounter = (Encounter.Test);
         Debug.Log("Encounter: " + currentEncounter);
 
         switch (currentEncounter)
