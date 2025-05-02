@@ -58,8 +58,7 @@ public class Enemy : Actors
 
             Tile tile = tileObj.GetComponent<Tile>();
             tile.IsOccupied = false;
-
-            gameScript.Gamestate = GameScript.GameState.WonEncounter;
+            gameScript.NumberOfEnemies--;
             Destroy(gameObject);
         }
 
