@@ -26,7 +26,6 @@ public class GameScript : MonoBehaviour
     {
         Rats_2,
         Rats_3,
-        Test,
     }
 
     [SerializeField] private TextMeshProUGUI _txt_energy;

@@ -29,8 +29,8 @@ public class Player : Actors
     {
         if (Health == 0)
         {
-            Destroy(gameObject);
             gameScript.Gamestate = GameScript.GameState.LostRun;
+            Destroy(gameObject);
         }
         if (gameScript.Gamestate == GameScript.GameState.Combat && actors.isPlayersTurn)
         {

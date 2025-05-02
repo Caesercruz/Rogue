@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Wyrmous_0: -700936815634684779
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
