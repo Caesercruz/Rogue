@@ -47,6 +47,9 @@ TagManager:
   - name: Overlay
     uniqueID: 2421998001
     locked: 0
+  - name: Menu
+    uniqueID: 2060156203
+    locked: 0
   m_RenderingLayers:
   - Default
   - Grid

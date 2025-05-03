@@ -31,6 +31,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _txt_energy;
     [SerializeField] private Tile _tilePrefab;
     [SerializeField] private Transform _cam;
+    public Canvas UpdateScreen;
     public GameObject _playerInstance;
     public GameObject _ratInstance;
     [HideInInspector] public int NumberOfEnemies = 0;

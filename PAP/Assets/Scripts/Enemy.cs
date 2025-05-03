@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 
 public class Enemy : Actors
 {
@@ -36,9 +35,9 @@ public class Enemy : Actors
             hoverScript = HealthBar.gameObject.AddComponent<HealthBarHoverHandler>();
         }
         hoverScript.Initialize(gameObject);
-        
-        GameObject.Find("Canvas").GetComponent<HUDManager>().OffsetHealthBar(HealthBar,gameObject);
-        
+
+        GameObject.Find("Canvas").GetComponent<HUDManager>().OffsetHealthBar(HealthBar, gameObject);
+
         Energy = MaxEnergy;
         Health = MaxHealth;
 
@@ -50,7 +49,7 @@ public class Enemy : Actors
         {
             gameScript.NumberOfEnemies--;
             actors.ClearAttackableTiles(false);
-            RecalculateEnemyAttacks();
+
             actors.ActorsCord.TryGetValue(gameObject, out Vector2Int enemyPos);
 
             string tileName = $"Tile {enemyPos.x} {enemyPos.y}";
@@ -58,9 +57,17 @@ public class Enemy : Actors
 
             Tile tile = tileObj.GetComponent<Tile>();
             tile.IsOccupied = false;
+            actors.ActorsCord.Remove(gameObject);
 
-            gameScript.Gamestate = GameScript.GameState.WonEncounter;
             Destroy(gameObject);
+            if (gameScript.NumberOfEnemies == 0)
+            {
+                gameScript.Gamestate = GameScript.GameState.WonEncounter;
+                Canvas instance = Instantiate(gameScript.UpdateScreen);
+                instance.name = "UpdateScreen";
+                return;
+            }
+            RecalculateEnemyAttacks();
         }
 
         if (gameScript.Gamestate != GameScript.GameState.Combat || actors.isPlayersTurn) return;
@@ -178,7 +185,6 @@ public class Enemy : Actors
     {
         foreach (var kvp in actors.ActorsCord)
         {
-            Debug.Log("Foreach: "+kvp);
             Enemy enemy = kvp.Key.GetComponent<Enemy>();
             if (enemy != null && enemy.Health > 0)
             {
