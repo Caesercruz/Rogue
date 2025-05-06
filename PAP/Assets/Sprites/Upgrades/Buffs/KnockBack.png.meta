@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e6ce4ce83b5817542b33ccc7d70ac2d8
+guid: 2446becf16b671940a7b4c64049aaf03
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4401870907467595010
-    second: KineticEnergy_0
+      213: 8648408496548531939
+    second: KnockBack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KineticEnergy_0
+      name: KnockBack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 20d7bbaa446961d30800000000000000
-      internalID: 4401870907467595010
+      spriteID: 3eece35d4b1550870800000000000000
+      internalID: 8648408496548531939
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      KineticEnergy_0: 4401870907467595010
+      KnockBack_0: 8648408496548531939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

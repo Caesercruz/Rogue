@@ -1,0 +1,21 @@
+Buff:
+Health-12-50%(18)-100%(24)
+Strength-4-6-8(Immune to intimidation)
+Energy-5-7-25% chance of not using energy
+Range-1-2(Atack every atackable space)-3
+LifeSteal-0-2-Killing raises MaxHP by 2 (health cap of ??)
+KnockBack-0-1 space(Half damage)-2 spaces(fulldamage)
+Bewildered(desnorteado-"yes I had to translate fuck you")-0-enemy unable to atack-[enemy deals damage to the others enemies instead]
+Kenetic Energy-+4 per move(atacking resets buff)
+Restart Program-0-If you end your turn without using energy heal half hp
+
+Nerf:
+Rusty Plates-0-50%-75% to Health
+Weak-0-50%-80%
+Low Energy-0-1-2
+Battery leak-1(Taking damage loses you energy for the next turn)
+Backlash-(1HP loss)Chance of 20% of taking damage when atacking- 50% chance of taking damage
+Rebound-Take damage equals to energy not used in the end of turn- Take double the amount
+Intimidated- Deal 20% less of the damage when hit-25%
+Clumsy- Chance of missing the atack of 10%-20%
+Exposed Circuits-Chance of getting extra damaged 20% by +20%-damage increased to 25%
