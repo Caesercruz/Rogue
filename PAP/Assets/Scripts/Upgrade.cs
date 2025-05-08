@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,21 @@ public class Upgrade : MonoBehaviour
         else popup = Instantiate(_popupDowngrade);
         hitBox.GetComponent<Button>().onClick.AddListener(() => upgradeScreen.GetComponent<Upgrade>().ClosePopup());
     }
+    public void SelectAtribute(Perk perk)
+    {
+        Debug.Log("Entrou");
+
+        GameObject upgrade = GameObject.Find("UpgradeScreen");
+        Transform area;
+        area = upgrade.transform.Find("Upgrade Area");
+        if (perk.type == PerkType.Debuff) area = upgrade.transform.Find("Down Side Area");
+
+        Transform atribute = area.transform.Find("Atribute");
+        Transform description = atribute.transform.Find("Description");
+
+        atribute.GetComponent<Image>().sprite = perk.icon;
+        description.GetComponent<TextMeshProUGUI>().text = perk.description;
+    }
     public void Close()
     {
         if (upgradeScreen != null)
@@ -29,6 +45,7 @@ public class Upgrade : MonoBehaviour
     }
     public void ClosePopup()
     {
+        Debug.Log("Hitbox");
         if (popup != null)
         {
             Destroy(popup);

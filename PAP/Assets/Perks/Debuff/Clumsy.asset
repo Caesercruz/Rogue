@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
+  m_Name: Clumsy
+  m_EditorClassIdentifier: 
+  perkName: Clumsy
+  description: Chance of 20% of missing an atack.
+  icon: {fileID: -3634660754586203314, guid: 3d4a25d7816c30b43995f2b79b081256, type: 3}
+  type: 1
+  active: 0

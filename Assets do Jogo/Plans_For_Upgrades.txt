@@ -19,3 +19,6 @@ Rebound-Take damage equals to energy not used in the end of turn- Take double th
 Intimidated- Deal 20% less of the damage when hit-25%
 Clumsy- Chance of missing the atack of 10%-20%
 Exposed Circuits-Chance of getting extra damaged 20% by +20%-damage increased to 25%
+
+Buff & Nerf:
+Heavy Hit-0-Deal +150% more damage but your atack uses 2 energy-300% but 3 energy

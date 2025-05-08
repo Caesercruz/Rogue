@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
+  m_Name: Reinforced Plates
+  m_EditorClassIdentifier: 
+  perkName: Reinforced Plates
+  description: 50% more Health.
+  icon: {fileID: -8630923909508717717, guid: 6152a56efb91d4143b27b76914b8afb1, type: 3}
+  type: 0
