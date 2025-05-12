@@ -19,6 +19,7 @@ public class Upgrade : MonoBehaviour
         hitBox = Instantiate(hitBoxPrefab, upgradeScreen.transform);
         if (Upside) popup = Instantiate(_popupUpgrade, upgradeScreen.transform);
         else popup = Instantiate(_popupDowngrade, upgradeScreen.transform);
+        popup.name = "Popup";
         hitBox.GetComponent<Button>().onClick.AddListener(() => upgradeScreen.GetComponent<Upgrade>().ClosePopup());
     }
     public void SelectAtribute(Perk perk)
@@ -28,11 +29,13 @@ public class Upgrade : MonoBehaviour
         Transform area;
         area = upgrade.transform.Find("Upgrade Area");
         if (perk.type == PerkType.Debuff) area = upgrade.transform.Find("Down Side Area");
-
+        
         Transform atribute = area.transform.Find("Atribute");
+
+        Transform icon = atribute.transform.Find("Icon");
         Transform description = atribute.transform.Find("Description");
 
-        atribute.GetComponent<Image>().sprite = perk.icon;
+        icon.GetComponent<Image>().sprite = perk.icon;
         description.GetComponent<TextMeshProUGUI>().text = perk.description;
     }
     public void Close()
@@ -50,5 +53,19 @@ public class Upgrade : MonoBehaviour
             Destroy(hitBox);
             return;
         }
+    }
+    public void GetPerkName(Perk perk)
+    {
+        Transform popup = transform.Find("Popup");
+        Transform label = popup.Find("Perk Name");
+        if (label != null)
+        {
+            label.GetComponent<TextMeshProUGUI>().text = perk.name;
+        }
+        else
+        {
+            Debug.LogWarning("Label não encontrada!");
+        }
+
     }
 }
