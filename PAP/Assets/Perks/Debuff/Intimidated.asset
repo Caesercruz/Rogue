@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkName: Intimidated
   description: Being atacked decreases your strenght by 50% next turn.
-  icon: {fileID: 2840336364714655594, guid: 9c0b593982b6eb6499cb5b80d5ff0142, type: 3}
+  icon: {fileID: 4425450252774458811, guid: cf16faa23415871469e46ce3ddf53d9b, type: 3}
   type: 1
   active: 0

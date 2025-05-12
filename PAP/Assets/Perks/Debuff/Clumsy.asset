@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Clumsy
   m_EditorClassIdentifier: 
   perkName: Clumsy
-  description: Chance of 20% of missing an atack.
+  description: Chance of 15% of missing an atack.
   icon: {fileID: -3634660754586203314, guid: 3d4a25d7816c30b43995f2b79b081256, type: 3}
   type: 1
   active: 0

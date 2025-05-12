@@ -17,13 +17,12 @@ public class Upgrade : MonoBehaviour
     public void ShowAtributes(bool Upside)
     {
         hitBox = Instantiate(hitBoxPrefab, upgradeScreen.transform);
-        if (Upside) popup = Instantiate(_popupUpgrade);
-        else popup = Instantiate(_popupDowngrade);
+        if (Upside) popup = Instantiate(_popupUpgrade, upgradeScreen.transform);
+        else popup = Instantiate(_popupDowngrade, upgradeScreen.transform);
         hitBox.GetComponent<Button>().onClick.AddListener(() => upgradeScreen.GetComponent<Upgrade>().ClosePopup());
     }
     public void SelectAtribute(Perk perk)
     {
-        Debug.Log("Entrou");
 
         GameObject upgrade = GameObject.Find("UpgradeScreen");
         Transform area;
@@ -45,7 +44,6 @@ public class Upgrade : MonoBehaviour
     }
     public void ClosePopup()
     {
-        Debug.Log("Hitbox");
         if (popup != null)
         {
             Destroy(popup);

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkName: Exposed Circuits
   description: Chance of 20% of getting extra damaged by +20%
-  icon: {fileID: 2840336364714655594, guid: 9c0b593982b6eb6499cb5b80d5ff0142, type: 3}
+  icon: {fileID: 766735046712930671, guid: 26d6c7704bbcc0d46b21da2185a29b20, type: 3}
   type: 1
   active: 0

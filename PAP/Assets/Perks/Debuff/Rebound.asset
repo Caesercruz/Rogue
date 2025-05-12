@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rebound
   m_EditorClassIdentifier: 
   perkName: Rebound
-  description: Unused energy deals damage.
+  description: Unused energy deals X2 damage.
   icon: {fileID: 4150088245714118910, guid: 62ef5352133d5ff41aab1befe1edc205, type: 3}
   type: 1
   active: 0

@@ -413,7 +413,6 @@ GameObject:
   - component: {fileID: 6377019581937512925}
   - component: {fileID: 2799416798057080865}
   - component: {fileID: 6296617748871778771}
-  - component: {fileID: 2732140052444119898}
   m_Layer: 5
   m_Name: popupBuff
   m_TagString: Untagged
@@ -430,8 +429,8 @@ RectTransform:
   m_GameObject: {fileID: 3439150124014857111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.59220415, y: 0.56704175, z: 0.5640785}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.3, y: 1.2447639, z: 1.2382588}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8019558382380775739}
   - {fileID: 270097507185270064}
@@ -446,7 +445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.2, y: 3}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10.2766, y: 11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2799416798057080865
@@ -487,29 +486,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &2732140052444119898
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3439150124014857111}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 2060156203
-  m_SortingOrder: 1
-  m_TargetDisplay: 0
 --- !u!1 &3533795447653494087
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +499,7 @@ GameObject:
   - component: {fileID: 818068876362181438}
   - component: {fileID: 1837970192503173880}
   m_Layer: 5
-  m_Name: Heavy Hit
+  m_Name: Double Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,7 +553,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8307069055350043731, guid: dd97b6069a423f641afa26dcf6fa482a, type: 3}
+  m_Sprite: {fileID: -3931711098014578084, guid: 89bb3f0431cb2bf43a6cec412de9407e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -636,7 +612,7 @@ MonoBehaviour:
         m_MethodName: SelectAtribute
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 2fad01f63ec75b74e8576ffff77c2d93, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: ef9c318ef7e37024fb0624b1bb5c87ac, type: 2}
           m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1248,7 +1224,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8630923909508717717, guid: 6152a56efb91d4143b27b76914b8afb1, type: 3}
+  m_Sprite: {fileID: -7003405138980521047, guid: 217bd82a215ac744c920a6639703d4fd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkName: KnockBack
   description: Atacking an enemy pushes him 1 tile away
-  icon: {fileID: 0}
+  icon: {fileID: 8648408496548531939, guid: 2446becf16b671940a7b4c64049aaf03, type: 3}
   type: 0
+  active: 0

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perkName: Battery leak
   description: Being hit decreases your energy next turn by 1.
-  icon: {fileID: 2840336364714655594, guid: 9c0b593982b6eb6499cb5b80d5ff0142, type: 3}
+  icon: {fileID: -8170095226884944865, guid: 2d195a0b0d1ba4746a8827cc03d1ad51, type: 3}
   type: 1
   active: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weak
   m_EditorClassIdentifier: 
   perkName: Weak
-  description: Decreases your strength by 50%.
-  icon: {fileID: 2840336364714655594, guid: 9c0b593982b6eb6499cb5b80d5ff0142, type: 3}
+  description: Decreases your strength by 30%.
+  icon: {fileID: -7977781763595671656, guid: a76de2deeca70614691bcbe16c2df8c4, type: 3}
   type: 1
   active: 0

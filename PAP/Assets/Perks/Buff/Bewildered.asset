@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bewildered
   m_EditorClassIdentifier: 
   perkName: Bewildered
-  description: Atacking an enemy makes him unable to atack you this turn.
+  description: Atacking an enemy makes him unable to atack you.
   icon: {fileID: 594318413343068850, guid: fc408a0b76f8c7640ac88d1c8d05edf4, type: 3}
   type: 0
+  active: 0

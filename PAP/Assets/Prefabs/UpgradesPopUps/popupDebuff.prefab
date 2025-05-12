@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5148276365135337808}
   - component: {fileID: 1377644096345516251}
   m_Layer: 5
-  m_Name: Upgrade (3)
+  m_Name: Battery Leak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.5, y: 3.6982775}
+  m_AnchoredPosition: {x: 3.51, y: 3.52}
   m_SizeDelta: {x: 3.5356, y: 3.5356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1358291527944684757
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2840336364714655594, guid: 9c0b593982b6eb6499cb5b80d5ff0142, type: 3}
+  m_Sprite: {fileID: -8170095226884944865, guid: 2d195a0b0d1ba4746a8827cc03d1ad51, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5148276365135337808}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: SelectAtribute
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: c1d2b170e8c79db4aaf54dbd77a26024, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &805456476194132072
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +282,7 @@ GameObject:
   - component: {fileID: 7757677216667171033}
   - component: {fileID: 4419244404901843852}
   m_Layer: 5
-  m_Name: Upgrade (9)
+  m_Name: Clumsy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,7 +305,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.5655441, y: -3.237071}
+  m_AnchoredPosition: {x: -3.6155303, y: -3.415427}
   m_SizeDelta: {x: 3.5356, y: 3.5356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3373713381462383940
@@ -377,7 +389,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7757677216667171033}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: SelectAtribute
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 4523c3bfce1b04e45917e4430c0908e8, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3439150124014857111
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +413,6 @@ GameObject:
   - component: {fileID: 6377019581937512925}
   - component: {fileID: 2799416798057080865}
   - component: {fileID: 6296617748871778771}
-  - component: {fileID: 2732140052444119898}
   m_Layer: 5
   m_Name: popupDebuff
   m_TagString: Untagged
@@ -406,8 +429,8 @@ RectTransform:
   m_GameObject: {fileID: 3439150124014857111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.59220415, y: 0.56704175, z: 0.5640785}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.3, y: 1.2447639, z: 1.2382588}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8019558382380775739}
   - {fileID: 270097507185270064}
@@ -422,8 +445,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.2, y: 3}
-  m_SizeDelta: {x: 10.1567, y: 11}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 10.2766, y: 11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2799416798057080865
 CanvasRenderer:
@@ -463,29 +486,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &2732140052444119898
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3439150124014857111}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 2060156203
-  m_SortingOrder: 1
-  m_TargetDisplay: 0
 --- !u!1 &3533795447653494087
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +499,7 @@ GameObject:
   - component: {fileID: 818068876362181438}
   - component: {fileID: 1837970192503173880}
   m_Layer: 5
-  m_Name: Upgrade
+  m_Name: Weak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,7 +522,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.5655441, y: 3.6983776}
+  m_AnchoredPosition: {x: -3.6155303, y: 3.5200217}
   m_SizeDelta: {x: 3.5356, y: 3.5356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1738703773643663048
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5438501163760368585, guid: 11eb8824c7eed9a4b97357c024687bcc, type: 3}
+  m_Sprite: {fileID: -7977781763595671656, guid: a76de2deeca70614691bcbe16c2df8c4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -606,7 +606,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 818068876362181438}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: SelectAtribute
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: be1990e508b84cf419d6aea2d89e1e09, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3775391411644620005
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +632,7 @@ GameObject:
   - component: {fileID: 5669422086309060784}
   - component: {fileID: 9142424849916406730}
   m_Layer: 5
-  m_Name: Upgrade (5)
+  m_Name: Intimidated
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -643,7 +655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.029944003, y: 0.079877734}
+  m_AnchoredPosition: {x: -0.079930216, y: -0.09847818}
   m_SizeDelta: {x: 3.5356, y: 3.5356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2390268117551826052
@@ -674,7 +686,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4150088245714118910, guid: 62ef5352133d5ff41aab1befe1edc205, type: 3}
+  m_Sprite: {fileID: 4425450252774458811, guid: cf16faa23415871469e46ce3ddf53d9b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -727,7 +739,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5669422086309060784}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: SelectAtribute
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 3ab734a24d4923f43b3e9a7d1b9affc4, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3891666908897407114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,7 +1037,7 @@ GameObject:
   - component: {fileID: 3718371723549763183}
   - component: {fileID: 6850305781634380762}
   m_Layer: 5
-  m_Name: Upgrade (8)
+  m_Name: Exposed Circuits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1036,7 +1060,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.4999905, y: -3.319933}
+  m_AnchoredPosition: {x: 3.5099878, y: -3.4982889}
   m_SizeDelta: {x: 3.5356, y: 3.5356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2727198108593129568
@@ -1067,7 +1091,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2840336364714655594, guid: 9c0b593982b6eb6499cb5b80d5ff0142, type: 3}
+  m_Sprite: {fileID: 766735046712930671, guid: 26d6c7704bbcc0d46b21da2185a29b20, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1120,7 +1144,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3718371723549763183}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: SelectAtribute
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 6ef3acfee069e604f9f32cbb25df94f0, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5623859523020262330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,7 +1170,7 @@ GameObject:
   - component: {fileID: 6346654871438343378}
   - component: {fileID: 552157060216300654}
   m_Layer: 5
-  m_Name: Upgrade (1)
+  m_Name: Rusty Plates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1157,7 +1193,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.029933989, y: 3.6983776}
+  m_AnchoredPosition: {x: -0.0799202, y: 3.5200217}
   m_SizeDelta: {x: 3.5356, y: 3.5356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3305013513697756573
@@ -1188,7 +1224,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2840336364714655594, guid: 9c0b593982b6eb6499cb5b80d5ff0142, type: 3}
+  m_Sprite: {fileID: -5438501163760368585, guid: 11eb8824c7eed9a4b97357c024687bcc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1241,7 +1277,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6346654871438343378}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: SelectAtribute
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: ff7a126bfef244b42bdf1b65109bc67c, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5694462845573809533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,7 +1439,7 @@ GameObject:
   - component: {fileID: 690828866484793731}
   - component: {fileID: 1068202767106784803}
   m_Layer: 5
-  m_Name: Upgrade (2)
+  m_Name: Low Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1414,7 +1462,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.5655441, y: 0.16277778}
+  m_AnchoredPosition: {x: -3.6155303, y: -0.015578136}
   m_SizeDelta: {x: 3.5356, y: 3.5356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &64667062511000178
@@ -1498,7 +1546,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 690828866484793731}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: SelectAtribute
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 06193bfdf43aaa54a94fb72e500b67ea, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7083841532857317477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,7 +1572,7 @@ GameObject:
   - component: {fileID: 8472668484152518933}
   - component: {fileID: 2847825038025474905}
   m_Layer: 5
-  m_Name: Upgrade (6)
+  m_Name: Rebound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1535,7 +1595,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.4999905, y: 0.07991624}
+  m_AnchoredPosition: {x: 3.5099878, y: -0.09843968}
   m_SizeDelta: {x: 3.5356, y: 3.5356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3334098715757019616
@@ -1566,7 +1626,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2840336364714655594, guid: 9c0b593982b6eb6499cb5b80d5ff0142, type: 3}
+  m_Sprite: {fileID: 4150088245714118910, guid: 62ef5352133d5ff41aab1befe1edc205, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1619,7 +1679,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8472668484152518933}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: SelectAtribute
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 5c99291a050efac489e395365bb47bd4, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7663405709867119429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,7 +1841,7 @@ GameObject:
   - component: {fileID: 7844433084749399774}
   - component: {fileID: 104364967515838063}
   m_Layer: 5
-  m_Name: Upgrade (7)
+  m_Name: Backlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1792,7 +1864,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.029976845, y: -3.32}
+  m_AnchoredPosition: {x: -0.07996306, y: -3.4983559}
   m_SizeDelta: {x: 3.5356, y: 3.5356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1501310728494545816
@@ -1823,7 +1895,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2840336364714655594, guid: 9c0b593982b6eb6499cb5b80d5ff0142, type: 3}
+  m_Sprite: {fileID: -8682500171686231500, guid: f8af86e61d50ee84fa8ea68bdcc43c5b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1876,7 +1948,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7844433084749399774}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: SelectAtribute
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: ff574fb79274f514ab7bd682e608efdf, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7798290275562420830
 GameObject:
   m_ObjectHideFlags: 0

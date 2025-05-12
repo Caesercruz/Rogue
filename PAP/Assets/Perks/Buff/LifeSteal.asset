@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LifeSteal
   m_EditorClassIdentifier: 
   perkName: LifeSteal
-  description: When atacking heal 2 Health Points.
+  description: Atacks heal 2 Health Points.
   icon: {fileID: -7023080013790042470, guid: 60391ca181a8c79428449d51a355aa0f, type: 3}
   type: 0
+  active: 0

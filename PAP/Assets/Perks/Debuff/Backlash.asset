@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Backlash
   m_EditorClassIdentifier: 
   perkName: Backlash
-  description: Atacking has a chance of 20% of taking damage 1 back.
-  icon: {fileID: 2840336364714655594, guid: 9c0b593982b6eb6499cb5b80d5ff0142, type: 3}
+  description: Atacking has a chance of 20% of taking 1 damage back.
+  icon: {fileID: -8682500171686231500, guid: f8af86e61d50ee84fa8ea68bdcc43c5b, type: 3}
   type: 1
   active: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Low Energy
   m_EditorClassIdentifier: 
   perkName: Low Energy
-  description: Decrerases your maximum energy by 1.
+  description: Decreases your maximum energy by 1.
   icon: {fileID: 634573245595973833, guid: 7660bb1e507c3b04098bea308e211740, type: 3}
   type: 1
   active: 0
