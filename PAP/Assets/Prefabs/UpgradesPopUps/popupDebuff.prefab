@@ -119,19 +119,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5148276365135337808}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: SelectAtribute
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 06193bfdf43aaa54a94fb72e500b67ea, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1219633299830426061
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,19 +239,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7757677216667171033}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: SelectAtribute
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: ff574fb79274f514ab7bd682e608efdf, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &3439150124014857111
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,19 +444,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 818068876362181438}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: SelectAtribute
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: be1990e508b84cf419d6aea2d89e1e09, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &3775391411644620005
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,19 +564,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5669422086309060784}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: SelectAtribute
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 4523c3bfce1b04e45917e4430c0908e8, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &4283488451881055017
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,19 +822,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3718371723549763183}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: SelectAtribute
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 6ef3acfee069e604f9f32cbb25df94f0, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &5623859523020262330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,19 +942,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6346654871438343378}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: SelectAtribute
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: ff7a126bfef244b42bdf1b65109bc67c, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6231098170304893517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,19 +1062,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 690828866484793731}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: SelectAtribute
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c1d2b170e8c79db4aaf54dbd77a26024, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7083841532857317477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,19 +1182,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8472668484152518933}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: SelectAtribute
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 5c99291a050efac489e395365bb47bd4, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7683027536964598140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,16 +1302,4 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7844433084749399774}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 821770864490049933, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: SelectAtribute
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 3ab734a24d4923f43b3e9a7d1b9affc4, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Perk, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []

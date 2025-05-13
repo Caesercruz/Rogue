@@ -46,15 +46,24 @@ public class Upgrade : MonoBehaviour
                 // Limpa eventos antigos
                 trigger.triggers.Clear();
 
-                // Cria evento OnPointerEnter
-                EventTrigger.Entry entry = new()
+                // Evento: Hover (mostrar nome do perk)
+                EventTrigger.Entry hoverEntry = new()
                 {
-                    eventID = EventTriggerType.PointerEnter,
+                    eventID = EventTriggerType.PointerEnter
                 };
-                entry.callback.AddListener((data) => GetPerkName(perk));
-                trigger.triggers.Add(entry);
+                hoverEntry.callback.AddListener((data) => GetPerkName(perk));
+                trigger.triggers.Add(hoverEntry);
+
+                // Evento: Clique (selecionar perk)
+                EventTrigger.Entry clickEntry = new()
+                {
+                    eventID = EventTriggerType.PointerClick
+                };
+                clickEntry.callback.AddListener((data) => SelectAtribute(perk));
+                trigger.triggers.Add(clickEntry);
             }
         }
+
     }
     public void SelectAtribute(Perk perk)
     {
@@ -88,6 +97,7 @@ public class Upgrade : MonoBehaviour
             Destroy(hitBox);
             return;
         }
+        Debug.Log("Popup é null");
     }
     public void GetPerkName(Perk perk)
     {

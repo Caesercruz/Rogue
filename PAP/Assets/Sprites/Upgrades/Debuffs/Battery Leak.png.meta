@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Battery Leak_0: -8170095226884944865
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

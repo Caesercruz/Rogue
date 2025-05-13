@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Exposed Circuits_0: 766735046712930671
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
