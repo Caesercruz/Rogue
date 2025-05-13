@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
-  m_Name: Battery leak
+  m_Name: Battery Leak
   m_EditorClassIdentifier: 
   perkName: Battery leak
   description: Being hit decreases your energy next turn by 1.
