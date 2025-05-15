@@ -835,22 +835,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3027464858455408604, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027464858455408604, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027464858455408604, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027464858455408604, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 3401188023610861278, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -934,38 +918,6 @@ PrefabInstance:
     - target: {fileID: 3689550112863654208, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
       propertyPath: m_Name
       value: UpgradeScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534784494587699366, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534784494587699366, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534784494587699366, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534784494587699366, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 7919280750087257390, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0.8324
-      objectReference: {fileID: 0}
-    - target: {fileID: 7919280750087257390, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.0562
-      objectReference: {fileID: 0}
-    - target: {fileID: 8008625166074981283, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0.8576
-      objectReference: {fileID: 0}
-    - target: {fileID: 8008625166074981283, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.031999946
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

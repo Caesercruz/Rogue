@@ -14,6 +14,8 @@ public class Upgrade : MonoBehaviour
     [SerializeField] private GameObject _popupUpgrade;
     [SerializeField] private GameObject _popupDowngrade;
     [HideInInspector] public GameObject Popup;
+
+    public Perk SelectedBuff, SelectedByproduct;
     private void Start()
     {
         upgradeScreen = gameObject;
@@ -67,7 +69,6 @@ public class Upgrade : MonoBehaviour
     }
     public void SelectAtribute(Perk perk)
     {
-
         GameObject upgrade = GameObject.Find("UpgradeScreen");
         Transform area;
         area = upgrade.transform.Find("Upgrade Area");
@@ -80,15 +81,31 @@ public class Upgrade : MonoBehaviour
 
         icon.GetComponent<Image>().sprite = perk.icon;
         description.GetComponent<TextMeshProUGUI>().text = perk.description;
+
+        if (perk.type == PerkType.Buff) SelectedBuff = perk;
+        if (perk.type == PerkType.Debuff) SelectedByproduct = perk;
         ClosePopup();
     }
     public void Close()
     {
+        if(!PerksSelectedValidation())
+        {
+            AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
+
+            animationSpawner.PerksSelectedAnimation(SelectedBuff == null, SelectedByproduct == null);
+            return;
+        }
+     
+        SelectedBuff.active = true;
+        SelectedByproduct.active = true;
+
         if (upgradeScreen != null)
         {
             Destroy(upgradeScreen);
         }
+        return;
     }
+    
     public void ClosePopup()
     {
         if (Popup != null)
@@ -110,5 +127,10 @@ public class Upgrade : MonoBehaviour
         {
             Debug.LogWarning("Label não encontrada!");
         }
+    }
+    private bool PerksSelectedValidation()
+    {   
+        if (SelectedBuff == null || SelectedByproduct == null) return false;
+        else return true;
     }
 }
