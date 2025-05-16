@@ -27,6 +27,7 @@ public class GameScript : MonoBehaviour
         Rats_2,
         Rats_3,
     }
+    public List<Perk> ActivePerks = new List<Perk>();
 
     [SerializeField] private TextMeshProUGUI _txt_energy;
     [SerializeField] private Tile _tilePrefab;

@@ -22,7 +22,8 @@ public class Actors : MonoBehaviour
     public int Health;
     public int MaxHealth;
 
-    public Vector2Int[] AtackPattern;
+    public List<Vector2Int> AttackPattern = new List<Vector2Int>();
+
     public int Strength;
 
     private Vector2Int gridPosition;
@@ -127,7 +128,7 @@ public class Actors : MonoBehaviour
     public void SetAttackableTiles(bool isPlayer)
     {
         Vector2Int position = actors.ActorsCord[gameObject];
-        foreach (Vector2Int direction in AtackPattern)
+        foreach (Vector2Int direction in AttackPattern)
         {
             Vector2Int adjacentPosition = position + direction;
             if (actors.IsValidPosition(adjacentPosition) && actors.GridTiles.TryGetValue(adjacentPosition, out Tile tile))

@@ -208,7 +208,7 @@ MonoBehaviour:
   MaxEnergy: 3
   Health: 12
   MaxHealth: 12
-  AtackPattern:
+  AttackPattern:
   - {x: -1, y: -1}
   - {x: -1, y: 0}
   - {x: -1, y: 1}

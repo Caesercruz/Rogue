@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,7 +9,8 @@ using UnityEngine.UI;
 public class Upgrade : MonoBehaviour
 {
     public List<Perk> allPerks;
-
+    GameScript gameScript;
+    Player player;
     public GameObject upgradeScreen;
     public GameObject hitBoxPrefab;
     public GameObject hitBox;
@@ -18,6 +21,8 @@ public class Upgrade : MonoBehaviour
     public Perk SelectedBuff, SelectedByproduct;
     private void Start()
     {
+        gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
+        player = GameObject.Find("Player").GetComponent<Player>();
         upgradeScreen = gameObject;
     }
     public void ShowAtributes(bool Upside)
@@ -88,14 +93,14 @@ public class Upgrade : MonoBehaviour
     }
     public void Close()
     {
-        if(!PerksSelectedValidation())
+        if (!PerksSelectedValidation())
         {
             AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
 
             animationSpawner.PerksSelectedAnimation(SelectedBuff == null, SelectedByproduct == null);
             return;
         }
-     
+
         SelectedBuff.active = true;
         SelectedByproduct.active = true;
 
@@ -105,7 +110,7 @@ public class Upgrade : MonoBehaviour
         }
         return;
     }
-    
+
     public void ClosePopup()
     {
         if (Popup != null)
@@ -129,8 +134,56 @@ public class Upgrade : MonoBehaviour
         }
     }
     private bool PerksSelectedValidation()
-    {   
+    {
         if (SelectedBuff == null || SelectedByproduct == null) return false;
         else return true;
+    }
+    public void ApplyPerks()
+    {
+        switch (SelectedBuff.perkName)
+        {
+            case "Energetic":
+                player.MaxEnergy += 2;
+                break;
+            case "Reinforced Plates":
+                player.MaxHealth = Mathf.CeilToInt(player.MaxHealth * 1.5f);
+                break;
+            case "Increased Reach":
+                player.AttackPattern.Add(new Vector2Int(-2, -2));
+                player.AttackPattern.Add(new Vector2Int(-2, -1));
+                player.AttackPattern.Add(new Vector2Int(-2, -0));
+                player.AttackPattern.Add(new Vector2Int(-2, 1));
+                player.AttackPattern.Add(new Vector2Int(-2, 2));
+
+                player.AttackPattern.Add(new Vector2Int(-1, -2));
+                player.AttackPattern.Add(new Vector2Int(-1, 2));
+
+                player.AttackPattern.Add(new Vector2Int(0, -2));
+                player.AttackPattern.Add(new Vector2Int(0, 2));
+
+                player.AttackPattern.Add(new Vector2Int(1, -2));
+                player.AttackPattern.Add(new Vector2Int(1, 2));
+
+                player.AttackPattern.Add(new Vector2Int(2, -2));
+                player.AttackPattern.Add(new Vector2Int(2, -1));
+                player.AttackPattern.Add(new Vector2Int(2, -0));
+                player.AttackPattern.Add(new Vector2Int(2, 1));
+                player.AttackPattern.Add(new Vector2Int(2, 2));
+
+                break;
+        }
+
+        switch (SelectedByproduct.perkName)
+        {
+            case "Weak":
+                player.Strength = Mathf.CeilToInt(player.Strength * .7f);
+                break;
+            case "Rusty Plates":
+                player.MaxHealth = Mathf.CeilToInt(player.MaxHealth * .7f);
+                break;
+            case "Low Energy":
+                player.MaxEnergy--;
+                break;
+        }
     }
 }
