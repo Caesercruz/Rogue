@@ -63,8 +63,15 @@ public class Enemy : Actors
             if (gameScript.NumberOfEnemies == 0)
             {
                 gameScript.Gamestate = GameScript.GameState.WonEncounter;
+
                 Canvas instance = Instantiate(gameScript.UpdateScreen);
                 instance.name = "UpdateScreen";
+
+                // Inicia a animação
+                AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
+
+                //StartCoroutine(animationSpawner.AnimatePopupSpawn(instance.transform));
+
                 return;
             }
             RecalculateEnemyAttacks();

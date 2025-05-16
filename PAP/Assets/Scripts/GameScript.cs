@@ -1,15 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using UnityEngine.Tilemaps;
-using UnityEngine.UI;
-using UnityEngine.WSA;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class GameScript : MonoBehaviour
 {
@@ -38,14 +30,14 @@ public class GameScript : MonoBehaviour
     [HideInInspector] public int NumberOfEnemies = 0;
 
     public readonly int Width = 8, Height = 6;
-    
+
     public GameState Gamestate;
 
     private void Start()
     {
         Gamestate = GameState.Combat;
         actors = GameObject.Find("BoardManager").GetComponent<Actors>();
-        
+
         Gameplay();
     }
 
@@ -53,10 +45,9 @@ public class GameScript : MonoBehaviour
     {
         GenerateGrid();
 
-        actors.SpawnCharacter(_playerInstance,"Player", true);
+        actors.SpawnCharacter(_playerInstance, "Player", true);
 
         Encounter currentEncounter = (Encounter)UnityEngine.Random.Range(0, Enum.GetValues(typeof(Encounter)).Length);
-        //Encounter currentEncounter = (Encounter.Test);
         Debug.Log("Encounter: " + currentEncounter);
 
         switch (currentEncounter)
@@ -64,7 +55,7 @@ public class GameScript : MonoBehaviour
             case Encounter.Rats_2:
                 for (NumberOfEnemies = 0; NumberOfEnemies < 2; NumberOfEnemies++)
                 {
-                    actors.SpawnCharacter(_ratInstance,$"Rat {NumberOfEnemies}", false);
+                    actors.SpawnCharacter(_ratInstance, $"Rat {NumberOfEnemies}", false);
                 }
                 TransformHealthBars();
                 break;
@@ -91,14 +82,13 @@ public class GameScript : MonoBehaviour
             if (enemy.HealthBar != null)
             {
                 int offsetY = 0 * i;
-                
+
                 RectTransform rectTransform = enemy.HealthBar.transform as RectTransform;
                 Vector3 originalPos = rectTransform.localPosition;
                 rectTransform.localPosition = new Vector3(originalPos.x, originalPos.y + offsetY, originalPos.z);
             }
         }
     }
-
     private void GenerateGrid()
     {
         for (int x = 0; x < Width; x++)

@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -74,9 +72,8 @@ public class Upgrade : MonoBehaviour
     }
     public void SelectAtribute(Perk perk)
     {
-        GameObject upgrade = GameObject.Find("UpgradeScreen");
-        Transform area;
-        area = upgrade.transform.Find("Upgrade Area");
+        GameObject upgrade = gameObject;
+        Transform area = upgrade.transform.Find("Upgrade Area");
         if (perk.type == PerkType.Debuff) area = upgrade.transform.Find("Down Side Area");
 
         Transform atribute = area.transform.Find("Atribute");
@@ -103,6 +100,8 @@ public class Upgrade : MonoBehaviour
 
         SelectedBuff.active = true;
         SelectedByproduct.active = true;
+
+        ApplyPerks();
 
         if (upgradeScreen != null)
         {
@@ -143,10 +142,10 @@ public class Upgrade : MonoBehaviour
         switch (SelectedBuff.perkName)
         {
             case "Energetic":
-                player.MaxEnergy += 2;
+                player.ChangeEnergy(player.Energy, player.MaxEnergy += 2);
                 break;
             case "Reinforced Plates":
-                player.MaxHealth = Mathf.CeilToInt(player.MaxHealth * 1.5f);
+                player.ChangeHealth(player.HealthBar, player.Health, Mathf.CeilToInt(player.MaxHealth * 1.5f));
                 break;
             case "Increased Reach":
                 player.AttackPattern.Add(new Vector2Int(-2, -2));
@@ -179,10 +178,10 @@ public class Upgrade : MonoBehaviour
                 player.Strength = Mathf.CeilToInt(player.Strength * .7f);
                 break;
             case "Rusty Plates":
-                player.MaxHealth = Mathf.CeilToInt(player.MaxHealth * .7f);
+                player.ChangeHealth(player.HealthBar, player.Health, Mathf.CeilToInt(player.MaxHealth * .7f));
                 break;
             case "Low Energy":
-                player.MaxEnergy--;
+                player.ChangeEnergy(player.Energy, player.MaxEnergy -= 1);
                 break;
         }
     }

@@ -923,7 +923,7 @@ RectTransform:
   m_GameObject: {fileID: 3689550112863654208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6499534, y: 0.5327464, z: 0.53274894}
+  m_LocalScale: {x: 0.73, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2890564757314598979}
@@ -936,7 +936,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 4.017212, y: 2.9500122}
+  m_AnchoredPosition: {x: 4.0212, y: 2.95}
   m_SizeDelta: {x: 21, y: 14.4391}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1544385574757459459
@@ -1039,6 +1039,8 @@ MonoBehaviour:
   _popupUpgrade: {fileID: 3439150124014857111, guid: 77d0d134bbdab8d46ae64288cfc674a1, type: 3}
   _popupDowngrade: {fileID: 3439150124014857111, guid: ec6b3d6f63d16614a809ae4b76cb6e3d, type: 3}
   Popup: {fileID: 0}
+  SelectedBuff: {fileID: 0}
+  SelectedByproduct: {fileID: 0}
 --- !u!1 &4342487490086382673
 GameObject:
   m_ObjectHideFlags: 0

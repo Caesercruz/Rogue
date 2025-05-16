@@ -5,6 +5,20 @@ using UnityEngine.UI;
 public class AnimationManager : MonoBehaviour
 {
     public GameObject slashAnimationPrefab;
+    public IEnumerator MoveOverTime(Transform objTransform, Vector3 targetPosition, float duration)
+    {
+        Vector3 startPos = objTransform.position;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            objTransform.position = Vector3.Lerp(startPos, targetPosition, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        objTransform.position = targetPosition;
+    }
 
     public void SpawnSlashAnimation(Transform canvasTransform)
     {
@@ -33,7 +47,7 @@ public class AnimationManager : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    private IEnumerator AnimateIcon(Transform iconTransform)
+    public IEnumerator AnimateIcon(Transform iconTransform)
     {
         if (iconTransform == null) yield break;
 
@@ -61,5 +75,34 @@ public class AnimationManager : MonoBehaviour
             iconImage.color = originalColor;
             yield return new WaitForSeconds(duration);
         }
+    }
+
+    public IEnumerator AnimatePopupSpawn(Transform target, float duration = 0.5f)
+    {
+        Debug.Log("Iniciando animação de escala...");
+        Debug.Log("timeScale: " + Time.timeScale);
+
+        Vector3 initialScale = Vector3.zero;
+        Vector3 finalScale = Vector3.one;
+        float elapsedTime = 0f;
+
+        target.localScale = initialScale;
+
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            t = Mathf.Sin(t * Mathf.PI * 0.5f); // EaseOut
+            Vector3 newScale = Vector3.Lerp(initialScale, finalScale, t);
+            target.localScale = newScale;
+
+            Debug.Log($"[ANIMAÇÃO] t={t}, scale={newScale}, elapsed={elapsedTime}");
+
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+
+        target.localScale = finalScale;
+        Debug.Log("Animação concluída.");
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -40,6 +41,7 @@ public class Actors : MonoBehaviour
     {
         Vector2Int position = ActorsCord[character];
         Vector2Int newPosition = position + direction;
+
         if (!IsValidPosition(newPosition))
         {
             Debug.Log("Out of bounds");
@@ -50,7 +52,6 @@ public class Actors : MonoBehaviour
             Debug.Log("Space is Occupied");
             return false;
         }
-
         if (isPlayersTurn && Time.time < nextMoveTime) return false;
 
         // Liberta tile antiga
@@ -59,14 +60,13 @@ public class Actors : MonoBehaviour
             currentTile.IsOccupied = false;
         }
 
-        // Move o personagem
-        character.transform.position = new Vector3(newPosition.x, newPosition.y, 0);
-
         if (!ActorsCord.ContainsKey(character))
         {
             Debug.Log("O dicionário não encontrou a chave. Personagem não encontrado: " + character.name);
             return false;
         }
+
+        // Atualiza a posição lógica antes da animação
         ActorsCord[character] = newPosition;
 
         // Ocupa nova tile
@@ -75,10 +75,14 @@ public class Actors : MonoBehaviour
             newTile.IsOccupied = true;
         }
 
+        // Inicia animação
+        AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
+        StartCoroutine(animationSpawner.MoveOverTime(character.transform, new Vector3(newPosition.x, newPosition.y, 0), 0.15f));
+
         nextMoveTime = Time.time + 0.1f;
         return true;
     }
-
+    
     public void SpawnCharacter(GameObject character, string name, bool isPlayer)
     {
         do
