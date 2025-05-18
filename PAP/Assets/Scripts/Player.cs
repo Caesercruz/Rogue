@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -104,7 +102,14 @@ public class Player : Actors
                             // Clique em tile enquanto já está em modo de ataque = Atacar
                             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                             Vector2Int clickedPos = new(Mathf.RoundToInt(mouseWorldPos.x), Mathf.RoundToInt(mouseWorldPos.y));
+
                             TryAttackAt(clickedPos);
+
+                            Perk doubleHit = gameScript.ActivePerks.Find(p => p.name == "Double Hit");
+                            if (doubleHit != null) if (Random.Range(0f, 1f) > 0.75f)
+                                {
+                                    TryAttackAt(clickedPos);
+                                }
                         }
                         else
                         {
@@ -158,7 +163,7 @@ public class Player : Actors
         //Play animation
         AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
         animationSpawner.SpawnSlashAnimation(tile.GetCanvasTransform());
-
+        
         ChangeEnergy(--Energy, MaxEnergy);
         inAttackMode = false;
         ExitAttackMode();

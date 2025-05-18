@@ -101,6 +101,9 @@ public class Upgrade : MonoBehaviour
         SelectedBuff.active = true;
         SelectedByproduct.active = true;
 
+        gameScript.ActivePerks.Add(SelectedBuff);
+        gameScript.ActivePerks.Add(SelectedByproduct);
+
         ApplyPerks();
 
         if (upgradeScreen != null)
