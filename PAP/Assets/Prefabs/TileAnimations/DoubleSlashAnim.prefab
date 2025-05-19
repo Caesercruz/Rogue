@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3527843544151473122}
   - component: {fileID: 5981586064655376156}
   - component: {fileID: 1910389680476797779}
-  - component: {fileID: 8999785334957081696}
+  - component: {fileID: 3528812626433889803}
   m_Layer: 0
   m_Name: DoubleSlashAnim
   m_TagString: Untagged
@@ -111,7 +111,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8999785334957081696
+--- !u!114 &3528812626433889803
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,4 +123,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a071b67289a464a8aa441171304577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slashAnimationPrefab: {fileID: 0}
+  slashAnimationPrefab: {fileID: 9189190827069916229}

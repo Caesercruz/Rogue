@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AnimationManager : MonoBehaviour
 {
-    public GameObject slashAnimationPrefab;
+    public GameObject slashAnimationPrefab,DoubleSlashPrefab;
     public IEnumerator MoveOverTime(Transform objTransform, Vector3 targetPosition, float duration)
     {
         Vector3 startPos = objTransform.position;
@@ -19,10 +20,21 @@ public class AnimationManager : MonoBehaviour
 
         objTransform.position = targetPosition;
     }
-
-    public void SpawnSlashAnimation(Transform canvasTransform)
+    public enum StrikeType
     {
-        Instantiate(slashAnimationPrefab, canvasTransform);
+        Default,
+        Double
+    };
+    public void SpawnSlashAnimation(StrikeType type,Transform canvasTransform)
+    {
+        if (type == StrikeType.Default)
+        {
+            Instantiate(slashAnimationPrefab, canvasTransform);
+        }
+        else if (type == StrikeType.Double)
+        {
+            Instantiate(DoubleSlashPrefab, canvasTransform);
+        }
     }
 
     public void PerksSelectedAnimation(bool buffMissing, bool byproductMissing)

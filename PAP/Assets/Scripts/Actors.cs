@@ -23,7 +23,7 @@ public class Actors : MonoBehaviour
     public int Health;
     public int MaxHealth;
 
-    public List<Vector2Int> AttackPattern = new List<Vector2Int>();
+    public List<Vector2Int> AttackPattern = new();
 
     public int Strength;
 
@@ -98,14 +98,7 @@ public class Actors : MonoBehaviour
         character = Instantiate(character, worldPosition, Quaternion.identity);
         character.name = name;
 
-        if (!ActorsCord.ContainsKey(character))
-        {
-            ActorsCord.TryAdd(character, gridPosition);
-        }
-        else
-        {
-            Debug.LogWarning($"Personagem {character.name} já foi registrado!");
-        }
+            ActorsCord.Add(character, gridPosition);
 
         if (GridTiles.TryGetValue(gridPosition, out Tile tile))
         {

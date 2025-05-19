@@ -8,6 +8,7 @@ public class Player : Actors
     public Slider HealthBar;
 
     private bool inAttackMode;
+    private int storedEnergy;
 
     private void Start()
     {
@@ -81,6 +82,8 @@ public class Player : Actors
                 ChangeEnergy(--Energy, MaxEnergy);
                 ExitAttackMode();
                 inAttackMode = false;
+
+                storedEnergy += 3;
             }
 
             if (!EventSystem.current.IsPointerOverGameObject())
@@ -104,12 +107,6 @@ public class Player : Actors
                             Vector2Int clickedPos = new(Mathf.RoundToInt(mouseWorldPos.x), Mathf.RoundToInt(mouseWorldPos.y));
 
                             TryAttackAt(clickedPos);
-
-                            Perk doubleHit = gameScript.ActivePerks.Find(p => p.name == "Double Hit");
-                            if (doubleHit != null) if (Random.Range(0f, 1f) > 0.75f)
-                                {
-                                    TryAttackAt(clickedPos);
-                                }
                         }
                         else
                         {
@@ -129,9 +126,12 @@ public class Player : Actors
             }
             if (Input.GetKeyDown(KeyCode.Return))
             {
+                ExitAttackMode();
+                Reboot();
                 DamageTiles();
                 actors.ClearAttackableTiles(false);
                 actors.isPlayersTurn = false;
+                storedEnergy = 0;
             }
         }
     }
@@ -142,8 +142,10 @@ public class Player : Actors
             if (!tile.InAtackRange) tile.SetDarkOverlay(true);
     }
 
-    void TryAttackAt(Vector2Int targetPos)
+    private void TryAttackAt(Vector2Int targetPos)
     {
+        bool doubleHit = DoubleHit();
+
         if (!actors.GridTiles.TryGetValue(targetPos, out Tile tile)) return;
         if (!tile.InAtackRange) return;
 
@@ -155,20 +157,68 @@ public class Player : Actors
                 Enemy enemy = target.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    enemy.ChangeHealth(enemy.HealthBar, enemy.Health - Strength, enemy.MaxHealth);
+                    if (KineticPerk()) enemy.ChangeHealth(enemy.HealthBar, enemy.Health - (Strength + storedEnergy), enemy.MaxHealth);
+                    else enemy.ChangeHealth(enemy.HealthBar, enemy.Health - Strength, enemy.MaxHealth);
+
+                    KnockBack(enemy);
+
+                    if (doubleHit) enemy.ChangeHealth(enemy.HealthBar, enemy.Health - Strength, enemy.MaxHealth);
+
+                    Lifesteal();
                 }
                 break;
             }
         }
-        //Play animation
+
         AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
-        animationSpawner.SpawnSlashAnimation(tile.GetCanvasTransform());
-        
+        if (doubleHit) animationSpawner.SpawnSlashAnimation(AnimationManager.StrikeType.Double, tile.GetCanvasTransform());
+        else animationSpawner.SpawnSlashAnimation(AnimationManager.StrikeType.Default, tile.GetCanvasTransform());
+
+        Debug.Log(storedEnergy);
+        storedEnergy = 0;
+
         ChangeEnergy(--Energy, MaxEnergy);
         inAttackMode = false;
         ExitAttackMode();
     }
+    private void Reboot()
+    {
+        Perk reboot = gameScript.ActivePerks.Find(p => p.name == "Reboot");
+        if (reboot == null) return;
+        if (Energy == MaxEnergy)
+        {
+            ChangeHealth(HealthBar, Health + MaxHealth / 2, MaxHealth);
+        }
+    }
+    private void Lifesteal()
+    {
+        Perk lifesteal = gameScript.ActivePerks.Find(p => p.name == "LifeSteal");
+        if (lifesteal == null) return;
+        ChangeHealth(HealthBar, Health + 2, MaxHealth);
+    }
+    private bool DoubleHit()
+    {
 
+        Perk doubleHit = gameScript.ActivePerks.Find(p => p.name == "Double Hit");
+        if (doubleHit != null)
+        {
+            if (Random.Range(0f, 1f) <= 0.75f) { Debug.Log("Double"); return true; }
+        }
+        return false;
+    }
+    private bool KineticPerk()
+    {
+        Perk kineticEnergy = gameScript.ActivePerks.Find(p => p.name == "Kinetic Energy");
+        if (kineticEnergy == null) return false;
+        return true;
+    }
+    private void KnockBack(Enemy enemy)
+    {
+        //Reconsidera trocar o perk para um que destribua o dano para inimigos próximos. Não é possivel mover na diagonal.
+        Perk knockBack = gameScript.ActivePerks.Find(p => p.name == "KnockBack");
+        if (knockBack == null) return;
+        enemy.MoveCharacter(enemy,)
+    }
     public void ExitAttackMode()
     {
         foreach (var tile in actors.GridTiles.Values)
