@@ -98,7 +98,7 @@ public class Player : Actors
                             return;
                         }
 
-                        actors.ClearAttackableTiles(true);
+                        ClearAttackableTiles(true);
                         SetAttackableTiles(true);
                         if (inAttackMode)
                         {
@@ -129,7 +129,7 @@ public class Player : Actors
                 ExitAttackMode();
                 Reboot();
                 DamageTiles();
-                actors.ClearAttackableTiles(false);
+                ClearAttackableTiles(false);
                 actors.isPlayersTurn = false;
                 storedEnergy = 0;
             }
@@ -160,8 +160,10 @@ public class Player : Actors
                     if (KineticPerk()) enemy.ChangeHealth(enemy.HealthBar, enemy.Health - (Strength + storedEnergy), enemy.MaxHealth);
                     else enemy.ChangeHealth(enemy.HealthBar, enemy.Health - Strength, enemy.MaxHealth);
 
-                    KnockBack(enemy);
+                    Bewildered(enemy);
 
+                    AcidicBlade(targetPos);
+                    
                     if (doubleHit) enemy.ChangeHealth(enemy.HealthBar, enemy.Health - Strength, enemy.MaxHealth);
 
                     Lifesteal();
@@ -174,12 +176,20 @@ public class Player : Actors
         if (doubleHit) animationSpawner.SpawnSlashAnimation(AnimationManager.StrikeType.Double, tile.GetCanvasTransform());
         else animationSpawner.SpawnSlashAnimation(AnimationManager.StrikeType.Default, tile.GetCanvasTransform());
 
-        Debug.Log(storedEnergy);
         storedEnergy = 0;
 
         ChangeEnergy(--Energy, MaxEnergy);
         inAttackMode = false;
         ExitAttackMode();
+    }
+    private void Bewildered(Enemy enemy)
+    {
+        Perk bewildered = gameScript.ActivePerks.Find(p => p.name == "Bewildered");
+        if (bewildered == null) return;
+        enemy.Weakness += 2;
+
+        ClearAttackableTiles(false);
+        enemy.RecalculateEnemyAttacks();
     }
     private void Reboot()
     {
@@ -212,12 +222,36 @@ public class Player : Actors
         if (kineticEnergy == null) return false;
         return true;
     }
-    private void KnockBack(Enemy enemy)
+    private void AcidicBlade(Vector2Int targetPos)
     {
-        //Reconsidera trocar o perk para um que destribua o dano para inimigos próximos. Não é possivel mover na diagonal.
-        Perk knockBack = gameScript.ActivePerks.Find(p => p.name == "KnockBack");
-        if (knockBack == null) return;
-        enemy.MoveCharacter(enemy,)
+        Perk acidicBlade = gameScript.ActivePerks.Find(p => p.name == "Acidic Blade");
+        if (acidicBlade == null) return;
+
+        // Vetores de posições adjacentes (8 direções)
+        Vector2Int[] adjacentOffsets = new Vector2Int[]
+        {
+        new (-1, -1), new (-1, 0), new (-1, 1),
+        new ( 0, -1),              new ( 0, 1),
+        new ( 1, -1), new ( 1, 0), new ( 1, 1)
+        };
+
+        foreach (var offset in adjacentOffsets)
+        {
+            Vector2Int adjacentPos = targetPos + offset;
+
+            foreach (var kvp2 in actors.ActorsCord)
+            {
+                if (kvp2.Value == adjacentPos)
+                {
+                    GameObject adjacentEnemyObj = kvp2.Key;
+                    Enemy adjacentEnemy = adjacentEnemyObj.GetComponent<Enemy>();
+                    if (adjacentEnemy != null)
+                    {
+                        adjacentEnemy.ChangeHealth(adjacentEnemy.HealthBar, adjacentEnemy.Health - Strength / 2, adjacentEnemy.MaxHealth);
+                    }
+                }
+            }
+        }
     }
     public void ExitAttackMode()
     {

@@ -1341,7 +1341,7 @@ GameObject:
   - component: {fileID: 104364967515838063}
   - component: {fileID: 7970661078196114452}
   m_Layer: 5
-  m_Name: KnockBack
+  m_Name: Acidic Blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1394,7 +1394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8648408496548531939, guid: 2446becf16b671940a7b4c64049aaf03, type: 3}
+  m_Sprite: {fileID: 2872087027031486705, guid: 889ee41f88ec1ea49af95761b09b7487, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

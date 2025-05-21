@@ -1033,6 +1033,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5c99291a050efac489e395365bb47bd4, type: 2}
   - {fileID: 11400000, guid: ff7a126bfef244b42bdf1b65109bc67c, type: 2}
   - {fileID: 11400000, guid: be1990e508b84cf419d6aea2d89e1e09, type: 2}
+  - {fileID: 11400000, guid: 4c2671148548b1b4e8dbef8a82e625a1, type: 2}
   upgradeScreen: {fileID: 3689550112863654208}
   hitBoxPrefab: {fileID: 2219517589595552593, guid: 850d7d712ce23614a921592fd23d6be6, type: 3}
   hitBox: {fileID: 0}

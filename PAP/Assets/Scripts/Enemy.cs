@@ -48,7 +48,7 @@ public class Enemy : Actors
         if (Health == 0)
         {
             gameScript.NumberOfEnemies--;
-            actors.ClearAttackableTiles(false);
+            ClearAttackableTiles(false);
 
             actors.ActorsCord.TryGetValue(gameObject, out Vector2Int enemyPos);
 
@@ -78,7 +78,9 @@ public class Enemy : Actors
         }
 
         if (gameScript.Gamestate != GameScript.GameState.Combat || actors.isPlayersTurn) return;
+
         Energy = MaxEnergy;
+        Weakness = 0;
         EnemyMove();
         SetAttackableTiles(false);
     }
@@ -102,7 +104,7 @@ public class Enemy : Actors
             }
 
             actors.MoveCharacter(gameObject, direction);
-            Energy--; // Diminui energia sempre (ou, se preferires, só quando move)
+            Energy--;
         }
     }
 
@@ -190,6 +192,7 @@ public class Enemy : Actors
 
     public void RecalculateEnemyAttacks()
     {
+        ClearAttackableTiles(false);
         foreach (var kvp in actors.ActorsCord)
         {
             Enemy enemy = kvp.Key.GetComponent<Enemy>();

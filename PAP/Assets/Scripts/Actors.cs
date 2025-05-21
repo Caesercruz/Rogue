@@ -25,7 +25,7 @@ public class Actors : MonoBehaviour
 
     public List<Vector2Int> AttackPattern = new();
 
-    public int Strength;
+    public int Strength, Weakness = 0;
 
     private Vector2Int gridPosition;
     private float nextMoveTime = 0f;
@@ -133,9 +133,9 @@ public class Actors : MonoBehaviour
                 if (isPlayer) tile.InAtackRange = true;
                 else
                 {
-                    tile.UnderAtack += Strength;
+                    tile.UnderAtack += (Strength-Weakness);
                     tile.damage.text = tile.UnderAtack.ToString();
-                    if (tile.UnderAtack == 0) tile.damage.gameObject.SetActive(false);
+                    if (tile.UnderAtack <= 0) tile.damage.gameObject.SetActive(false);
                     else tile.damage.gameObject.SetActive(true);
                 }
             }
@@ -144,7 +144,7 @@ public class Actors : MonoBehaviour
 
     public void ClearAttackableTiles(bool isPlayer)
     {
-        foreach (var tile in GridTiles.Values)
+        foreach (var tile in actors.GridTiles.Values)
         {
             if (isPlayer) tile.InAtackRange = false;
             else
