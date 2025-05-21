@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class Player : Actors
 {
-    public Slider HealthBar;
+    private static float ClumsyPersentage = .15f, DoubleHitPercentage = .75f;
 
-    private bool inAttackMode;
-    private int storedEnergy;
+    public Slider HealthBar;
+    
+    private bool inAttackMode, leakedEnergy = false, weakened = false;
+    private int StoredEnergy;
 
     private void Start()
     {
@@ -38,6 +40,7 @@ public class Player : Actors
         else if (gameScript.Gamestate == GameScript.GameState.Combat && !actors.isPlayersTurn)
         {
             ChangeEnergy(MaxEnergy, MaxEnergy);
+            BatteryLeak();
 
             actors.isPlayersTurn = true;
         }
@@ -53,6 +56,8 @@ public class Player : Actors
 
                 // Tirar vida
                 ChangeHealth(HealthBar, Health - damage, MaxHealth);
+                leakedEnergy = true;
+                weakened = true;
             }
         }
     }
@@ -83,7 +88,7 @@ public class Player : Actors
                 ExitAttackMode();
                 inAttackMode = false;
 
-                storedEnergy += 3;
+                StoredEnergy += 3;
             }
 
             if (!EventSystem.current.IsPointerOverGameObject())
@@ -127,11 +132,13 @@ public class Player : Actors
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 ExitAttackMode();
+                Rebound();
                 Reboot();
                 DamageTiles();
                 ClearAttackableTiles(false);
                 actors.isPlayersTurn = false;
-                storedEnergy = 0;
+                StoredEnergy = 0;
+                weakened = false;
             }
         }
     }
@@ -145,6 +152,7 @@ public class Player : Actors
     private void TryAttackAt(Vector2Int targetPos)
     {
         bool doubleHit = DoubleHit();
+        bool hit = !Clumsy();
 
         if (!actors.GridTiles.TryGetValue(targetPos, out Tile tile)) return;
         if (!tile.InAtackRange) return;
@@ -157,31 +165,52 @@ public class Player : Actors
                 Enemy enemy = target.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    if (KineticPerk()) enemy.ChangeHealth(enemy.HealthBar, enemy.Health - (Strength + storedEnergy), enemy.MaxHealth);
-                    else enemy.ChangeHealth(enemy.HealthBar, enemy.Health - Strength, enemy.MaxHealth);
-
-                    Bewildered(enemy);
-
-                    AcidicBlade(targetPos);
-                    
-                    if (doubleHit) enemy.ChangeHealth(enemy.HealthBar, enemy.Health - Strength, enemy.MaxHealth);
-
-                    Lifesteal();
+                    Atack(enemy, targetPos, doubleHit,hit);
                 }
                 break;
             }
         }
-
-        AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
-        if (doubleHit) animationSpawner.SpawnSlashAnimation(AnimationManager.StrikeType.Double, tile.GetCanvasTransform());
-        else animationSpawner.SpawnSlashAnimation(AnimationManager.StrikeType.Default, tile.GetCanvasTransform());
-
-        storedEnergy = 0;
+        if (hit)
+        {
+            AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
+            if (doubleHit) animationSpawner.SpawnSlashAnimation(AnimationManager.StrikeType.Double, tile.GetCanvasTransform());
+            else animationSpawner.SpawnSlashAnimation(AnimationManager.StrikeType.Default, tile.GetCanvasTransform());
+        }
+        StoredEnergy = 0;
 
         ChangeEnergy(--Energy, MaxEnergy);
         inAttackMode = false;
         ExitAttackMode();
     }
+    private void Atack(Enemy enemy, Vector2Int targetPos, bool doubleHit,bool hit)
+    {
+        int damage = Strength;
+        if (KineticPerk()) damage += StoredEnergy;
+        if (Intimidated() && weakened) damage /= 2;
+        if (!hit) return;
+        enemy.ChangeHealth(enemy.HealthBar, enemy.Health - damage, enemy.MaxHealth);
+        Lifesteal();
+
+        Bewildered(enemy);
+
+        AcidicBlade(targetPos);
+
+        if (doubleHit)
+        {
+            if (Intimidated() && weakened) enemy.ChangeHealth(enemy.HealthBar, enemy.Health - Strength / 2, enemy.MaxHealth);
+            enemy.ChangeHealth(enemy.HealthBar, enemy.Health - Strength, enemy.MaxHealth);
+            Lifesteal();
+            Bewildered(enemy);
+            AcidicBlade(targetPos);
+            Intimidated();
+        }
+    }
+    public void ExitAttackMode()
+    {
+        foreach (var tile in actors.GridTiles.Values)
+            tile.SetDarkOverlay(false);
+    }
+    //Active Perks
     private void Bewildered(Enemy enemy)
     {
         Perk bewildered = gameScript.ActivePerks.Find(p => p.name == "Bewildered");
@@ -197,7 +226,7 @@ public class Player : Actors
         if (reboot == null) return;
         if (Energy == MaxEnergy)
         {
-            ChangeHealth(HealthBar, Health + MaxHealth / 2, MaxHealth);
+            ChangeHealth(HealthBar, (Health + MaxHealth / 2), MaxHealth);
         }
     }
     private void Lifesteal()
@@ -212,7 +241,7 @@ public class Player : Actors
         Perk doubleHit = gameScript.ActivePerks.Find(p => p.name == "Double Hit");
         if (doubleHit != null)
         {
-            if (Random.Range(0f, 1f) <= 0.75f) { Debug.Log("Double"); return true; }
+            if (Random.Range(0f, 1f) < DoubleHitPercentage)return true;
         }
         return false;
     }
@@ -253,9 +282,33 @@ public class Player : Actors
             }
         }
     }
-    public void ExitAttackMode()
+    //Active Debuffs
+    private void Rebound()
     {
-        foreach (var tile in actors.GridTiles.Values)
-            tile.SetDarkOverlay(false);
+        Perk rebound = gameScript.ActivePerks.Find(p => p.name == "Rebound");
+        if (rebound == null) return;
+        ChangeHealth(HealthBar, Health - Energy * 2, MaxHealth);
     }
+    private void BatteryLeak()
+    {
+        Perk batteryleak = gameScript.ActivePerks.Find(p => p.name == "Battery Leak");
+        if (batteryleak == null) return;
+        if (leakedEnergy) ChangeEnergy(--Energy, MaxEnergy);
+        leakedEnergy = false;
+    }
+    private bool Intimidated()
+    {
+        Perk intimidated = gameScript.ActivePerks.Find(p => p.name == "Intimidated");
+        if (intimidated == null) return false;
+        return true;
+    }
+    private bool Clumsy()
+    {
+        Perk clumsy = gameScript.ActivePerks.Find(p => p.name == "Clumsy");
+        if (clumsy == null) return false;
+
+        return Random.Range(0f, 1f) < ClumsyPersentage; // true = falha, 20% das vezes
+    }
+
+
 }

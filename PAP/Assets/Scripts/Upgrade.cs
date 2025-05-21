@@ -145,10 +145,10 @@ public class Upgrade : MonoBehaviour
         switch (SelectedBuff.perkName)
         {
             case "Energetic":
-                player.ChangeEnergy(player.Energy, player.MaxEnergy += 2);
+                player.ChangeEnergy(player.MaxEnergy, player.MaxEnergy += 2);
                 break;
             case "Reinforced Plates":
-                player.ChangeHealth(player.HealthBar, player.Health, Mathf.CeilToInt(player.MaxHealth * 1.5f));
+                player.ChangeHealth(player.HealthBar, Mathf.CeilToInt(player.Health * 1.5f), Mathf.CeilToInt(player.MaxHealth * 1.5f));
                 break;
             case "Increased Reach":
                 player.AttackPattern.Add(new Vector2Int(-2, -2));
