@@ -1,11 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Player : Actors
 {
-    private static float ClumsyPersentage = .15f, DoubleHitPercentage = .75f;
+    private static readonly float ClumsyPersentage = .15f, DoubleHitPercentage = .75f, BacklashPercentage = .10f, CriticPercentage = .20f;
 
     public Slider HealthBar;
     
@@ -52,10 +54,11 @@ public class Player : Actors
         {
             if (tile.UnderAtack > 0)
             {
-                int damage = tile.UnderAtack;
+                float damage = tile.UnderAtack;
 
                 // Tirar vida
-                ChangeHealth(HealthBar, Health - damage, MaxHealth);
+                if(ExposedCircuits()) Mathf.RoundToInt(damage *= 1.2f);
+                ChangeHealth(HealthBar, Health - Mathf.RoundToInt(damage), MaxHealth);
                 leakedEnergy = true;
                 weakened = true;
             }
@@ -194,7 +197,7 @@ public class Player : Actors
         Bewildered(enemy);
 
         AcidicBlade(targetPos);
-
+        Backlash();
         if (doubleHit)
         {
             if (Intimidated() && weakened) enemy.ChangeHealth(enemy.HealthBar, enemy.Health - Strength / 2, enemy.MaxHealth);
@@ -309,6 +312,17 @@ public class Player : Actors
 
         return Random.Range(0f, 1f) < ClumsyPersentage; // true = falha, 20% das vezes
     }
-
-
+    private void Backlash()
+    {
+        Perk backlash = gameScript.ActivePerks.Find(p => p.name == "Backlash");
+        if (backlash == null) return;
+        if (Random.Range(0f, 1f) < BacklashPercentage) ChangeHealth(HealthBar, Health - 2, MaxHealth);
+    }
+    private bool ExposedCircuits()
+    {
+        Perk exposedCircuits = gameScript.ActivePerks.Find(p => p.name == "Exposed Circuits");
+        if (exposedCircuits == null) return false;
+        Debug.Log("Exposed");
+        return Random.Range(0f, 1f) < CriticPercentage;
+    }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5148276365135337808}
   - component: {fileID: 1377644096345516251}
   - component: {fileID: 6594738822235205445}
+  - component: {fileID: 456534362858639781}
   m_Layer: 5
   m_Name: LifeSteal
   m_TagString: Untagged
@@ -138,6 +139,18 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &456534362858639781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548589536573756247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3535a35d60e629a4bbab1b9327346ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1219633299830426061
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,6 +164,7 @@ GameObject:
   - component: {fileID: 7757677216667171033}
   - component: {fileID: 4419244404901843852}
   - component: {fileID: 2363297125200929979}
+  - component: {fileID: 1126054452554597725}
   m_Layer: 5
   m_Name: Bewildered
   m_TagString: Untagged
@@ -276,6 +290,18 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &1126054452554597725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219633299830426061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3535a35d60e629a4bbab1b9327346ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3439150124014857111
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +313,7 @@ GameObject:
   - component: {fileID: 6377019581937512925}
   - component: {fileID: 2799416798057080865}
   - component: {fileID: 6296617748871778771}
+  - component: {fileID: -4467248199431682159}
   m_Layer: 5
   m_Name: popupBuff
   m_TagString: Untagged
@@ -361,6 +388,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-4467248199431682159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3439150124014857111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 742ea26ab890a4442a9b6860e8a667d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonCounter: 0
 --- !u!1 &3533795447653494087
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,6 +414,7 @@ GameObject:
   - component: {fileID: 818068876362181438}
   - component: {fileID: 1837970192503173880}
   - component: {fileID: 7473016966169756354}
+  - component: {fileID: 1772455177241474258}
   m_Layer: 5
   m_Name: Double Hit
   m_TagString: Untagged
@@ -499,6 +540,18 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &1772455177241474258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533795447653494087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3535a35d60e629a4bbab1b9327346ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3775391411644620005
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,6 +565,7 @@ GameObject:
   - component: {fileID: 5669422086309060784}
   - component: {fileID: 9142424849916406730}
   - component: {fileID: 8745193773277521052}
+  - component: {fileID: 6741839381634522485}
   m_Layer: 5
   m_Name: Increased Reach
   m_TagString: Untagged
@@ -637,6 +691,18 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &6741839381634522485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3775391411644620005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3535a35d60e629a4bbab1b9327346ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4283488451881055017
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,6 +854,7 @@ GameObject:
   - component: {fileID: 3718371723549763183}
   - component: {fileID: 6850305781634380762}
   - component: {fileID: 8535614433665825588}
+  - component: {fileID: 1782893519304545617}
   m_Layer: 5
   m_Name: Kinetic Energy
   m_TagString: Untagged
@@ -913,6 +980,18 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &1782893519304545617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5407782675356978373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3535a35d60e629a4bbab1b9327346ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5623859523020262330
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +1005,7 @@ GameObject:
   - component: {fileID: 6346654871438343378}
   - component: {fileID: 552157060216300654}
   - component: {fileID: 6217183477396535621}
+  - component: {fileID: 1240929221713577641}
   m_Layer: 5
   m_Name: Reinforced Plates
   m_TagString: Untagged
@@ -1051,6 +1131,18 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &1240929221713577641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5623859523020262330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3535a35d60e629a4bbab1b9327346ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6231098170304893517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,6 +1156,7 @@ GameObject:
   - component: {fileID: 690828866484793731}
   - component: {fileID: 1068202767106784803}
   - component: {fileID: 1387985149686715620}
+  - component: {fileID: 257866659704351138}
   m_Layer: 5
   m_Name: Energetic
   m_TagString: Untagged
@@ -1189,6 +1282,18 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &257866659704351138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6231098170304893517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3535a35d60e629a4bbab1b9327346ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7083841532857317477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,6 +1307,7 @@ GameObject:
   - component: {fileID: 8472668484152518933}
   - component: {fileID: 2847825038025474905}
   - component: {fileID: 4503393735014127914}
+  - component: {fileID: 3621236617967955852}
   m_Layer: 5
   m_Name: Reboot
   m_TagString: Untagged
@@ -1327,6 +1433,18 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &3621236617967955852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7083841532857317477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3535a35d60e629a4bbab1b9327346ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7683027536964598140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,6 +1458,7 @@ GameObject:
   - component: {fileID: 7844433084749399774}
   - component: {fileID: 104364967515838063}
   - component: {fileID: 7970661078196114452}
+  - component: {fileID: 725334375741550811}
   m_Layer: 5
   m_Name: Acidic Blade
   m_TagString: Untagged
@@ -1465,3 +1584,15 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &725334375741550811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683027536964598140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3535a35d60e629a4bbab1b9327346ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
