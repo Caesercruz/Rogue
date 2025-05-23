@@ -37,9 +37,9 @@ public class AnimationManager : MonoBehaviour
         }
     }
 
-    public void PerksSelectedAnimation(bool buffMissing, bool byproductMissing)
+    public void PerksSelectedAnimation(bool buffMissing, bool byproductMissing) //Error perk Animation handler
     {
-        GameObject upgrade = GameObject.Find("UpgradeScreen");
+        GameObject upgrade = GameObject.Find("UpdateScreen");
 
         if (buffMissing)
         {
@@ -59,7 +59,7 @@ public class AnimationManager : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    public IEnumerator AnimateIcon(Transform iconTransform)
+    public IEnumerator AnimateIcon(Transform iconTransform) //Error perk not selected
     {
         if (iconTransform == null) yield break;
 
@@ -75,7 +75,6 @@ public class AnimationManager : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            // Vibração (move ligeiramente para os lados)
             iconTransform.localPosition = originalPos + (Vector3.right * vibrationStrength);
             iconImage.color = alertColor;
             yield return new WaitForSeconds(duration);
@@ -88,14 +87,11 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForSeconds(duration);
         }
     }
-
-    public IEnumerator AnimatePopupSpawn(Transform target, float duration = 0.5f)
+    public IEnumerator AnimatePopupSpawn(Transform target, float duration = .1f)
     {
-        Debug.Log("Iniciando animação de escala...");
-        Debug.Log("timeScale: " + Time.timeScale);
-
+        Debug.Log("Iniciando animação");
         Vector3 initialScale = Vector3.zero;
-        Vector3 finalScale = Vector3.one;
+        Vector3 finalScale = new(0.73f, .6f,1);
         float elapsedTime = 0f;
 
         target.localScale = initialScale;
@@ -103,18 +99,13 @@ public class AnimationManager : MonoBehaviour
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
-            t = Mathf.Sin(t * Mathf.PI * 0.5f); // EaseOut
-            Vector3 newScale = Vector3.Lerp(initialScale, finalScale, t);
-            target.localScale = newScale;
-
-            Debug.Log($"[ANIMAÇÃO] t={t}, scale={newScale}, elapsed={elapsedTime}");
-
+            target.localScale = Vector3.Lerp(initialScale, finalScale, t);
             elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
 
-
         target.localScale = finalScale;
-        Debug.Log("Animação concluída.");
+        Debug.Log("Animação concluída");
     }
+
 }

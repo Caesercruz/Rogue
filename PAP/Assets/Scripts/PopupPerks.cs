@@ -24,21 +24,18 @@ public class PopupPerks : MonoBehaviour
 
     public void DisableActivePerkButtons()
     {
-        Debug.Log("Disabling buttons...");
-        foreach (Transform child in transform)
+
+        // Procura por todos os Transforms na hierarquia
+        foreach (Transform child in GetComponentsInChildren<Transform>(true))
         {
             Button button = child.GetComponent<Button>();
             if (button == null) continue;
 
-            Text buttonText = button.GetComponentInChildren<Text>();
-            if (buttonText == null) continue;
+            string perkName = child.name;
 
-            string perkName = buttonText.text;
-            Debug.Log("Checking: " + perkName);
             if (gameScript.ActivePerks.Any(p => p.name == perkName))
             {
                 button.interactable = false;
-                Debug.Log("Disabled: " + perkName);
             }
         }
     }

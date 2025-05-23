@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Reinforced Plates
   m_EditorClassIdentifier: 
   perkName: Reinforced Plates
-  description: 50% more Health.
+  description: Increase your max health by 10.
   icon: {fileID: -7003405138980521047, guid: 217bd82a215ac744c920a6639703d4fd, type: 3}
   type: 0
-  active: 0
+  active: 1

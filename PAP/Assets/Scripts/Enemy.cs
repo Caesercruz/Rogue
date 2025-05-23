@@ -20,7 +20,8 @@ public class Enemy : Actors
     }
 
     public Slider HealthBar;
-    void Start()
+
+    private void Awake()
     {
         gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
         actors = GameObject.Find("BoardManager").GetComponent<Actors>();
@@ -36,45 +37,23 @@ public class Enemy : Actors
         }
         hoverScript.Initialize(gameObject);
 
-        GameObject.Find("Canvas").GetComponent<HUDManager>().OffsetHealthBar(HealthBar, gameObject);
-
         Energy = MaxEnergy;
         Health = MaxHealth;
 
         ChangeHealth(HealthBar, MaxHealth, MaxHealth);
     }
+
+    void Start()
+    {
+        GameObject.Find("Canvas").GetComponent<HUDManager>().OffsetHealthBar(HealthBar, gameObject);
+        RecalculateEnemyAttacks();
+    }
     void Update()
     {
         if (Health == 0)
         {
-            gameScript.NumberOfEnemies--;
-            ClearAttackableTiles(false);
-
-            actors.ActorsCord.TryGetValue(gameObject, out Vector2Int enemyPos);
-
-            string tileName = $"Tile {enemyPos.x} {enemyPos.y}";
-            GameObject tileObj = GameObject.Find(tileName);
-
-            Tile tile = tileObj.GetComponent<Tile>();
-            tile.IsOccupied = false;
-            actors.ActorsCord.Remove(gameObject);
-
-            Destroy(gameObject);
-            if (gameScript.NumberOfEnemies == 0)
-            {
-                gameScript.Gamestate = GameScript.GameState.WonEncounter;
-
-                Canvas instance = Instantiate(gameScript.UpdateScreen);
-                instance.name = "UpdateScreen";
-
-                // Inicia a animação
-                AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
-
-                //StartCoroutine(animationSpawner.AnimatePopupSpawn(instance.transform));
-
-                return;
-            }
-            RecalculateEnemyAttacks();
+            HandleDeath();
+            return; // Impede o resto do código de rodar após a morte
         }
 
         if (gameScript.Gamestate != GameScript.GameState.Combat || actors.isPlayersTurn) return;
@@ -84,6 +63,51 @@ public class Enemy : Actors
         EnemyMove();
         SetAttackableTiles(false);
     }
+    void HandleDeath()
+    {
+        gameScript.NumberOfEnemies--;
+        ClearAttackableTiles(false);
+
+        if (actors.ActorsCord.TryGetValue(gameObject, out Vector2Int enemyPos))
+        {
+            string tileName = $"Tile {enemyPos.x} {enemyPos.y}";
+            GameObject tileObj = GameObject.Find(tileName);
+
+            if (tileObj != null && tileObj.TryGetComponent(out Tile tile))
+            {
+                tile.IsOccupied = false;
+            }
+
+            actors.ActorsCord.Remove(gameObject);
+        }
+
+        // Enemy.cs
+        if (gameScript.NumberOfEnemies == 0)
+        {
+            gameScript.Gamestate = GameScript.GameState.WonEncounter;
+
+            Canvas instance = Instantiate(gameScript.UpdateScreen);
+            instance.name = "UpdateScreen";
+
+            AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
+            if (animationSpawner != null)
+            {
+                animationSpawner.StartCoroutine(animationSpawner.AnimatePopupSpawn(instance.transform));
+            }
+
+            Destroy(gameObject);
+            return;
+        }
+
+        else
+        {
+            RecalculateEnemyAttacks();
+        }
+
+        // Destruir no final
+        Destroy(gameObject);
+    }
+
     private void EnemyMove()
     {
         Vector2Int direction;

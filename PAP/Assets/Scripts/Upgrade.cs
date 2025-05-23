@@ -68,7 +68,6 @@ public class Upgrade : MonoBehaviour
                 trigger.triggers.Add(clickEntry);
             }
         }
-
     }
     public void SelectAtribute(Perk perk)
     {
@@ -112,7 +111,6 @@ public class Upgrade : MonoBehaviour
         }
         return;
     }
-
     public void ClosePopup()
     {
         if (Popup != null)
