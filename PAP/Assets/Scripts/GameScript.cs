@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameScript : MonoBehaviour
 {
@@ -33,6 +35,15 @@ public class GameScript : MonoBehaviour
 
     public GameState Gamestate;
 
+    public GameObject RoomPrefab;
+    public GameObject IntersectionPrefab;
+    public Transform MapContainer;
+
+    public int width = 7;
+    public int height = 7;
+    public RoomData[,] grid;
+
+
     private void Start()
     {
         Gamestate = GameState.Combat;
@@ -43,6 +54,8 @@ public class GameScript : MonoBehaviour
 
     private void Gameplay()
     {
+        GenerateMap();
+        GenerateMapVisuals();
         GenerateGrid();
 
         actors.SpawnCharacter(_playerInstance, "Player", true);
@@ -72,6 +85,7 @@ public class GameScript : MonoBehaviour
         }
         TransformHealthBars();
     }
+
     public void TransformHealthBars()
     {
         Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
@@ -89,6 +103,7 @@ public class GameScript : MonoBehaviour
             }
         }
     }
+
     private void GenerateGrid()
     {
         for (int x = 0; x < Width; x++)
@@ -101,10 +116,101 @@ public class GameScript : MonoBehaviour
                 var spawnedTile = Instantiate(_tilePrefab, position, Quaternion.identity, actors.transform);
                 spawnedTile.name = $"Tile {x} {y}";
                 actors.GridTiles[new Vector2Int(x, y)] = spawnedTile;
-                // Define o padrão de offset
                 bool isOffSet = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
                 spawnedTile.Init(isOffSet);
             }
         }
     }
+
+    void GenerateMap()
+    {
+        grid = new RoomData[width, height];
+
+        Vector2Int startPos = new(width / 2, height / 2);
+        CreateRoomRecursive(startPos, 10);
+    }
+
+    void CreateRoomRecursive(Vector2Int pos, int remaining)
+    {
+        if (remaining <= 0 || grid[pos.x, pos.y] != null) return;
+
+        RoomData room = new() { position = pos };
+        grid[pos.x, pos.y] = room;
+
+        List<Vector2Int> directions = new() {
+            Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left
+        };
+        directions = directions.OrderBy(x => Random.value).ToList();
+
+        for (int i = 0; i < directions.Count; i++)
+        {
+            Vector2Int dir = directions[i];
+            Vector2Int newPos = pos + dir;
+
+            if (newPos.x < 0 || newPos.x >= width || newPos.y < 0 || newPos.y >= height)
+                continue;
+
+            if (grid[newPos.x, newPos.y] == null && Random.value < 0.7f)
+            {
+                room.connections[i] = true;
+                int opposite = (i + 2) % 4;
+                CreateRoomRecursive(newPos, remaining - 1);
+                if (grid[newPos.x, newPos.y] != null)
+                    grid[newPos.x, newPos.y].connections[opposite] = true;
+            }
+        }
+    }
+
+    void GenerateMapVisuals()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                RoomData room = grid[x, y];
+                if (room == null) continue;
+
+                Vector3 pos = new(x, y, 0);
+                GameObject roomGO = Instantiate(RoomPrefab, Vector3.zero, Quaternion.identity, MapContainer.Find("Rooms"));
+                roomGO.transform.localPosition = pos;
+
+                roomGO.name = $"Room {x};{y}";
+                for (int i = 0; i < 4; i++)
+                {
+                    if (!room.connections[i]) continue;
+
+                    Vector2Int dir = i switch
+                    {
+                        0 => Vector2Int.up,
+                        1 => Vector2Int.right,
+                        2 => Vector2Int.down,
+                        3 => Vector2Int.left,
+                        _ => Vector2Int.zero
+                    };
+
+                    int nx = x + dir.x;
+                    int ny = y + dir.y;
+
+                    // Verifica se a sala vizinha existe antes de instanciar a interseção
+                    if (nx < 0 || nx >= width || ny < 0 || ny >= height || grid[nx, ny] == null)
+                        continue;
+
+                    Vector3 interPos = new(x + dir.x * 0.5f, y + dir.y * 0.5f, 0);
+                    GameObject interGO = Instantiate(IntersectionPrefab, Vector3.zero, Quaternion.identity, MapContainer.Find("Intersections"));
+                    interGO.transform.localPosition = interPos;
+                    interGO.name = $"Intersection {x + dir.x * 0.5f};{y + dir.y * 0.5f}";
+
+                    if (i == 0 || i == 2)
+                        interGO.transform.rotation = Quaternion.Euler(0, 0, 90);
+                }
+
+            }
+        }
+    }
+}
+
+public class RoomData
+{
+    public Vector2Int position;
+    public bool[] connections = new bool[4];
 }

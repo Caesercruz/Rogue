@@ -304,10 +304,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2256119419060109144, guid: 73163ba1aad2d2a4491f5174919ea8df, type: 3}
-      propertyPath: DoubleSlashPrefab
-      value: 
-      objectReference: {fileID: 9189190827069916229, guid: 3a2ead41015625a46a37323bfa78d844, type: 3}
     - target: {fileID: 9030689785497580087, guid: 73163ba1aad2d2a4491f5174919ea8df, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -432,7 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scenePrefabInstances:
   - _gameObject: {fileID: 1699607050}
-    _prefab: Assets/Prefabs/GameManager.prefab
+    _prefab: Assets/Prefabs/Screens/GameManager.prefab
 --- !u!4 &1447358009
 Transform:
   m_ObjectHideFlags: 11
