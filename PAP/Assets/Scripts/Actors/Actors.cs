@@ -95,7 +95,7 @@ public class Actors : MonoBehaviour
         while (IsSpaceOccupied(gridPosition));
 
         Vector3 worldPosition = new(gridPosition.x, gridPosition.y, 0);
-        character = Instantiate(character, worldPosition, Quaternion.identity);
+        character = Instantiate(character, worldPosition, Quaternion.identity, actors.transform);
         character.name = name;
 
             ActorsCord.Add(character, gridPosition);
