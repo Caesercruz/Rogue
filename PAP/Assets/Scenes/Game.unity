@@ -328,6 +328,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 4.42
       objectReference: {fileID: 0}
+    - target: {fileID: 3392495800305442567, guid: 73163ba1aad2d2a4491f5174919ea8df, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4882506149615807394, guid: 73163ba1aad2d2a4491f5174919ea8df, type: 3}
       propertyPath: m_Name
       value: AnimationManager
@@ -566,6 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openMapPrefab: {fileID: 6988691507908758579, guid: cc8474e660bfc46469161c9ee261e98a, type: 3}
+  hitboxPrefab: {fileID: 2849204629144880126, guid: 566a58aedc4b0794e9fcc81b8c10c931, type: 3}
   RoomPrefab: {fileID: 6477668810553360538, guid: 2bb1efde31aed4240a9fbe024d96e14c, type: 3}
   IntersectionPrefab: {fileID: 6477668810553360538, guid: 347f5be78ac87af4b9fcb7a1a2f7f3aa, type: 3}
   gameScript: {fileID: 1699607051}

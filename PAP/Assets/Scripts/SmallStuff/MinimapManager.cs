@@ -1,20 +1,27 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 public class MinimapManager : MonoBehaviour
 {
-    public GameObject openMapPrefab; // Prefab com filhos Rooms/Intersections
+    public GameObject openMapPrefab;
+    public GameObject hitboxPrefab;
     public GameObject RoomPrefab;
     public GameObject IntersectionPrefab;
-    public GameScript gameScript; // onde está a grid
+    public GameScript gameScript;
     public GameObject Canvas;
 
     private GameObject openMapInstance;
+    private GameObject hitboxInstance;
 
     public void ShowMap()
     {
-        if (openMapInstance != null) return; // já está aberto
+        if (openMapInstance != null) return;
 
-        openMapInstance = Instantiate(openMapPrefab, Canvas.transform); // ou outro container UI
+        hitboxInstance = Instantiate(hitboxPrefab, Canvas.transform);
+        openMapInstance = Instantiate(openMapPrefab, Canvas.transform);
+        hitboxInstance.GetComponent<Button>().onClick.AddListener(() => GetComponent<MinimapManager>().HideMinimap());
 
         Transform roomsParent = openMapInstance.transform.Find("Rooms");
         Transform intersectionsParent = openMapInstance.transform.Find("Intersections");
@@ -72,6 +79,7 @@ public class MinimapManager : MonoBehaviour
         {
             Destroy(openMapInstance);
             openMapInstance = null;
+            Destroy(hitboxInstance);
         }
     }
 }

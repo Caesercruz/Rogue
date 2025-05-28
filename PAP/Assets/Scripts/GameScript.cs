@@ -42,7 +42,7 @@ public class GameScript : MonoBehaviour
     public int width = 7;
     public int height = 7;
     public RoomData[,] grid;
-
+    private readonly int maxRooms = 30;
 
     private void Start()
     {
@@ -127,19 +127,22 @@ public class GameScript : MonoBehaviour
         grid = new RoomData[width, height];
 
         Vector2Int startPos = new(width / 2, height / 2);
-        CreateRoomRecursive(startPos, 10);
+        int roomsCreated = 0;
+        CreateRoomRecursive(startPos, maxRooms, ref roomsCreated);
+        RemoveDeadEndRooms();
     }
 
-    void CreateRoomRecursive(Vector2Int pos, int remaining)
+    void CreateRoomRecursive(Vector2Int pos, int maxRooms, ref int roomsCreated)
     {
-        if (remaining <= 0 || grid[pos.x, pos.y] != null) return;
+        if (roomsCreated >= maxRooms || grid[pos.x, pos.y] != null) return;
 
         RoomData room = new() { position = pos };
         grid[pos.x, pos.y] = room;
+        roomsCreated++;
 
         List<Vector2Int> directions = new() {
-            Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left
-        };
+        Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left
+    };
         directions = directions.OrderBy(x => Random.value).ToList();
 
         for (int i = 0; i < directions.Count; i++)
@@ -154,9 +157,26 @@ public class GameScript : MonoBehaviour
             {
                 room.connections[i] = true;
                 int opposite = (i + 2) % 4;
-                CreateRoomRecursive(newPos, remaining - 1);
+
+                CreateRoomRecursive(newPos, maxRooms, ref roomsCreated);
+
                 if (grid[newPos.x, newPos.y] != null)
                     grid[newPos.x, newPos.y].connections[opposite] = true;
+            }
+        }
+    }
+    void RemoveDeadEndRooms()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                RoomData room = grid[x, y];
+                if (room == null) continue;
+
+                bool hasConnection = room.connections.Any(c => c);
+                if (!hasConnection)
+                    grid[x, y] = null;
             }
         }
     }

@@ -1035,7 +1035,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be1990e508b84cf419d6aea2d89e1e09, type: 2}
   - {fileID: 11400000, guid: 4c2671148548b1b4e8dbef8a82e625a1, type: 2}
   upgradeScreen: {fileID: 3689550112863654208}
-  hitBoxPrefab: {fileID: 2219517589595552593, guid: 850d7d712ce23614a921592fd23d6be6, type: 3}
+  hitBoxPrefab: {fileID: 2849204629144880126, guid: 566a58aedc4b0794e9fcc81b8c10c931, type: 3}
   hitBox: {fileID: 0}
   _popupUpgrade: {fileID: 3439150124014857111, guid: 77d0d134bbdab8d46ae64288cfc674a1, type: 3}
   _popupDowngrade: {fileID: 3439150124014857111, guid: ec6b3d6f63d16614a809ae4b76cb6e3d, type: 3}
