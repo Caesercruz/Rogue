@@ -9,22 +9,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\assets\\scripts\\smallstuff\\minimapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\smallstuff\\minimapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|c:\\users\\aluno.3psit2\\documents\\rogue\\pap\\assets\\scripts\\actors\\actors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\actors\\actors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\assets\\scripts\\visuals\\animationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\visuals\\animationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\assets\\scripts\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|c:\\users\\aluno.3psit2\\documents\\rogue\\pap\\assets\\scripts\\upgrade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\upgrade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,34 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Upgrade.cs",
-              "DocumentMoniker": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Upgrade.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Upgrade.cs",
-              "ToolTip": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Upgrade.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Upgrade.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAgwCIAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-28T08:11:38.555Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Actors.cs",
-              "DocumentMoniker": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Actors.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Actors\\Actors.cs",
-              "ToolTip": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Actors.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Actors\\Actors.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAAKIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T14:53:58.271Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -70,22 +28,9 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\SmallStuff\\MinimapManager.cs",
               "ToolTip": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\SmallStuff\\MinimapManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\SmallStuff\\MinimapManager.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwFMAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-27T13:51:38.93Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AnimationManager.cs",
-              "DocumentMoniker": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Visuals\\AnimationManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Visuals\\AnimationManager.cs",
-              "ToolTip": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Visuals\\AnimationManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Visuals\\AnimationManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T13:50:15.995Z",
               "EditorCaption": ""
             },
             {
@@ -96,22 +41,9 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameScript.cs",
               "ToolTip": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\GameScript.cs",
               "RelativeToolTip": "Assets\\Scripts\\GameScript.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAowC0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIoAAAAAAAAAAAD4v6QAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-27T13:37:26.631Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Room.cs",
-              "DocumentMoniker": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Room.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Room.cs",
-              "ToolTip": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Room.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Room.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T13:29:56.168Z",
               "EditorCaption": ""
             }
           ]

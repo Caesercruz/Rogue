@@ -39,10 +39,10 @@ public class GameScript : MonoBehaviour
     public GameObject IntersectionPrefab;
     public Transform MapContainer;
 
-    public int width = 7;
-    public int height = 7;
+    public readonly int width = 7;
+    public readonly int height = 7;
     public RoomData[,] grid;
-    private readonly int maxRooms = 30;
+    private readonly int maxRooms = 35;
 
     private void Start()
     {
@@ -128,57 +128,51 @@ public class GameScript : MonoBehaviour
 
         Vector2Int startPos = new(width / 2, height / 2);
         int roomsCreated = 0;
-        CreateRoomRecursive(startPos, maxRooms, ref roomsCreated);
-        RemoveDeadEndRooms();
+        CreateRoomRecursive(startPos, ref roomsCreated);
     }
-
-    void CreateRoomRecursive(Vector2Int pos, int maxRooms, ref int roomsCreated)
+    void CreateRoomRecursive(Vector2Int pos, ref int roomsCreated)
     {
-        if (roomsCreated >= maxRooms || grid[pos.x, pos.y] != null) return;
+        if (roomsCreated >= maxRooms || grid[pos.x, pos.y] != null)
+            return;
 
         RoomData room = new() { position = pos };
         grid[pos.x, pos.y] = room;
         roomsCreated++;
 
-        List<Vector2Int> directions = new() {
-        Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left
-    };
-        directions = directions.OrderBy(x => Random.value).ToList();
-
-        for (int i = 0; i < directions.Count; i++)
+        var directions = new (int index, Vector2Int dir)[]
         {
-            Vector2Int dir = directions[i];
-            Vector2Int newPos = pos + dir;
+        (0, Vector2Int.up),
+        (1, Vector2Int.right),
+        (2, Vector2Int.down),
+        (3, Vector2Int.left)
+        }.OrderBy(_ => Random.value).ToArray();
 
-            if (newPos.x < 0 || newPos.x >= width || newPos.y < 0 || newPos.y >= height)
-                continue;
+        foreach (var (i, dir) in directions)
+        {
+            Vector2Int nextPos = pos + dir;
+            if (!IsInsideBounds(nextPos)) continue;
 
-            if (grid[newPos.x, newPos.y] == null && Random.value < 0.7f)
+            if (grid[nextPos.x, nextPos.y] == null && Random.value < 0.7f)
             {
                 room.connections[i] = true;
-                int opposite = (i + 2) % 4;
+                CreateRoomRecursive(nextPos, ref roomsCreated);
 
-                CreateRoomRecursive(newPos, maxRooms, ref roomsCreated);
-
-                if (grid[newPos.x, newPos.y] != null)
-                    grid[newPos.x, newPos.y].connections[opposite] = true;
+                if (grid[nextPos.x, nextPos.y] != null)
+                {
+                    int opposite = (i + 2) % 4;
+                    grid[nextPos.x, nextPos.y].connections[opposite] = true;
+                }
+                else
+                {
+                    room.connections[i] = false;
+                }
             }
         }
     }
-    void RemoveDeadEndRooms()
-    {
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                RoomData room = grid[x, y];
-                if (room == null) continue;
 
-                bool hasConnection = room.connections.Any(c => c);
-                if (!hasConnection)
-                    grid[x, y] = null;
-            }
-        }
+    bool IsInsideBounds(Vector2Int pos)
+    {
+        return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
     }
 
     void GenerateMapVisuals()
@@ -233,4 +227,6 @@ public class RoomData
 {
     public Vector2Int position;
     public bool[] connections = new bool[4];
+    public bool Explored = false;
+    public bool PlayerInside = false;
 }
