@@ -24,7 +24,7 @@ public class Enemy : Actors
     {
         gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
         actors = GameObject.Find("BoardManager").GetComponent<Actors>();
-        gameScript._ratInstance = gameObject;
+        gameScript.ratInstance = gameObject;
 
         HealthBar = Instantiate(HealthBar, GameObject.Find("Canvas").GetComponent<HUDManager>().healthBarsContainer);
         HealthBar.name = $"{gameObject.name} HealthBar";
@@ -89,7 +89,7 @@ public class Enemy : Actors
         Vector2Int direction;
         while (Energy > 0)
         {
-            if (!actors.ActorsCord.TryGetValue(gameScript._playerInstance, out var playerPos) ||
+            if (!actors.ActorsCord.TryGetValue(gameScript.playerInstance, out var playerPos) ||
                 !actors.ActorsCord.TryGetValue(gameObject, out var enemyPos))
             {
                 Debug.Log("Movimento inimigo: Dicionário não encontrou a localização dos personagens");

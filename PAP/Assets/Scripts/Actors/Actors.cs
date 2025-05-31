@@ -83,7 +83,7 @@ public class Actors : MonoBehaviour
         return true;
     }
     
-    public void SpawnCharacter(GameObject character, string name, bool isPlayer)
+    public GameObject SpawnCharacter(GameObject character, string name, bool isPlayer)
     {
         do
         {
@@ -104,6 +104,7 @@ public class Actors : MonoBehaviour
         {
             tile.IsOccupied = true;
         }
+        return character;
     }
 
     public bool IsValidPosition(Vector2Int position)

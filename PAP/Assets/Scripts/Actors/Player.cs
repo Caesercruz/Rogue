@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class Player : Actors
 {
+    public PlayerActions controls;
+
     private static readonly float ClumsyPersentage = .15f, DoubleHitPercentage = .75f, BacklashPercentage = .10f, CriticPercentage = .20f;
 
     public Slider HealthBar;
@@ -14,11 +16,15 @@ public class Player : Actors
     private bool inAttackMode, leakedEnergy = false, weakened = false;
     private int StoredEnergy;
 
+//    if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)
+//                || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
     private void Start()
     {
+        controls = new PlayerActions();
+        controls.Enable();
         gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
         actors = GameObject.Find("BoardManager").GetComponent<Actors>();
-        gameScript._playerInstance = gameObject;
+        gameScript.playerInstance = gameObject;
 
         HealthBar = Instantiate(HealthBar, GameObject.Find("Canvas").transform);
 
@@ -69,8 +75,8 @@ public class Player : Actors
     {
         if (actors.isPlayersTurn)
         {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)
-                || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+            if (controls.Actions.Up.triggered|| controls.Actions.Down.triggered
+                || controls.Actions.Left.triggered || controls.Actions.Right.triggered)
             {
                 if (Energy < 1)
                 {
@@ -80,10 +86,10 @@ public class Player : Actors
             }
 
             bool moved = false;
-            if (Input.GetKeyDown(KeyCode.W)) moved = actors.MoveCharacter(gameObject, Vector2Int.up);
-            if (Input.GetKeyDown(KeyCode.A)) moved = actors.MoveCharacter(gameObject, Vector2Int.left);
-            if (Input.GetKeyDown(KeyCode.S)) moved = actors.MoveCharacter(gameObject, Vector2Int.down);
-            if (Input.GetKeyDown(KeyCode.D)) moved = actors.MoveCharacter(gameObject, Vector2Int.right);
+            if (controls.Actions.Up.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.up);
+            if (controls.Actions.Left.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.left);
+            if (controls.Actions.Down.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.down);
+            if (controls.Actions.Right.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.right);
 
             if (moved)
             {
@@ -98,7 +104,7 @@ public class Player : Actors
             {
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    if (controls.Actions.Atack.triggered)
                     {
                         if (Energy < 1)
                         {
@@ -124,7 +130,7 @@ public class Player : Actors
                         }
                     }
 
-                    if (Input.GetKeyDown(KeyCode.Mouse1))
+                    if (controls.Actions.Back.triggered)
                     {
                         ExitAttackMode();
                         inAttackMode = false;
@@ -132,7 +138,7 @@ public class Player : Actors
                 }
 
             }
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (controls.Actions.EndTurn.triggered)
             {
                 ExitAttackMode();
                 Rebound();
