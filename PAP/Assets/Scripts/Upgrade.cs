@@ -113,7 +113,7 @@ public class Upgrade : MonoBehaviour
         gameScript.ActivePerks.Add(SelectedByproduct);
 
         gameScript.GetComponent<PerkEffects>().ApplyPerks(player, SelectedBuff, SelectedByproduct);
-
+        gameScript.MapManager.ShowMap(true);
         if (upgradeScreen != null)
         {
             Destroy(upgradeScreen);

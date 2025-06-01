@@ -1,8 +1,6 @@
-using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
-using UnityEngine.UI;
-using Button = UnityEngine.UI.Button;
 using System.Linq;
+using UnityEngine;
+using Button = UnityEngine.UI.Button;
 
 public class MinimapManager : MonoBehaviour
 {
@@ -10,6 +8,7 @@ public class MinimapManager : MonoBehaviour
     [SerializeField] private GameObject hitboxPrefab;
     [SerializeField] private GameObject RoomPrefab;
     [SerializeField] private GameObject IntersectionPrefab;
+    [SerializeField] private GameObject ArrowPrefab;
     [SerializeField] private GameScript gameScript;
     public GameObject Canvas;
 
@@ -32,12 +31,13 @@ public class MinimapManager : MonoBehaviour
         }
     }
 
-    public void ShowMap()
+    public void ShowMap(bool movement = false)
     {
         if (openMapInstance != null) return;
 
         hitboxInstance = Instantiate(hitboxPrefab, Canvas.transform);
         openMapInstance = Instantiate(openMapPrefab, Canvas.transform);
+        openMapInstance.name = "Map";
         hitboxInstance.GetComponent<Button>().onClick.AddListener(() => GetComponent<MinimapManager>().CloseMap());
 
         Transform roomsParent = openMapInstance.transform.Find("Rooms");
@@ -53,11 +53,10 @@ public class MinimapManager : MonoBehaviour
                 Vector3 pos = new(x, y, 0);
                 GameObject roomGO = Instantiate(RoomPrefab, Vector3.zero, Quaternion.identity, roomsParent);
                 roomGO.transform.localPosition = pos;
-                
+
                 roomGO.name = $"Room {x};{y}";
-                
-                if(room.Explored) roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
-                if(room.PlayerInside) Instantiate(PlayerIconPrefab, roomGO.transform);
+
+                if (room.Explored) roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
                 for (int i = 0; i < 4; i++)
                 {
                     if (!room.connections[i]) continue;
@@ -85,9 +84,14 @@ public class MinimapManager : MonoBehaviour
                     if (i == 0 || i == 2)
                         interGO.transform.rotation = Quaternion.Euler(0, 0, 90);
                 }
+                if (room.PlayerInside)
+                {
+                    Instantiate(PlayerIconPrefab, roomGO.transform);
+                    if (movement) EnableMovement(room);
+                }
             }
         }
-        
+
         gameScript.GameControls.PlayerControls.Disable();
     }
 
@@ -95,7 +99,7 @@ public class MinimapManager : MonoBehaviour
     {
         if (openMapInstance != null)
         {
-            gameScript.GameControls.PlayerControls.Enable();
+            if (gameScript.Gamestate == GameScript.GameState.Combat) gameScript.GameControls.PlayerControls.Enable();
             Destroy(openMapInstance);
             openMapInstance = null;
             Destroy(hitboxInstance);
@@ -150,7 +154,7 @@ public class MinimapManager : MonoBehaviour
         return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
     }
 
-    public void GenerateMapVisuals()
+    public void GenerateMiniMapVisuals()
     {
         for (int x = 0; x < width; x++)
         {
@@ -224,6 +228,42 @@ public class MinimapManager : MonoBehaviour
             mostBottomRight.Explored = true;
             roomGO.GetComponent<Renderer>().enabled = true;
             roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);//Fafas
+        }
+    }
+    private void EnableMovement(RoomData room)
+    {
+        Transform minimapGO = gameScript.transform.Find("Canvas/Minimap");
+        Transform mapGO = gameScript.transform.Find("Canvas/Map");
+
+        //CreateArrow(room, minimapGO);
+        CreateArrow(room, mapGO);
+    }
+    private void CreateArrow(RoomData room, Transform map)
+    {
+        // Criar novo container
+        GameObject arrowContainerObj = new("ArrowContainer");
+        arrowContainerObj.transform.parent = map;
+        arrowContainerObj.transform.position = (Vector3.zero);
+        arrowContainerObj.name = "ArrowContainer";
+
+        // Direções: Cima, Direita, Baixo, Esquerda
+        Vector2Int[] offsets = {
+        new(0, 1),  // Cima
+        new(1, 0),  // Direita
+        new(0, -1), // Baixo
+        new(-1, 0)  // Esquerda
+    };
+        float[] rotations = { 0f, 270f, 180f, 90f };
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (!room.connections[i]) continue;
+
+            Vector2Int targetPos = room.position + offsets[i];
+
+            GameObject arrow = Instantiate(ArrowPrefab, arrowContainerObj.transform);
+            arrow.name = $"Arrow_{i}";
+            arrow.transform.SetPositionAndRotation(new(targetPos.x,targetPos.y,0), Quaternion.Euler(0, 0, rotations[i]));
         }
     }
 }

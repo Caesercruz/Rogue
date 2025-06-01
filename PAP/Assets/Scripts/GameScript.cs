@@ -36,7 +36,7 @@ public class GameScript : MonoBehaviour
 
     public GameState Gamestate;
 
-    [SerializeField] private MinimapManager MapManager;
+    public MinimapManager MapManager;
 
     private void Start()
     {
@@ -51,7 +51,7 @@ public class GameScript : MonoBehaviour
     private void Gameplay()
     {
         MapManager.GenerateMap();
-        MapManager.GenerateMapVisuals();
+        MapManager.GenerateMiniMapVisuals();
         GenerateGrid();
         MapManager.SpawnIcons();
         playerInstance = actors.SpawnCharacter(_playerPrefab, "Player", true);
