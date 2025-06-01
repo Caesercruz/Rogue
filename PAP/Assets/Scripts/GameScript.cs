@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class GameScript : MonoBehaviour
 {
+    public Controls GameControls;
     private Actors actors;
 
     public enum GameState
@@ -41,6 +40,8 @@ public class GameScript : MonoBehaviour
 
     private void Start()
     {
+        GameControls = new();
+        GameControls.Enable();
         Gamestate = GameState.Combat;
         actors = GameObject.Find("BoardManager").GetComponent<Actors>();
 

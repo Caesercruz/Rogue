@@ -1,8 +1,8 @@
 {
-    "name": "PlayerActions",
+    "name": "Controls",
     "maps": [
         {
-            "name": "Actions",
+            "name": "PlayerControls",
             "id": "1ba95e96-4094-48ac-a90b-830016116e5f",
             "actions": [
                 {
@@ -62,16 +62,7 @@
                 {
                     "name": "Back",
                     "type": "Button",
-                    "id": "b68ff9ce-b7f6-418d-9322-4db06218d2e1",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "d3131618-c1fa-408d-8eec-43be8daae9b8",
+                    "id": "522c4a6a-0e23-40f7-9dcd-2f9d35b0843c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -191,7 +182,44 @@
                 },
                 {
                     "name": "",
-                    "id": "f73f1cd9-091c-4578-a9e4-f16f222ea6df",
+                    "id": "c6a98517-4b35-4d1a-b7f6-9137b8364875",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Actions",
+            "id": "b0046c46-e9f4-4063-ba47-d6cd2477b159",
+            "actions": [
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "561eb5c7-9421-4d33-92b6-f4ac2736cfca",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "282c9f73-4193-4566-96c5-fea7799ab19e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "54500072-75eb-425b-bfc1-4004a9faf50b",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
@@ -202,7 +230,7 @@
                 },
                 {
                     "name": "",
-                    "id": "10343e7b-9b8d-4e7f-9a89-e497cfeca881",
+                    "id": "72d4199a-85d2-4ffb-981a-f8d779e94c38",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",

@@ -24,7 +24,6 @@ public class PopupPerks : MonoBehaviour
 
     public void DisableActivePerkButtons()
     {
-        Debug.Log("Disabling buttons...");
         foreach (Transform child in transform)
         {
             Button button = child.GetComponent<Button>();

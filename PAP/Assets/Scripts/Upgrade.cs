@@ -17,11 +17,20 @@ public class Upgrade : MonoBehaviour
     [HideInInspector] public GameObject Popup;
 
     public Perk SelectedBuff, SelectedByproduct;
+
+    private void Update()
+    {
+        if (Popup != null)
+        {
+            if (gameScript.GameControls.Actions.Back.triggered) ClosePopup();
+        }
+    }
     private void Start()
     {
         gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
         player = GameObject.Find("Player").GetComponent<Player>();
         upgradeScreen = gameObject;
+        gameScript.GameControls.PlayerControls.Disable();
     }
     public void ShowAtributes(bool Upside)
     {
@@ -103,7 +112,7 @@ public class Upgrade : MonoBehaviour
         gameScript.ActivePerks.Add(SelectedBuff);
         gameScript.ActivePerks.Add(SelectedByproduct);
 
-        ApplyPerks();
+        gameScript.GetComponent<PerkEffects>().ApplyPerks(player, SelectedBuff, SelectedByproduct);
 
         if (upgradeScreen != null)
         {
@@ -138,52 +147,5 @@ public class Upgrade : MonoBehaviour
         if (SelectedBuff == null || SelectedByproduct == null) return false;
         else return true;
     }
-    public void ApplyPerks()
-    {
-        switch (SelectedBuff.perkName)
-        {
-            case "Energetic":
-                player.ChangeEnergy(player.MaxEnergy, player.MaxEnergy += 2);
-                break;
-            case "Reinforced Plates":
-                player.ChangeHealth(player.HealthBar, Mathf.CeilToInt(player.Health * 1.5f), Mathf.CeilToInt(player.MaxHealth * 1.5f));
-                break;
-            case "Increased Reach":
-                player.AttackPattern.Add(new Vector2Int(-2, -2));
-                player.AttackPattern.Add(new Vector2Int(-2, -1));
-                player.AttackPattern.Add(new Vector2Int(-2, -0));
-                player.AttackPattern.Add(new Vector2Int(-2, 1));
-                player.AttackPattern.Add(new Vector2Int(-2, 2));
 
-                player.AttackPattern.Add(new Vector2Int(-1, -2));
-                player.AttackPattern.Add(new Vector2Int(-1, 2));
-
-                player.AttackPattern.Add(new Vector2Int(0, -2));
-                player.AttackPattern.Add(new Vector2Int(0, 2));
-
-                player.AttackPattern.Add(new Vector2Int(1, -2));
-                player.AttackPattern.Add(new Vector2Int(1, 2));
-
-                player.AttackPattern.Add(new Vector2Int(2, -2));
-                player.AttackPattern.Add(new Vector2Int(2, -1));
-                player.AttackPattern.Add(new Vector2Int(2, -0));
-                player.AttackPattern.Add(new Vector2Int(2, 1));
-                player.AttackPattern.Add(new Vector2Int(2, 2));
-
-                break;
-        }
-
-        switch (SelectedByproduct.perkName)
-        {
-            case "Weak":
-                player.Strength = Mathf.CeilToInt(player.Strength * .7f);
-                break;
-            case "Rusty Plates":
-                player.ChangeHealth(player.HealthBar, player.Health, Mathf.CeilToInt(player.MaxHealth * .7f));
-                break;
-            case "Low Energy":
-                player.ChangeEnergy(player.Energy, player.MaxEnergy -= 1);
-                break;
-        }
-    }
 }

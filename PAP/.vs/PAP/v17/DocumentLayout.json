@@ -3,32 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|c:\\users\\utilizador\\documents\\rogue\\pap\\assets\\scripts\\upgrade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\assets\\scripts\\upgrade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\upgrade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\assets\\scripts\\gamescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|c:\\users\\utilizador\\documents\\rogue\\pap\\assets\\scripts\\actors\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\actors\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|c:\\users\\utilizador\\documents\\rogue\\pap\\assets\\scripts\\actors\\actors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\actors\\actors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|c:\\users\\utilizador\\documents\\rogue\\pap\\assets\\scripts\\minimapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\minimapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\assets\\scripts\\actors\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\actors\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\assets\\scripts\\smallstuff\\roomstoggle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\smallstuff\\roomstoggle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|c:\\users\\utilizador\\documents\\rogue\\pap\\assets\\scripts\\perkeffects.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\perkeffects.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\assets\\scripts\\gamescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,8 +26,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PerkEffects.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\PerkEffects.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PerkEffects.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\PerkEffects.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PerkEffects.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAA3wKUAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T15:54:51.734Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -48,88 +49,35 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Upgrade.cs",
               "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Upgrade.cs",
               "RelativeToolTip": "Assets\\Scripts\\Upgrade.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAmwBsAAABEAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAApwCAAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T22:33:48.939Z",
+              "WhenOpened": "2025-06-01T15:45:27.902Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Enemy.cs",
-              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Enemy.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Actors\\Enemy.cs",
-              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Enemy.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Actors\\Enemy.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAD4vxoAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T22:30:25.283Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Actors.cs",
-              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Actors.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Actors\\Actors.cs",
-              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Actors.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Actors\\Actors.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAswGoAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T22:24:58.967Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MinimapManager.cs",
-              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\MinimapManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MinimapManager.cs",
-              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\MinimapManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MinimapManager.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAMwCAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T22:19:53.95Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Player.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Actors\\Player.cs",
               "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Player.cs",
               "RelativeToolTip": "Assets\\Scripts\\Actors\\Player.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAMwBoAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAD4vw4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-31T19:19:53.639Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "RoomsToggle.cs",
-              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\SmallStuff\\RoomsToggle.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\SmallStuff\\RoomsToggle.cs",
-              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\SmallStuff\\RoomsToggle.cs",
-              "RelativeToolTip": "Assets\\Scripts\\SmallStuff\\RoomsToggle.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T18:26:38.767Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "GameScript.cs",
               "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\GameScript.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameScript.cs",
               "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\GameScript.cs",
               "RelativeToolTip": "Assets\\Scripts\\GameScript.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAA1wB4AAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAABkAAAAAAAAAAAAYwCkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T13:37:26.631Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T13:37:26.631Z"
             }
           ]
         }

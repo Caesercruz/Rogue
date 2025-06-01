@@ -23,13 +23,22 @@ public class MinimapManager : MonoBehaviour
 
     public GameObject PlayerIconPrefab;
     public GameObject BossIconPrefab;
+
+    private void Update()
+    {
+        if (openMapInstance != null)
+        {
+            if (gameScript.GameControls.Actions.Back.triggered) CloseMap();
+        }
+    }
+
     public void ShowMap()
     {
         if (openMapInstance != null) return;
 
         hitboxInstance = Instantiate(hitboxPrefab, Canvas.transform);
         openMapInstance = Instantiate(openMapPrefab, Canvas.transform);
-        hitboxInstance.GetComponent<Button>().onClick.AddListener(() => GetComponent<MinimapManager>().HideMap());
+        hitboxInstance.GetComponent<Button>().onClick.AddListener(() => GetComponent<MinimapManager>().CloseMap());
 
         Transform roomsParent = openMapInstance.transform.Find("Rooms");
         Transform intersectionsParent = openMapInstance.transform.Find("Intersections");
@@ -79,14 +88,14 @@ public class MinimapManager : MonoBehaviour
             }
         }
         
-        gameScript.playerInstance.GetComponent<Player>().controls.Actions.Disable();
+        gameScript.GameControls.PlayerControls.Disable();
     }
 
-    public void HideMap()
+    public void CloseMap()
     {
         if (openMapInstance != null)
         {
-            gameScript.playerInstance.GetComponent<Player>().controls.Actions.Enable();
+            gameScript.GameControls.PlayerControls.Enable();
             Destroy(openMapInstance);
             openMapInstance = null;
             Destroy(hitboxInstance);
