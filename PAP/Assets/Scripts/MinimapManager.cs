@@ -29,26 +29,34 @@ public class MinimapManager : MonoBehaviour
         if (openMapInstance != null)
         {
             if (gameScript.GameControls.Actions.Back.triggered) CloseMap();
-            if(gameScript.GameControls.MapMovement.Up.triggered) Move(playersRoom,0);
-            if(gameScript.GameControls.MapMovement.Right.triggered) Move(playersRoom,1);
-            if(gameScript.GameControls.MapMovement.Down.triggered) Move(playersRoom,2);
-            if(gameScript.GameControls.MapMovement.Left.triggered) Move(playersRoom,3);
+            if (gameScript.GameControls.MapMovement.Up.triggered) Move(0);
+            if (gameScript.GameControls.MapMovement.Right.triggered) Move(1);
+            if (gameScript.GameControls.MapMovement.Down.triggered) Move(2);
+            if (gameScript.GameControls.MapMovement.Left.triggered) Move(3);
         }
     }
-    private void Move( RoomData playersRoom,int dir)
+    private void Move(int dir)
     {
         if (!playersRoom.connections[dir])
         {
             //Error Animation(Player goes to the direction "hits" the room wall, glows red and vibrates)
             return;
         }
-        Vector2Int direction;
-        if (dir==0) direction=Vector2Int.up;
-        if (dir==1) direction=Vector2Int.right;
-        if (dir==2) direction=Vector2Int.left;
-        if (dir==3) direction=Vector2Int.down;
-        Transform roomsParent = openMapInstance.transform.Find("Rooms");
-        roomsParent.Find($"Room {};{}");
+        Vector2Int direction = dir switch
+        {
+            0 => Vector2Int.up,
+            1 => Vector2Int.right,
+            2 => Vector2Int.left,
+            3 => Vector2Int.down,
+            _ => Vector2Int.zero
+        };
+
+        Vector2Int newPos = playersRoom.position + direction;
+
+        RoomData newRoom = grid[newPos.x, newPos.y];
+
+        playersRoom = newRoom;
+
     }
     public void ShowMap(bool movement = false)
     {
@@ -62,7 +70,7 @@ public class MinimapManager : MonoBehaviour
         Transform roomsParent = openMapInstance.transform.Find("Rooms");
         Transform intersectionsParent = openMapInstance.transform.Find("Intersections");
 
-        
+
 
         for (int x = 0; x < width; x++)
         {
@@ -135,41 +143,6 @@ public class MinimapManager : MonoBehaviour
         int roomsCreated = 0;
         CreateRoomRecursive(startPos, ref roomsCreated);
     }
-    void CreateRoomRecursive(Vector2Int pos, ref int roomsCreated)
-    {
-        if (roomsCreated >= maxRooms || grid[pos.x, pos.y] != null) return;
-
-        RoomData room = new() { position = pos };
-        grid[pos.x, pos.y] = room;
-        roomsCreated++;
-
-        var directions = new (int index, Vector2Int dir)[]
-        {
-        (0, Vector2Int.up),
-        (1, Vector2Int.right),
-        (2, Vector2Int.down),
-        (3, Vector2Int.left)
-        }.OrderBy(_ => Random.value).ToArray();
-
-        //Se a sala adjacente existe e o random passa com 70% cria a interceção. Faz isso para cada direção
-        foreach (var (i, dir) in directions)
-        {
-            Vector2Int nextPos = pos + dir;
-            if (!IsInsideBounds(nextPos)) continue;
-            if (grid[nextPos.x, nextPos.y] != null && Random.value >= 0.7f) return;
-
-            room.connections[i] = true;
-            CreateRoomRecursive(nextPos, ref roomsCreated);
-
-            if (grid[nextPos.x, nextPos.y] == null)
-            {
-                room.connections[i] = false;
-                return;
-            }
-            int opposite = (i + 2) % 4;
-            grid[nextPos.x, nextPos.y].connections[opposite] = true;
-        }
-    }
 
     bool IsInsideBounds(Vector2Int pos)
     {
@@ -237,6 +210,7 @@ public class MinimapManager : MonoBehaviour
                     room.position.x < mostBottomRight.position.x ||
                     (room.position.x == mostBottomRight.position.x && room.position.y < mostBottomRight.position.y))
                 {
+                    room.PlayerInside = true;
                     mostBottomRight = room;
                 }
             }
@@ -292,20 +266,49 @@ public class MinimapManager : MonoBehaviour
 
             Transform arrowRoomPosition = arrowContainerObj.transform.Find("../Rooms");
             Debug.Log($"Rooms name: {arrowRoomPosition.name}");
-                Debug.Log($"Room {room.position.x + offsets[i].x};{room.position.y + offsets[i].y}");
+            Debug.Log($"Room {room.position.x + offsets[i].x};{room.position.y + offsets[i].y}");
 
             Transform RoomTransform = arrowRoomPosition.Find($"Room {room.position.x + offsets[i].x};{room.position.y + offsets[i].y}");
-                
-                Debug.Log(RoomTransform.name);
+
+            Debug.Log(RoomTransform.name);
             Vector3 targetPos = RoomTransform.position;
-            arrow.transform.SetPositionAndRotation(new(targetPos.x,targetPos.y,0), Quaternion.Euler(0, 0, rotations[i]));
+            arrow.transform.SetPositionAndRotation(new(targetPos.x, targetPos.y, 0), Quaternion.Euler(0, 0, rotations[i]));
         }
     }
-}
-public class RoomData
-{
-    public Vector2Int position;
-    public bool[] connections = new bool[4];
-    public bool Explored = false;
-    public bool PlayerInside = false;
+    void CreateRoomRecursive(Vector2Int pos, ref int roomsCreated)
+    {
+        if (roomsCreated >= maxRooms || grid[pos.x, pos.y] != null) return;
+
+        RoomData room = new() { position = pos };
+        grid[pos.x, pos.y] = room;
+        room.Type = RoomData.Type.Fight;
+        roomsCreated++;
+
+        var directions = new (int index, Vector2Int dir)[]
+        {
+        (0, Vector2Int.up),
+        (1, Vector2Int.right),
+        (2, Vector2Int.down),
+        (3, Vector2Int.left)
+        }.OrderBy(_ => Random.value).ToArray();
+
+        //Se a sala adjacente existe e o random passa com 70% cria a interceção. Faz isso para cada direção
+        foreach (var (i, dir) in directions)
+        {
+            Vector2Int nextPos = pos + dir;
+            if (!IsInsideBounds(nextPos)) continue;
+            if (grid[nextPos.x, nextPos.y] != null && Random.value >= 0.7f) return;
+
+            room.connections[i] = true;
+            CreateRoomRecursive(nextPos, ref roomsCreated);
+
+            if (grid[nextPos.x, nextPos.y] == null)
+            {
+                room.connections[i] = false;
+                return;
+            }
+            int opposite = (i + 2) % 4;
+            grid[nextPos.x, nextPos.y].connections[opposite] = true;
+        }
+    }
 }

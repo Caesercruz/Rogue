@@ -44,7 +44,7 @@ public class GameScript : MonoBehaviour
         GameControls.Enable();
         Gamestate = GameState.Combat;
         actors = GameObject.Find("BoardManager").GetComponent<Actors>();
-
+        
         Gameplay();
     }
 
