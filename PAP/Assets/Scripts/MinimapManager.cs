@@ -19,6 +19,7 @@ public class MinimapManager : MonoBehaviour
     public readonly int height = 7;
     public RoomData[,] grid;
     private readonly int maxRooms = 35;
+    private RoomData playersRoom = null;
 
     public GameObject PlayerIconPrefab;
     public GameObject BossIconPrefab;
@@ -28,9 +29,27 @@ public class MinimapManager : MonoBehaviour
         if (openMapInstance != null)
         {
             if (gameScript.GameControls.Actions.Back.triggered) CloseMap();
+            if(gameScript.GameControls.MapMovement.Up.triggered) Move(playersRoom,0);
+            if(gameScript.GameControls.MapMovement.Right.triggered) Move(playersRoom,1);
+            if(gameScript.GameControls.MapMovement.Down.triggered) Move(playersRoom,2);
+            if(gameScript.GameControls.MapMovement.Left.triggered) Move(playersRoom,3);
         }
     }
-
+    private void Move( RoomData playersRoom,int dir)
+    {
+        if (!playersRoom.connections[dir])
+        {
+            //Error Animation(Player goes to the direction "hits" the room wall, glows red and vibrates)
+            return;
+        }
+        Vector2Int direction;
+        if (dir==0) direction=Vector2Int.up;
+        if (dir==1) direction=Vector2Int.right;
+        if (dir==2) direction=Vector2Int.left;
+        if (dir==3) direction=Vector2Int.down;
+        Transform roomsParent = openMapInstance.transform.Find("Rooms");
+        roomsParent.Find($"Room {};{}");
+    }
     public void ShowMap(bool movement = false)
     {
         if (openMapInstance != null) return;
@@ -42,6 +61,8 @@ public class MinimapManager : MonoBehaviour
 
         Transform roomsParent = openMapInstance.transform.Find("Rooms");
         Transform intersectionsParent = openMapInstance.transform.Find("Intersections");
+
+        
 
         for (int x = 0; x < width; x++)
         {
@@ -87,10 +108,11 @@ public class MinimapManager : MonoBehaviour
                 if (room.PlayerInside)
                 {
                     Instantiate(PlayerIconPrefab, roomGO.transform);
-                    if (movement) EnableMovement(room);
+                    playersRoom = room;
                 }
             }
         }
+        if (movement) EnableMovement(playersRoom);
 
         gameScript.GameControls.PlayerControls.Disable();
     }
@@ -232,18 +254,22 @@ public class MinimapManager : MonoBehaviour
     }
     private void EnableMovement(RoomData room)
     {
+        gameScript.GameControls.MapMovement.Enable();
+
         Transform minimapGO = gameScript.transform.Find("Canvas/Minimap");
         Transform mapGO = gameScript.transform.Find("Canvas/Map");
 
-        //CreateArrow(room, minimapGO);
+        CreateArrow(room, minimapGO);
         CreateArrow(room, mapGO);
     }
     private void CreateArrow(RoomData room, Transform map)
     {
+        if (map.Find("ArrowContainer") != null) return;
         // Criar novo container
         GameObject arrowContainerObj = new("ArrowContainer");
         arrowContainerObj.transform.parent = map;
-        arrowContainerObj.transform.position = (Vector3.zero);
+        arrowContainerObj.transform.localPosition = (Vector3.zero);
+        arrowContainerObj.transform.localScale = Vector3.one;
         arrowContainerObj.name = "ArrowContainer";
 
         // Direções: Cima, Direita, Baixo, Esquerda
@@ -259,15 +285,23 @@ public class MinimapManager : MonoBehaviour
         {
             if (!room.connections[i]) continue;
 
-            Vector2Int targetPos = room.position + offsets[i];
+            //Vector2Int targetPos = room.position + offsets[i];
 
             GameObject arrow = Instantiate(ArrowPrefab, arrowContainerObj.transform);
             arrow.name = $"Arrow_{i}";
+
+            Transform arrowRoomPosition = arrowContainerObj.transform.Find("../Rooms");
+            Debug.Log($"Rooms name: {arrowRoomPosition.name}");
+                Debug.Log($"Room {room.position.x + offsets[i].x};{room.position.y + offsets[i].y}");
+
+            Transform RoomTransform = arrowRoomPosition.Find($"Room {room.position.x + offsets[i].x};{room.position.y + offsets[i].y}");
+                
+                Debug.Log(RoomTransform.name);
+            Vector3 targetPos = RoomTransform.position;
             arrow.transform.SetPositionAndRotation(new(targetPos.x,targetPos.y,0), Quaternion.Euler(0, 0, rotations[i]));
         }
     }
 }
-
 public class RoomData
 {
     public Vector2Int position;
