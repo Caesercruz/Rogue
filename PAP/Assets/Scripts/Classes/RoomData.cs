@@ -5,6 +5,7 @@ public class RoomData
     public Vector2Int position;
     public bool[] connections = new bool[4];
     public bool Explored = false;
+    public bool PlayerInside = false;
 
     public enum Type
     {
@@ -14,6 +15,5 @@ public class RoomData
         Bossfight,
         Nothing,
     }
-    public bool PlayerInside = false;
-    public bool BossInside = false;
+    public Type type;
 }

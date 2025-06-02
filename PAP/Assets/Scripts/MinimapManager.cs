@@ -281,7 +281,14 @@ public class MinimapManager : MonoBehaviour
 
         RoomData room = new() { position = pos };
         grid[pos.x, pos.y] = room;
-        room.Type = RoomData.Type.Fight;
+
+        float roomRandom = Random.value;
+        if (roomRandom <= .4)
+        {
+            room.type = RoomData.Type.Fight;
+        }
+        else if(roomRandom>.4 && roomRandom<=.8) room.type = RoomData.Type.Event;
+        else room.type = RoomData.Type.Nothing;
         roomsCreated++;
 
         var directions = new (int index, Vector2Int dir)[]
