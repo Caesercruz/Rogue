@@ -20,7 +20,7 @@ public class MinimapManager : MonoBehaviour
     public readonly int height = 7;
     public RoomData[,] grid;
     private readonly int maxRooms = 35;
-    private RoomData playersRoom = null;
+    private GameObject playersRoomGO = null;
 
     public GameObject PlayerIconPrefab;
     public GameObject BossIconPrefab;
@@ -39,7 +39,7 @@ public class MinimapManager : MonoBehaviour
     }
     private void Move(int dir)
     {
-        if (!playersRoom.connections[dir])
+        if (!playersRoomGO.GetComponent<RoomData>().connections[dir])
         {
             //Error Animation(Player goes to the direction "hits" the room wall, glows red and vibrates)
             return;
@@ -53,13 +53,14 @@ public class MinimapManager : MonoBehaviour
             _ => Vector2Int.zero
         };
 
-        Vector2Int newPos = playersRoom.position + direction;
+        Vector2Int newPos = playersRoomGO.GetComponent<RoomData>().position + direction;
 
         RoomData newRoom = grid[newPos.x, newPos.y];
 
-        playersRoom = newRoom;
+        playersRoomGO = newRoom.position.x;
         _movement = false;
     }
+
     bool _movement = false;
     public void ShowMap(bool movement = false)
     {
@@ -73,8 +74,6 @@ public class MinimapManager : MonoBehaviour
 
         Transform roomsParent = openMapInstance.transform.Find("Rooms");
         Transform intersectionsParent = openMapInstance.transform.Find("Intersections");
-
-
 
         for (int x = 0; x < width; x++)
         {
@@ -90,6 +89,9 @@ public class MinimapManager : MonoBehaviour
                 roomGO.name = $"Room {x};{y}";
 
                 if (room.Explored) roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
+
+                if (roomGO == playersRoomGO) Instantiate(PlayerIconPrefab, roomGO.transform);
+                
                 for (int i = 0; i < 4; i++)
                 {
                     if (!room.connections[i]) continue;
@@ -117,14 +119,9 @@ public class MinimapManager : MonoBehaviour
                     if (i == 0 || i == 2)
                         interGO.transform.rotation = Quaternion.Euler(0, 0, 90);
                 }
-                if (room == playersRoom)
-                {
-                    Instantiate(PlayerIconPrefab, roomGO.transform);
-                    playersRoom = room;
-                }
             }
         }
-        if (movement || _movement) EnableMovement(playersRoom);
+        if (movement || _movement) EnableMovement(playersRoomGO);
 
         gameScript.GameControls.PlayerControls.Disable();
     }
@@ -180,18 +177,18 @@ public class MinimapManager : MonoBehaviour
                     int nx = x + dir.x;
                     int ny = y + dir.y;
 
-                    if (!IsInsideBounds(new Vector2Int(nx, ny)) || grid[nx, ny] == null) continue;
+                    //if (!IsInsideBounds(new Vector2Int(nx, ny)) || grid[nx, ny] == null) continue;
 
                     // Para evitar interseções duplicadas, só cria se o vizinho for "posterior" no eixo.
                     if (nx < x || ny < y) continue;
 
                     Vector3 interPos = new(x + dir.x * 0.5f, y + dir.y * 0.5f, 0);
-                    GameObject interGO = Instantiate(IntersectionPrefab, Vector3.zero, Quaternion.identity, intersectionsParent);
-                    interGO.transform.localPosition = interPos;
-                    interGO.name = $"Intersection {interPos.x};{interPos.y}";
+                    GameObject inter = Instantiate(IntersectionPrefab, Vector3.zero, Quaternion.identity, intersectionsParent);
+                    inter.transform.localPosition = interPos;
+                    inter.name = $"Intersection {interPos.x};{interPos.y}";
 
                     if (i == 0 || i == 2)
-                        interGO.transform.rotation = Quaternion.Euler(0, 0, 90);
+                        inter.transform.rotation = Quaternion.Euler(0, 0, 90);
                 }
             }
         }
@@ -222,7 +219,7 @@ public class MinimapManager : MonoBehaviour
         {
             GameObject roomGO = GameObject.Find($"Room {mostBottomRight.position.x};{mostBottomRight.position.y}");
             Instantiate(PlayerIconPrefab, roomGO.transform);
-            playersRoom = mostBottomRight;
+            playersRoomGO = roomGO;
             mostBottomRight.Explored = true;
             roomGO.GetComponent<Renderer>().enabled = true;
             roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
@@ -281,6 +278,8 @@ public class MinimapManager : MonoBehaviour
         GameObject roomGO = Instantiate(RoomPrefab, transform.Find("Rooms"));
         roomGO.name = $"Room {pos.x};{pos.y}";
         roomGO.transform.localPosition = new Vector3(pos.x, pos.y, 0);
+        
+        //Change RoomData atributes
 
         RoomData room = roomGO.GetComponent<RoomData>();
         room.position = pos;

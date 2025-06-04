@@ -9,7 +9,7 @@ public class Enemy : Actors
     {
         public Vector2Int Position;
         public float GCost; // Custo de chegada (do início até aqui)
-        public float HCost; // Heurística (distância até o destino)
+        public float HCost; // Distância até o destino
         public float FCost => GCost + HCost; // Custo total
         public Node Parent; // Para reconstruir o caminho
 

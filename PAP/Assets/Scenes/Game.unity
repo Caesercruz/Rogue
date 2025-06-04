@@ -452,6 +452,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1718707279431145499, guid: f0ad22174fdd63147ac94a717880d898, type: 3}
     - target: {fileID: 6303260946941622842, guid: cc93f25f3956bbd4986067fc21c91d4f, type: 3}
+      propertyPath: openMapPrefab
+      value: 
+      objectReference: {fileID: 5135254438552157757, guid: 5fe82d34100f0c34fb5af78cf4e44b6b, type: 3}
+    - target: {fileID: 6303260946941622842, guid: cc93f25f3956bbd4986067fc21c91d4f, type: 3}
       propertyPath: RoomPrefabVisual
       value: 
       objectReference: {fileID: 6477668810553360538, guid: 9c9cc837196ea714d958d0c42b8a031f, type: 3}
