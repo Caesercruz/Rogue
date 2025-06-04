@@ -92,39 +92,36 @@ public class Player : Actors
 
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                if (!EventSystem.current.IsPointerOverGameObject())
+                if (gameScript.GameControls.PlayerControls.Atack.triggered)
                 {
-                    if (gameScript.GameControls.PlayerControls.Atack.triggered)
+                    if (Energy < 1)
                     {
-                        if (Energy < 1)
-                        {
-                            Debug.Log("Insufficient energy ");
-                            return;
-                        }
-
-                        ClearAttackableTiles(true);
-                        SetAttackableTiles(true);
-                        if (inAttackMode)
-                        {
-                            // Clique em tile enquanto já está em modo de ataque = Atacar
-                            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                            Vector2Int clickedPos = new(Mathf.RoundToInt(mouseWorldPos.x), Mathf.RoundToInt(mouseWorldPos.y));
-
-                            TryAttackAt(clickedPos);
-                        }
-                        else
-                        {
-                            // Entrar em modo de ataque
-                            EnterAttackMode();
-                            inAttackMode = true;
-                        }
+                        Debug.Log("Insufficient energy ");
+                        return;
                     }
 
-                    if (gameScript.GameControls.PlayerControls.Back.triggered)
+                    ClearAttackableTiles(true);
+                    SetAttackableTiles(true);
+                    if (inAttackMode)
                     {
-                        ExitAttackMode();
-                        inAttackMode = false;
+                        // Clique em tile enquanto já está em modo de ataque = Atacar
+                        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                        Vector2Int clickedPos = new(Mathf.RoundToInt(mouseWorldPos.x), Mathf.RoundToInt(mouseWorldPos.y));
+
+                        TryAttackAt(clickedPos);
                     }
+                    else
+                    {
+                        // Entrar em modo de ataque
+                        EnterAttackMode();
+                        inAttackMode = true;
+                    }
+                }
+
+                if (gameScript.GameControls.PlayerControls.Back.triggered)
+                {
+                    ExitAttackMode();
+                    inAttackMode = false;
                 }
             }
             if (gameScript.GameControls.PlayerControls.EndTurn.triggered)

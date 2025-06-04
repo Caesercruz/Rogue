@@ -1,10 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\PAP\\Assets\\Scripts\\",
+  "WorkspaceRootPath": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\PAP\\Assets\\Scripts\\HealthBarController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:HealthBarController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Actors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Actors\\Actors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\SmallStuff\\Tile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SmallStuff\\Tile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HealthBarController.cs",
-              "DocumentMoniker": "E:\\PAP\\Assets\\Scripts\\HealthBarController.cs",
-              "RelativeDocumentMoniker": "HealthBarController.cs",
-              "ToolTip": "E:\\PAP\\Assets\\Scripts\\HealthBarController.cs",
-              "RelativeToolTip": "HealthBarController.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAYwEEAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Tile.cs",
+              "DocumentMoniker": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\SmallStuff\\Tile.cs",
+              "RelativeDocumentMoniker": "SmallStuff\\Tile.cs",
+              "ToolTip": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\SmallStuff\\Tile.cs",
+              "RelativeToolTip": "SmallStuff\\Tile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T16:41:02.965Z",
+              "WhenOpened": "2025-06-03T14:29:25.35Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Actors.cs",
+              "DocumentMoniker": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Actors.cs",
+              "RelativeDocumentMoniker": "Actors\\Actors.cs",
+              "ToolTip": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Actors.cs",
+              "RelativeToolTip": "Actors\\Actors.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAKsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T13:53:28.046Z",
               "EditorCaption": ""
             }
           ]

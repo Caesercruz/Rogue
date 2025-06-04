@@ -7,6 +7,7 @@ public class MinimapManager : MonoBehaviour
     [SerializeField] private GameObject openMapPrefab;
     [SerializeField] private GameObject hitboxPrefab;
     [SerializeField] private GameObject RoomPrefab;
+    [SerializeField] private GameObject RoomPrefabVisual;
     [SerializeField] private GameObject IntersectionPrefab;
     [SerializeField] private GameObject ArrowPrefab;
     [SerializeField] private GameScript gameScript;
@@ -29,6 +30,7 @@ public class MinimapManager : MonoBehaviour
         if (openMapInstance != null)
         {
             if (gameScript.GameControls.Actions.Back.triggered) CloseMap();
+            if (!_movement) return;
             if (gameScript.GameControls.MapMovement.Up.triggered) Move(0);
             if (gameScript.GameControls.MapMovement.Right.triggered) Move(1);
             if (gameScript.GameControls.MapMovement.Down.triggered) Move(2);
@@ -56,10 +58,12 @@ public class MinimapManager : MonoBehaviour
         RoomData newRoom = grid[newPos.x, newPos.y];
 
         playersRoom = newRoom;
-
+        _movement = false;
     }
+    bool _movement = false;
     public void ShowMap(bool movement = false)
     {
+        if (movement == true) _movement = true;
         if (openMapInstance != null) return;
 
         hitboxInstance = Instantiate(hitboxPrefab, Canvas.transform);
@@ -80,7 +84,7 @@ public class MinimapManager : MonoBehaviour
                 if (room == null) continue;
 
                 Vector3 pos = new(x, y, 0);
-                GameObject roomGO = Instantiate(RoomPrefab, Vector3.zero, Quaternion.identity, roomsParent);
+                GameObject roomGO = Instantiate(RoomPrefabVisual, Vector3.zero, Quaternion.identity, roomsParent);
                 roomGO.transform.localPosition = pos;
 
                 roomGO.name = $"Room {x};{y}";
@@ -113,14 +117,14 @@ public class MinimapManager : MonoBehaviour
                     if (i == 0 || i == 2)
                         interGO.transform.rotation = Quaternion.Euler(0, 0, 90);
                 }
-                if (room.PlayerInside)
+                if (room == playersRoom)
                 {
                     Instantiate(PlayerIconPrefab, roomGO.transform);
                     playersRoom = room;
                 }
             }
         }
-        if (movement) EnableMovement(playersRoom);
+        if (movement || _movement) EnableMovement(playersRoom);
 
         gameScript.GameControls.PlayerControls.Disable();
     }
@@ -151,6 +155,8 @@ public class MinimapManager : MonoBehaviour
 
     public void GenerateMiniMapVisuals()
     {
+        Transform intersectionsParent = transform.Find("Intersections");
+
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -158,11 +164,6 @@ public class MinimapManager : MonoBehaviour
                 RoomData room = grid[x, y];
                 if (room == null) continue;
 
-                Vector3 pos = new(x, y, 0);
-                GameObject roomGO = Instantiate(RoomPrefab, Vector3.zero, Quaternion.identity, gameObject.transform.Find("Rooms"));
-                roomGO.transform.localPosition = pos;
-
-                roomGO.name = $"Room {x};{y}";
                 for (int i = 0; i < 4; i++)
                 {
                     if (!room.connections[i]) continue;
@@ -179,14 +180,15 @@ public class MinimapManager : MonoBehaviour
                     int nx = x + dir.x;
                     int ny = y + dir.y;
 
-                    // Verifica se a sala vizinha existe antes de instanciar a interseção
-
                     if (!IsInsideBounds(new Vector2Int(nx, ny)) || grid[nx, ny] == null) continue;
 
+                    // Para evitar interseções duplicadas, só cria se o vizinho for "posterior" no eixo.
+                    if (nx < x || ny < y) continue;
+
                     Vector3 interPos = new(x + dir.x * 0.5f, y + dir.y * 0.5f, 0);
-                    GameObject interGO = Instantiate(IntersectionPrefab, Vector3.zero, Quaternion.identity, gameObject.transform.Find("Intersections"));
+                    GameObject interGO = Instantiate(IntersectionPrefab, Vector3.zero, Quaternion.identity, intersectionsParent);
                     interGO.transform.localPosition = interPos;
-                    interGO.name = $"Intersection {x + dir.x * 0.5f};{y + dir.y * 0.5f}";
+                    interGO.name = $"Intersection {interPos.x};{interPos.y}";
 
                     if (i == 0 || i == 2)
                         interGO.transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -210,20 +212,20 @@ public class MinimapManager : MonoBehaviour
                     room.position.x < mostBottomRight.position.x ||
                     (room.position.x == mostBottomRight.position.x && room.position.y < mostBottomRight.position.y))
                 {
-                    room.PlayerInside = true;
                     mostBottomRight = room;
                 }
             }
         }
+        playersRoom = mostBottomRight;
 
         if (mostBottomRight != null)
         {
             GameObject roomGO = GameObject.Find($"Room {mostBottomRight.position.x};{mostBottomRight.position.y}");
             Instantiate(PlayerIconPrefab, roomGO.transform);
-            mostBottomRight.PlayerInside = true;
+            playersRoom = mostBottomRight;
             mostBottomRight.Explored = true;
             roomGO.GetComponent<Renderer>().enabled = true;
-            roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);//Fafas
+            roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
         }
     }
     private void EnableMovement(RoomData room)
@@ -265,12 +267,9 @@ public class MinimapManager : MonoBehaviour
             arrow.name = $"Arrow_{i}";
 
             Transform arrowRoomPosition = arrowContainerObj.transform.Find("../Rooms");
-            Debug.Log($"Rooms name: {arrowRoomPosition.name}");
-            Debug.Log($"Room {room.position.x + offsets[i].x};{room.position.y + offsets[i].y}");
 
             Transform RoomTransform = arrowRoomPosition.Find($"Room {room.position.x + offsets[i].x};{room.position.y + offsets[i].y}");
 
-            Debug.Log(RoomTransform.name);
             Vector3 targetPos = RoomTransform.position;
             arrow.transform.SetPositionAndRotation(new(targetPos.x, targetPos.y, 0), Quaternion.Euler(0, 0, rotations[i]));
         }
@@ -279,16 +278,19 @@ public class MinimapManager : MonoBehaviour
     {
         if (roomsCreated >= maxRooms || grid[pos.x, pos.y] != null) return;
 
-        RoomData room = new() { position = pos };
-        grid[pos.x, pos.y] = room;
+        GameObject roomGO = Instantiate(RoomPrefab, transform.Find("Rooms"));
+        roomGO.name = $"Room {pos.x};{pos.y}";
+        roomGO.transform.localPosition = new Vector3(pos.x, pos.y, 0);
+
+        RoomData room = roomGO.GetComponent<RoomData>();
+        room.position = pos;
 
         float roomRandom = Random.value;
-        if (roomRandom <= .4)
-        {
-            room.type = RoomData.Type.Fight;
-        }
-        else if(roomRandom>.4 && roomRandom<=.8) room.type = RoomData.Type.Event;
+        if (roomRandom <= .4f) room.type = RoomData.Type.Fight;
+        else if (roomRandom <= .8f) room.type = RoomData.Type.Event;
         else room.type = RoomData.Type.Nothing;
+
+        grid[pos.x, pos.y] = room;
         roomsCreated++;
 
         var directions = new (int index, Vector2Int dir)[]
@@ -299,7 +301,6 @@ public class MinimapManager : MonoBehaviour
         (3, Vector2Int.left)
         }.OrderBy(_ => Random.value).ToArray();
 
-        //Se a sala adjacente existe e o random passa com 70% cria a interceção. Faz isso para cada direção
         foreach (var (i, dir) in directions)
         {
             Vector2Int nextPos = pos + dir;
@@ -314,6 +315,7 @@ public class MinimapManager : MonoBehaviour
                 room.connections[i] = false;
                 return;
             }
+
             int opposite = (i + 2) % 4;
             grid[nextPos.x, nextPos.y].connections[opposite] = true;
         }
