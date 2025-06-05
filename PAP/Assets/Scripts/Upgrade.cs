@@ -102,7 +102,7 @@ public class Upgrade : MonoBehaviour
         {
             AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
 
-            animationSpawner.PerksSelectedAnimation(SelectedBuff == null, SelectedByproduct == null);
+            animationSpawner.PerksSelectedAnimation(upgradeScreen,SelectedBuff == null, SelectedByproduct == null);
             return;
         }
 

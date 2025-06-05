@@ -65,7 +65,7 @@ public class AnimationManager : MonoBehaviour
 
         Image iconImage = iconTransform.GetComponent<Image>();
         if (iconImage == null) yield break;
-        Vector3 originalPos = new(0, 0, 0);
+        Vector3 originalPos = Vector3.zero;
         if (originalBuffPos == Vector3.zero && Buff) { originalBuffPos = iconTransform.localPosition; Debug.Log("Nova posição"); }
         if (originalDebuffPos == Vector3.zero && !Buff){ originalDebuffPos = iconTransform.localPosition; Debug.Log("Nova posição(2)"); }
         if (Buff) originalPos = originalBuffPos;

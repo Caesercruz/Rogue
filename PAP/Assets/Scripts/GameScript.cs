@@ -51,7 +51,7 @@ public class GameScript : MonoBehaviour
     private void Gameplay()
     {
         MapManager.GenerateMap();
-        MapManager.GenerateMiniMapVisuals();
+        MapManager.GenerateMiniMapIntersections();
         GenerateGrid();
         MapManager.SpawnIcons();
         playerInstance = actors.SpawnCharacter(_playerPrefab, "Player", true);

@@ -54,11 +54,10 @@ public class MinimapManager : MonoBehaviour
         };
 
         Vector2Int newPos = playersRoomGO.GetComponent<RoomData>().position + direction;
-
-        RoomData newRoom = grid[newPos.x, newPos.y];
-
-        playersRoomGO = newRoom.position.x;
+        playersRoomGO = gameObject.transform.Find($"Rooms/Room {newPos.x};{newPos.y}").gameObject;
         _movement = false;
+        CloseMap();
+        UpdateMapVisual();
     }
 
     bool _movement = false;
@@ -90,8 +89,6 @@ public class MinimapManager : MonoBehaviour
 
                 if (room.Explored) roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
 
-                if (roomGO == playersRoomGO) Instantiate(PlayerIconPrefab, roomGO.transform);
-                
                 for (int i = 0; i < 4; i++)
                 {
                     if (!room.connections[i]) continue;
@@ -121,11 +118,10 @@ public class MinimapManager : MonoBehaviour
                 }
             }
         }
-        if (movement || _movement) EnableMovement(playersRoomGO);
-
+        if (movement || _movement) EnableMovement(playersRoomGO.GetComponent<RoomData>());
+        Instantiate(PlayerIconPrefab, openMapInstance.transform.Find($"Rooms/{playersRoomGO.name}"));
         gameScript.GameControls.PlayerControls.Disable();
     }
-
     public void CloseMap()
     {
         if (openMapInstance != null)
@@ -144,13 +140,11 @@ public class MinimapManager : MonoBehaviour
         int roomsCreated = 0;
         CreateRoomRecursive(startPos, ref roomsCreated);
     }
-
     bool IsInsideBounds(Vector2Int pos)
     {
         return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
     }
-
-    public void GenerateMiniMapVisuals()
+    public void GenerateMiniMapIntersections()
     {
         Transform intersectionsParent = transform.Find("Intersections");
 
@@ -177,9 +171,6 @@ public class MinimapManager : MonoBehaviour
                     int nx = x + dir.x;
                     int ny = y + dir.y;
 
-                    //if (!IsInsideBounds(new Vector2Int(nx, ny)) || grid[nx, ny] == null) continue;
-
-                    // Para evitar interseções duplicadas, só cria se o vizinho for "posterior" no eixo.
                     if (nx < x || ny < y) continue;
 
                     Vector3 interPos = new(x + dir.x * 0.5f, y + dir.y * 0.5f, 0);
@@ -193,7 +184,19 @@ public class MinimapManager : MonoBehaviour
             }
         }
     }
-
+    public void UpdateMapVisual()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                RoomData room = grid[x, y];
+                if (room == null) continue;
+                if (room.Explored) gameObject.transform.Find($"Room {x};{y}");
+            }
+        }
+        //Destroy(gameObject.transform.Find(""));
+    }
     public void SpawnIcons()
     {
         RoomData mostBottomRight = null;
@@ -213,16 +216,13 @@ public class MinimapManager : MonoBehaviour
                 }
             }
         }
-        playersRoom = mostBottomRight;
 
         if (mostBottomRight != null)
         {
-            GameObject roomGO = GameObject.Find($"Room {mostBottomRight.position.x};{mostBottomRight.position.y}");
-            Instantiate(PlayerIconPrefab, roomGO.transform);
-            playersRoomGO = roomGO;
-            mostBottomRight.Explored = true;
-            roomGO.GetComponent<Renderer>().enabled = true;
-            roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
+            playersRoomGO = GameObject.Find($"Room {mostBottomRight.position.x};{mostBottomRight.position.y}");
+            Instantiate(PlayerIconPrefab, gameObject.transform);
+            playersRoomGO.GetComponent<RoomData>().Explored = true;
+            playersRoomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
         }
     }
     private void EnableMovement(RoomData room)
@@ -278,7 +278,7 @@ public class MinimapManager : MonoBehaviour
         GameObject roomGO = Instantiate(RoomPrefab, transform.Find("Rooms"));
         roomGO.name = $"Room {pos.x};{pos.y}";
         roomGO.transform.localPosition = new Vector3(pos.x, pos.y, 0);
-        
+
         //Change RoomData atributes
 
         RoomData room = roomGO.GetComponent<RoomData>();
