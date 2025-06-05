@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AnimationManager : MonoBehaviour
 {
-    public GameObject slashAnimationPrefab,DoubleSlashPrefab;
+    public GameObject slashAnimationPrefab, DoubleSlashPrefab;
     public IEnumerator MoveOverTime(Transform objTransform, Vector3 targetPosition, float duration)
     {
         Vector3 startPos = objTransform.position;
@@ -25,7 +24,7 @@ public class AnimationManager : MonoBehaviour
         Default,
         Double
     };
-    public void SpawnSlashAnimation(StrikeType type,Transform canvasTransform)
+    public void SpawnSlashAnimation(StrikeType type, Transform canvasTransform)
     {
         if (type == StrikeType.Default)
         {
@@ -37,45 +36,49 @@ public class AnimationManager : MonoBehaviour
         }
     }
 
-    public void PerksSelectedAnimation(bool buffMissing, bool byproductMissing)
+    public bool PerksSelectedAnimation(GameObject upgradeScreen, bool buffMissing, bool byproductMissing)
     {
-        GameObject upgrade = GameObject.Find("UpgradeScreen");
-
         if (buffMissing)
         {
-            Transform areaBuff = upgrade.transform.Find("Upgrade Area");
+            Transform areaBuff = upgradeScreen.transform.Find("Upgrade Area");
             Transform icon = areaBuff.transform.Find("Atribute/Icon");
-            StartCoroutine(AnimateIcon(icon));
+            StartCoroutine(AnimateIcon(true, icon));
         }
 
         if (byproductMissing)
         {
-            Transform areaByprod = upgrade.transform.Find("Down Side Area");
+            Transform areaByprod = upgradeScreen.transform.Find("Down Side Area");
             Transform icon = areaByprod.transform.Find("Atribute/Icon");
-            StartCoroutine(AnimateIcon(icon));
+            StartCoroutine(AnimateIcon(false, icon));
         }
+        return true;
     }
     public void OnAnimationEnd()
     {
         Destroy(gameObject);
     }
-    public IEnumerator AnimateIcon(Transform iconTransform)
+    Vector3 originalBuffPos = Vector3.zero;
+    Vector3 originalDebuffPos = Vector3.zero;
+    public IEnumerator AnimateIcon(bool Buff, Transform iconTransform)
     {
         if (iconTransform == null) yield break;
 
         Image iconImage = iconTransform.GetComponent<Image>();
         if (iconImage == null) yield break;
-
-        Vector3 originalPos = iconTransform.localPosition;
+        Vector3 originalPos = new(0, 0, 0);
+        if (originalBuffPos == Vector3.zero && Buff) { originalBuffPos = iconTransform.localPosition; Debug.Log("Nova posição"); }
+        if (originalDebuffPos == Vector3.zero && !Buff){ originalDebuffPos = iconTransform.localPosition; Debug.Log("Nova posição(2)"); }
+        if (Buff) originalPos = originalBuffPos;
+        else originalPos = originalDebuffPos;
         Color originalColor = iconImage.color;
         Color alertColor = Color.red;
 
-        float vibrationStrength = 5f;
+        float vibrationStrength = .5f;
         float duration = 0.1f;
 
         for (int i = 0; i < 3; i++)
         {
-            // Vibração (move ligeiramente para os lados)
+            // Vibrate
             iconTransform.localPosition = originalPos + (Vector3.right * vibrationStrength);
             iconImage.color = alertColor;
             yield return new WaitForSeconds(duration);
