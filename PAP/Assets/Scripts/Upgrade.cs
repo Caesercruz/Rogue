@@ -102,7 +102,7 @@ public class Upgrade : MonoBehaviour
         {
             AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
 
-            animationSpawner.PerksSelectedAnimation(upgradeScreen,SelectedBuff == null, SelectedByproduct == null);
+            animationSpawner.PerksSelectedAnimation(upgradeScreen, SelectedBuff == null, SelectedByproduct == null);
             return;
         }
 
@@ -144,8 +144,16 @@ public class Upgrade : MonoBehaviour
     }
     private bool PerksSelectedValidation()
     {
-        if (SelectedBuff == null || SelectedByproduct == null) return false;
-        else return true;
-    }
 
+        if (SelectedBuff == null && SelectedByproduct == null)
+        {
+            WarningPerks();
+        }
+        if (SelectedBuff == null || SelectedByproduct == null) return false;
+        return true;
+    }
+    public void WarningPerks()
+    {
+        //No perk selected
+    }
 }

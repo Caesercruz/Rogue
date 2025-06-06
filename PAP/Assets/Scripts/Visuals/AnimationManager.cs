@@ -91,7 +91,7 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForSeconds(duration);
         }
     }
-
+    
     public IEnumerator AnimatePopupSpawn(Transform target, float duration = 0.5f)
     {
         Debug.Log("Iniciando animação de escala...");

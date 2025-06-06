@@ -25,6 +25,7 @@ public class MinimapManager : MonoBehaviour
     public GameObject PlayerIconPrefab;
     public GameObject BossIconPrefab;
 
+    public GameObject PlayerIconInstance;
     private void Update()
     {
         if (openMapInstance != null)
@@ -48,13 +49,15 @@ public class MinimapManager : MonoBehaviour
         {
             0 => Vector2Int.up,
             1 => Vector2Int.right,
-            2 => Vector2Int.left,
-            3 => Vector2Int.down,
+            2 => Vector2Int.down,
+            3 => Vector2Int.left,
             _ => Vector2Int.zero
         };
 
         Vector2Int newPos = playersRoomGO.GetComponent<RoomData>().position + direction;
         playersRoomGO = gameObject.transform.Find($"Rooms/Room {newPos.x};{newPos.y}").gameObject;
+        playersRoomGO.GetComponent<RoomData>().Explored = true;
+        Destroy(gameObject.transform.Find("ArrowContainer").gameObject);
         _movement = false;
         CloseMap();
         UpdateMapVisual();
@@ -192,10 +195,14 @@ public class MinimapManager : MonoBehaviour
             {
                 RoomData room = grid[x, y];
                 if (room == null) continue;
-                if (room.Explored) gameObject.transform.Find($"Room {x};{y}");
+                if (room.Explored) gameObject.transform.Find($"Rooms/Room {x};{y}").GetComponent<SpriteRenderer>()
+                        .color = new(.676f, .827f, .38f, 1);
             }
         }
-        //Destroy(gameObject.transform.Find(""));
+        Destroy(PlayerIconInstance);
+        PlayerIconInstance = Instantiate(PlayerIconPrefab, gameObject.transform);
+        PlayerIconInstance.transform.position = playersRoomGO.transform.position;
+        PlayerIconInstance.transform.localScale = new(.25f,.3f,1);
     }
     public void SpawnIcons()
     {
@@ -220,7 +227,10 @@ public class MinimapManager : MonoBehaviour
         if (mostBottomRight != null)
         {
             playersRoomGO = GameObject.Find($"Room {mostBottomRight.position.x};{mostBottomRight.position.y}");
-            Instantiate(PlayerIconPrefab, gameObject.transform);
+            PlayerIconInstance = Instantiate(PlayerIconPrefab, gameObject.transform);
+            PlayerIconInstance.transform.position = playersRoomGO.transform.position;
+            PlayerIconInstance.transform.localScale = new Vector3(.25f, .3f, 1);
+
             playersRoomGO.GetComponent<RoomData>().Explored = true;
             playersRoomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
         }
