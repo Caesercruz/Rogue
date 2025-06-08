@@ -26,9 +26,9 @@ public class Enemy : Actors
         actors = GameObject.Find("BoardManager").GetComponent<Actors>();
         gameScript.ratInstance = gameObject;
 
-        HealthBar = Instantiate(HealthBar, GameObject.Find("Canvas").GetComponent<HUDManager>().healthBarsContainer);
+        HealthBar = Instantiate(HealthBar, GameObject.Find("Canvas").GetComponent<HUDManager>().GetHealthBarContainer());
         HealthBar.name = $"{gameObject.name} HealthBar";
-
+        //Debug.Log(HealthBar.transform.parent.name);
         HealthBarHoverHandler hoverScript = HealthBar.GetComponent<HealthBarHoverHandler>();
         if (hoverScript == null)
         {
@@ -63,7 +63,7 @@ public class Enemy : Actors
             if (gameScript.NumberOfEnemies == 0)
             {
                 gameScript.Gamestate = GameScript.GameState.WonEncounter;
-
+                
                 Canvas instance = Instantiate(gameScript.UpdateScreen);
                 instance.name = "UpdateScreen";
 
@@ -71,7 +71,6 @@ public class Enemy : Actors
                 AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
 
                 //StartCoroutine(animationSpawner.AnimatePopupSpawn(instance.transform));
-
                 return;
             }
             RecalculateEnemyAttacks();

@@ -11,7 +11,7 @@ public class MinimapManager : MonoBehaviour
     [SerializeField] private GameObject IntersectionPrefab;
     [SerializeField] private GameObject ArrowPrefab;
     [SerializeField] private GameScript gameScript;
-    public GameObject Canvas;
+    //public GameObject Canvas;
 
     [SerializeField] private GameObject openMapInstance;
     [SerializeField] private GameObject hitboxInstance;
@@ -61,6 +61,8 @@ public class MinimapManager : MonoBehaviour
         _movement = false;
         CloseMap();
         UpdateMapVisual();
+        if (playersRoomGO.GetComponent<RoomData>().type==RoomData.Type.Fight) return;
+        gameScript.CleanScene();
     }
 
     bool _movement = false;
@@ -69,8 +71,8 @@ public class MinimapManager : MonoBehaviour
         if (movement == true) _movement = true;
         if (openMapInstance != null) return;
 
-        hitboxInstance = Instantiate(hitboxPrefab, Canvas.transform);
-        openMapInstance = Instantiate(openMapPrefab, Canvas.transform);
+        hitboxInstance = Instantiate(hitboxPrefab, transform.parent);
+        openMapInstance = Instantiate(openMapPrefab, transform.parent);
         openMapInstance.name = "Map";
         hitboxInstance.GetComponent<Button>().onClick.AddListener(() => GetComponent<MinimapManager>().CloseMap());
 
@@ -232,6 +234,7 @@ public class MinimapManager : MonoBehaviour
             PlayerIconInstance.transform.localScale = new Vector3(.25f, .3f, 1);
 
             playersRoomGO.GetComponent<RoomData>().Explored = true;
+            playersRoomGO.GetComponent<RoomData>().type = RoomData.Type.Fight;
             playersRoomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
         }
     }
@@ -281,7 +284,7 @@ public class MinimapManager : MonoBehaviour
             arrow.transform.SetPositionAndRotation(new(targetPos.x, targetPos.y, 0), Quaternion.Euler(0, 0, rotations[i]));
         }
     }
-    void CreateRoomRecursive(Vector2Int pos, ref int roomsCreated)
+    private void CreateRoomRecursive(Vector2Int pos, ref int roomsCreated)
     {
         if (roomsCreated >= maxRooms || grid[pos.x, pos.y] != null) return;
 

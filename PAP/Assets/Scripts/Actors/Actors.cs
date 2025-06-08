@@ -31,12 +31,11 @@ public class Actors : MonoBehaviour
     private float nextMoveTime = 0f;
     private readonly int _spawnRangeWidth = 2, _spawnRangeHeight = 6, _enemySpawnRangeWidth = 5, _enemySpawnRangeHeight = 6;
 
-    void Start()
+    private void Awake()
     {
         gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
         actors = this;
     }
-
     public bool MoveCharacter(GameObject character, Vector2Int direction)
     {
         Vector2Int position = ActorsCord[character];
@@ -93,8 +92,8 @@ public class Actors : MonoBehaviour
                 gridPosition = new Vector2Int(Random.Range(_enemySpawnRangeWidth, 8), Random.Range(0, _enemySpawnRangeHeight));
         }
         while (IsSpaceOccupied(gridPosition));
-
         Vector3 worldPosition = new(gridPosition.x, gridPosition.y, 0);
+
         character = Instantiate(character, worldPosition, Quaternion.identity, actors.transform);
         character.name = name;
 

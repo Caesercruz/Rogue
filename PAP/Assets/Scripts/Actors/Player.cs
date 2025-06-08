@@ -14,14 +14,12 @@ public class Player : Actors
     private void Start()
     {
         gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
-        actors = GameObject.Find("BoardManager").GetComponent<Actors>();
+        actors = gameScript.transform.Find("BoardManager").GetComponent<Actors>();
         perkEffects = gameScript.GetComponent<PerkEffects>();
         gameScript.GameControls.PlayerControls.Enable();
 
         gameScript.playerInstance = gameObject;
-        HealthBar = Instantiate(HealthBar, GameObject.Find("Canvas").transform);
-
-        HealthBar.name = "Player's HealthBar";
+        HealthBar = gameScript.transform.Find("Canvas/Player's HealthBar").GetComponent<Slider>();
 
         ChangeEnergy(MaxEnergy, MaxEnergy);
         ChangeHealth(HealthBar, MaxHealth, MaxHealth);
@@ -104,7 +102,6 @@ public class Player : Actors
                     SetAttackableTiles(true);
                     if (inAttackMode)
                     {
-                        // Clique em tile enquanto já está em modo de ataque = Atacar
                         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                         Vector2Int clickedPos = new(Mathf.RoundToInt(mouseWorldPos.x), Mathf.RoundToInt(mouseWorldPos.y));
 
@@ -112,7 +109,6 @@ public class Player : Actors
                     }
                     else
                     {
-                        // Entrar em modo de ataque
                         EnterAttackMode();
                         inAttackMode = true;
                     }

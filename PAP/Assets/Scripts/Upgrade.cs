@@ -60,7 +60,7 @@ public class Upgrade : MonoBehaviour
                 // Limpa eventos antigos
                 trigger.triggers.Clear();
 
-                // Evento: Hover (mostrar nome do perk)
+                //Hover-mostrar nome do perk
                 EventTrigger.Entry hoverEntry = new()
                 {
                     eventID = EventTriggerType.PointerEnter
@@ -68,7 +68,7 @@ public class Upgrade : MonoBehaviour
                 hoverEntry.callback.AddListener((data) => GetPerkName(perk));
                 trigger.triggers.Add(hoverEntry);
 
-                // Evento: Clique (selecionar perk)
+                // Click-selecionar perk
                 EventTrigger.Entry clickEntry = new()
                 {
                     eventID = EventTriggerType.PointerClick

@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
-    [SerializeField] private Player player;
-    [SerializeField] private TextMeshProUGUI _txt_energy;
-    [SerializeField] private Image _image_Energy;
+    private TextMeshProUGUI _txt_energy = null;
+    private Image _image_Energy = null;
 
     public Transform healthBarsContainer;
-
+    public Transform GetHealthBarContainer()
+    {
+        if (healthBarsContainer == null) healthBarsContainer = transform.Find("Combat UI/HealthBarsContainer");
+        return healthBarsContainer;
+    }
     public void UpdateHealth(Slider healthBar, int health, int maxHealth)
     {
         TextMeshProUGUI hpText = healthBar.GetComponentInChildren<TextMeshProUGUI>();
@@ -21,6 +24,7 @@ public class HUDManager : MonoBehaviour
 
     public void UpdateEnergy(int energy, int maxEnergy)
     {
+        CheckUIElements();
         _txt_energy.text = energy.ToString();
         _image_Energy.fillAmount = (float)energy / maxEnergy;
     }
@@ -41,5 +45,17 @@ public class HUDManager : MonoBehaviour
         Vector3 newPos = new(0, offsetY, 0);
 
         rectTransform.localPosition += newPos;
+    }
+
+    private void CheckUIElements()
+    {
+        if(_txt_energy == null)
+        {
+            _txt_energy = gameObject.transform.Find("Combat UI/EnergyCircle/EnergyText").GetComponent<TextMeshProUGUI>();
+        }
+        if(_image_Energy == null)
+        {
+            _image_Energy = gameObject.transform.Find("Combat UI/EnergyCircle/Fill").GetComponent<Image>();
+        } 
     }
 }
