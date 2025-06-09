@@ -103,6 +103,7 @@ public class Actors : MonoBehaviour
         {
             tile.IsOccupied = true;
         }
+        gameScript.NumberOfEnemies++;
         return character;
     }
 

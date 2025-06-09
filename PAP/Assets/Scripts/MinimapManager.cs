@@ -20,12 +20,15 @@ public class MinimapManager : MonoBehaviour
     public readonly int height = 7;
     public RoomData[,] grid;
     private readonly int maxRooms = 35;
-    private GameObject playersRoomGO = null;
 
     public GameObject PlayerIconPrefab;
+    private GameObject playersRoomGO = null;
+
     public GameObject BossIconPrefab;
+    private GameObject bossRoomGO = null;
 
     public GameObject PlayerIconInstance;
+    public GameObject BossIconInstance;
     private void Update()
     {
         if (openMapInstance != null)
@@ -61,8 +64,9 @@ public class MinimapManager : MonoBehaviour
         _movement = false;
         CloseMap();
         UpdateMapVisual();
-        if (playersRoomGO.GetComponent<RoomData>().type==RoomData.Type.Fight) return;
         gameScript.CleanScene();
+        if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Fight) gameScript.Combat(false);
+        if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Infected) gameScript.Combat(true);
     }
 
     bool _movement = false;
@@ -93,7 +97,7 @@ public class MinimapManager : MonoBehaviour
                 roomGO.name = $"Room {x};{y}";
 
                 if (room.Explored) roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
-
+                if (room.GetComponent<RoomData>().type == RoomData.Type.Bossfight || room.GetComponent<RoomData>().type == RoomData.Type.Infected) roomGO.GetComponent<SpriteRenderer>().color = new(.876f, .327f, .38f, 1);
                 for (int i = 0; i < 4; i++)
                 {
                     if (!room.connections[i]) continue;
@@ -125,6 +129,7 @@ public class MinimapManager : MonoBehaviour
         }
         if (movement || _movement) EnableMovement(playersRoomGO.GetComponent<RoomData>());
         Instantiate(PlayerIconPrefab, openMapInstance.transform.Find($"Rooms/{playersRoomGO.name}"));
+        Instantiate(BossIconPrefab, openMapInstance.transform.Find($"Rooms/{bossRoomGO.name}"));
         gameScript.GameControls.PlayerControls.Disable();
     }
     public void CloseMap()
@@ -204,7 +209,7 @@ public class MinimapManager : MonoBehaviour
         Destroy(PlayerIconInstance);
         PlayerIconInstance = Instantiate(PlayerIconPrefab, gameObject.transform);
         PlayerIconInstance.transform.position = playersRoomGO.transform.position;
-        PlayerIconInstance.transform.localScale = new(.25f,.3f,1);
+        PlayerIconInstance.transform.localScale = new(.25f, .3f, 1);
     }
     public void SpawnIcons()
     {
@@ -225,6 +230,22 @@ public class MinimapManager : MonoBehaviour
                 }
             }
         }
+        RoomData bossRoom = null;
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                RoomData room = grid[x, y];
+                if (room == null) continue;
+
+                if (bossRoom == null ||
+                    room.position.x > bossRoom.position.x ||
+                    (room.position.x == bossRoom.position.x && room.position.y > bossRoom.position.y))
+                {
+                    bossRoom = room;
+                }
+            }
+        }
 
         if (mostBottomRight != null)
         {
@@ -236,6 +257,17 @@ public class MinimapManager : MonoBehaviour
             playersRoomGO.GetComponent<RoomData>().Explored = true;
             playersRoomGO.GetComponent<RoomData>().type = RoomData.Type.Fight;
             playersRoomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
+        }
+
+        if (bossRoom != null)
+        {
+            bossRoomGO = GameObject.Find($"Room {bossRoom.position.x};{bossRoom.position.y}");
+            BossIconInstance = Instantiate(BossIconPrefab, gameObject.transform);
+            BossIconInstance.transform.position = bossRoomGO.transform.position;
+            BossIconInstance.transform.localScale = new Vector3(.25f, .3f, 1);
+
+            bossRoomGO.GetComponent<RoomData>().type = RoomData.Type.Bossfight;
+            bossRoomGO.GetComponent<SpriteRenderer>().color = new(.876f, .327f, .38f, 1);
         }
     }
     private void EnableMovement(RoomData room)
@@ -299,7 +331,7 @@ public class MinimapManager : MonoBehaviour
 
         float roomRandom = Random.value;
         if (roomRandom <= .4f) room.type = RoomData.Type.Fight;
-        else if (roomRandom <= .8f) room.type = RoomData.Type.Event;
+        else if (roomRandom <= .7f) room.type = RoomData.Type.Event;
         else room.type = RoomData.Type.Nothing;
 
         grid[pos.x, pos.y] = room;

@@ -266,6 +266,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &520120022 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5025214060118342575, guid: cc93f25f3956bbd4986067fc21c91d4f, type: 3}
+  m_PrefabInstance: {fileID: 1915769139}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,6 +509,8 @@ MonoBehaviour:
   _scenePrefabInstances:
   - _gameObject: {fileID: 1915769140}
     _prefab: Assets/Prefabs/Screens/GameManager.prefab
+  - _gameObject: {fileID: 520120022}
+    _prefab: Assets/Prefabs/Screens/Background.prefab
   - _gameObject: {fileID: 452647495}
     _prefab: Assets/Prefabs/HealthBars/Player's HealthBar.prefab
 --- !u!4 &1447358009
@@ -593,6 +600,18 @@ PrefabInstance:
       propertyPath: combatUIPrefab
       value: 
       objectReference: {fileID: 5596798264354962279, guid: cde0081af322ca34eb38df1bda2c8064, type: 3}
+    - target: {fileID: 6298731560577338984, guid: cc93f25f3956bbd4986067fc21c91d4f, type: 3}
+      propertyPath: allEncounters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6298731560577338984, guid: cc93f25f3956bbd4986067fc21c91d4f, type: 3}
+      propertyPath: 'allEncounters.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: be7290d8948fbfe49b1698144d979e6d, type: 2}
+    - target: {fileID: 6298731560577338984, guid: cc93f25f3956bbd4986067fc21c91d4f, type: 3}
+      propertyPath: 'allEncounters.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ca59cc8cf8141844bdc6b66060edc8d, type: 2}
     - target: {fileID: 6303260946941622842, guid: cc93f25f3956bbd4986067fc21c91d4f, type: 3}
       propertyPath: ArrowPrefab
       value: 
@@ -616,6 +635,14 @@ PrefabInstance:
     - target: {fileID: 7012276734056102250, guid: cc93f25f3956bbd4986067fc21c91d4f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205376583657712656, guid: cc93f25f3956bbd4986067fc21c91d4f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205376583657712656, guid: cc93f25f3956bbd4986067fc21c91d4f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

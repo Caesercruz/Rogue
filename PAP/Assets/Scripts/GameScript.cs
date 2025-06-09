@@ -22,8 +22,16 @@ public class GameScript : MonoBehaviour
         Rats_2,
         Rats_3,
     }
-    public List<Perk> ActivePerks = new();
+    public enum InfectedEncounter
+    {
+        Rats_2,
+        Rats_3,
+    }
+    
 
+    public List<Perk> ActivePerks = new();
+    private GameObject combatUIInstance;
+    private GameObject boardManagerInstance;
     [SerializeField] private GameObject combatUIPrefab;
     [SerializeField] private GameObject boardManager;
 
@@ -70,7 +78,7 @@ public class GameScript : MonoBehaviour
         MapManager.GenerateMap();
         MapManager.GenerateMiniMapIntersections();
         MapManager.SpawnIcons();
-        Combat();
+        Combat(false);
     }
 
     public void TransformHealthBars()
@@ -91,14 +99,13 @@ public class GameScript : MonoBehaviour
         }
     }
 
-    public void Combat()
+    public void Combat(bool infected)
     {
-        //actors = GameObject.Find("BoardManager").GetComponent<Actors>();
-        GameObject combatUI = Instantiate(combatUIPrefab,gameObject.transform.Find("Canvas"));
-        combatUI.name = "Combat UI";
-       GameObject boardManagerGO = Instantiate(boardManager,gameObject.transform);
-        boardManagerGO.name = "BoardManager";
-        actors = boardManagerGO.GetComponent<Actors>();
+        combatUIInstance = Instantiate(combatUIPrefab,gameObject.transform.Find("Canvas"));
+        combatUIInstance.name = "Combat UI";
+        boardManagerInstance = Instantiate(boardManager,gameObject.transform);
+        boardManagerInstance.name = "BoardManager";
+        actors = boardManagerInstance.GetComponent<Actors>();
         for (int x = 0; x < Width; x++)
         {
             for (int y = 0; y < Height; y++)
@@ -114,37 +121,35 @@ public class GameScript : MonoBehaviour
             }
         }
         playerInstance = actors.SpawnCharacter(_playerPrefab, "Player", true);
-        StartEncounter();
+        StartEncounter(infected);
     }
-    private void StartEncounter()
-    {
-        Encounter currentEncounter = (Encounter)UnityEngine.Random.Range(0, Enum.GetValues(typeof(Encounter)).Length);
-        Debug.Log("Encounter: " + currentEncounter);
 
-        switch (currentEncounter)
+    [SerializeField] private List<EncounterData> allEncounters;
+    public void StartEncounter(bool infected)
+    {
+        var validEncounters = allEncounters.FindAll(e => e.isInfected == infected);
+
+        if (validEncounters.Count == 0)
         {
-            case Encounter.Rats_2:
-                for (NumberOfEnemies = 0; NumberOfEnemies < 2; NumberOfEnemies++)
-                {
-                    actors.SpawnCharacter(_ratPrefab, $"Rat {NumberOfEnemies}", false);
-                }
-                TransformHealthBars();
-                break;
-            case Encounter.Rats_3:
-                for (NumberOfEnemies = 0; NumberOfEnemies < 3; NumberOfEnemies++)
-                {
-                    actors.SpawnCharacter(_ratPrefab, $"Rat {NumberOfEnemies}", false);
-                }
-                TransformHealthBars();
-                break;
-            default:
-                actors.SpawnCharacter(_ratPrefab, $"Rat {NumberOfEnemies}", false);
-                break;
+            Debug.LogWarning("Nenhum encontro válido.");
+            return;
         }
-        TransformHealthBars();
+
+        EncounterData selected = validEncounters[UnityEngine.Random.Range(0, validEncounters.Count)];
+        Debug.Log("Encontro selecionado: " + selected.name);
+
+        foreach (var enemy in selected.DiferentEnemies)
+        {
+            for (int i = 0; i < enemy.amount; i++)
+            {
+                actors.SpawnCharacter(enemy.enemyPrefab, $"{enemy.Name} {i}", false);
+                Debug.Log(NumberOfEnemies);
+            }
+        }
     }
     public void CleanScene()
     {
-
-    } 
+        Destroy(combatUIInstance);
+        Destroy(boardManagerInstance);
+    }
 }
