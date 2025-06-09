@@ -38,6 +38,8 @@ public class Actors : MonoBehaviour
     }
     public bool MoveCharacter(GameObject character, Vector2Int direction)
     {
+        Debug.Log(character.name);
+        Debug.Log(ActorsCord.Keys);
         Vector2Int position = ActorsCord[character];
         Vector2Int newPosition = position + direction;
 
@@ -67,7 +69,7 @@ public class Actors : MonoBehaviour
 
         // Atualiza a posição lógica antes da animação
         ActorsCord[character] = newPosition;
-
+        Debug.Log(gameObject.name+" "+newPosition);
         // Ocupa nova tile
         if (GridTiles.TryGetValue(newPosition, out Tile newTile))
         {
@@ -98,12 +100,13 @@ public class Actors : MonoBehaviour
         character.name = name;
 
             ActorsCord.Add(character, gridPosition);
+        Debug.Log($"Character: {character.name}Position:{gridPosition}");
 
         if (GridTiles.TryGetValue(gridPosition, out Tile tile))
         {
             tile.IsOccupied = true;
         }
-        gameScript.NumberOfEnemies++;
+        if(!isPlayer)gameScript.NumberOfEnemies++;
         return character;
     }
 

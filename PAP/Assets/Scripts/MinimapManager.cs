@@ -67,6 +67,7 @@ public class MinimapManager : MonoBehaviour
         gameScript.CleanScene();
         if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Fight) gameScript.Combat(false);
         if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Infected) gameScript.Combat(true);
+        else gameScript.Combat(false);
     }
 
     bool _movement = false;

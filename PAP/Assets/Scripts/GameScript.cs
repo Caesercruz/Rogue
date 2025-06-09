@@ -101,6 +101,7 @@ public class GameScript : MonoBehaviour
 
     public void Combat(bool infected)
     {
+        GameControls.PlayerControls.Enable();
         combatUIInstance = Instantiate(combatUIPrefab,gameObject.transform.Find("Canvas"));
         combatUIInstance.name = "Combat UI";
         boardManagerInstance = Instantiate(boardManager,gameObject.transform);
@@ -121,12 +122,14 @@ public class GameScript : MonoBehaviour
             }
         }
         playerInstance = actors.SpawnCharacter(_playerPrefab, "Player", true);
+        GameControls.Enable();
         StartEncounter(infected);
     }
 
     [SerializeField] private List<EncounterData> allEncounters;
     public void StartEncounter(bool infected)
     {
+        NumberOfEnemies = 0;
         var validEncounters = allEncounters.FindAll(e => e.isInfected == infected);
 
         if (validEncounters.Count == 0)
@@ -143,7 +146,6 @@ public class GameScript : MonoBehaviour
             for (int i = 0; i < enemy.amount; i++)
             {
                 actors.SpawnCharacter(enemy.enemyPrefab, $"{enemy.Name} {i}", false);
-                Debug.Log(NumberOfEnemies);
             }
         }
     }
