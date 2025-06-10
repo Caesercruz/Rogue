@@ -9,11 +9,6 @@ public class HUDManager : MonoBehaviour
     private Image _image_Energy = null;
 
     public Transform healthBarsContainer;
-    public Transform GetHealthBarContainer()
-    {
-        if (healthBarsContainer == null) healthBarsContainer = transform.Find("Combat UI/HealthBarsContainer");
-        return healthBarsContainer;
-    }
     public void UpdateHealth(Slider healthBar, int health, int maxHealth)
     {
         TextMeshProUGUI hpText = healthBar.GetComponentInChildren<TextMeshProUGUI>();

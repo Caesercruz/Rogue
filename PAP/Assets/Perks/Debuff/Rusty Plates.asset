@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Rusty Plates
   m_EditorClassIdentifier: 
-  perkName: Rusty Plates
   description: Decreases your health by 30%.
   icon: {fileID: -5438501163760368585, guid: 11eb8824c7eed9a4b97357c024687bcc, type: 3}
   type: 1

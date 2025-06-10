@@ -1,12 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static GameScript;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class Actors : MonoBehaviour
 {
@@ -33,13 +27,11 @@ public class Actors : MonoBehaviour
 
     private void Awake()
     {
-        gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
+        gameScript = transform.parent.GetComponent<GameScript>();
         actors = this;
     }
     public bool MoveCharacter(GameObject character, Vector2Int direction)
     {
-        Debug.Log(character.name);
-        Debug.Log(ActorsCord.Keys);
         Vector2Int position = ActorsCord[character];
         Vector2Int newPosition = position + direction;
 
@@ -69,7 +61,6 @@ public class Actors : MonoBehaviour
 
         // Atualiza a posição lógica antes da animação
         ActorsCord[character] = newPosition;
-        Debug.Log(gameObject.name+" "+newPosition);
         // Ocupa nova tile
         if (GridTiles.TryGetValue(newPosition, out Tile newTile))
         {
@@ -83,7 +74,7 @@ public class Actors : MonoBehaviour
         nextMoveTime = Time.time + 0.1f;
         return true;
     }
-    
+
     public GameObject SpawnCharacter(GameObject character, string name, bool isPlayer)
     {
         do
@@ -99,14 +90,13 @@ public class Actors : MonoBehaviour
         character = Instantiate(character, worldPosition, Quaternion.identity, actors.transform);
         character.name = name;
 
-            ActorsCord.Add(character, gridPosition);
-        Debug.Log($"Character: {character.name}Position:{gridPosition}");
+        actors.ActorsCord.Add(character, gridPosition);
 
         if (GridTiles.TryGetValue(gridPosition, out Tile tile))
         {
             tile.IsOccupied = true;
         }
-        if(!isPlayer)gameScript.NumberOfEnemies++;
+        if (!isPlayer) gameScript.NumberOfEnemies++;
         return character;
     }
 
@@ -137,7 +127,7 @@ public class Actors : MonoBehaviour
                 if (isPlayer) tile.InAtackRange = true;
                 else
                 {
-                    tile.UnderAtack += (Strength-Weakness);
+                    tile.UnderAtack += (Strength - Weakness);
                     tile.damage.text = tile.UnderAtack.ToString();
                     if (tile.UnderAtack <= 0) tile.damage.gameObject.SetActive(false);
                     else tile.damage.gameObject.SetActive(true);

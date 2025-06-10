@@ -11,13 +11,11 @@ public class FollowPlayer : MonoBehaviour
 
         if (foundPlayer == null) return;
 
-        player = foundPlayer.GetComponent<Player>()?.gameObject;
-
+        player = foundPlayer.GetComponent<Player>().gameObject;
         if (player == null) return;
 
         RotateTowardsPlayer();
     }
-
 
     void RotateTowardsPlayer()
     {

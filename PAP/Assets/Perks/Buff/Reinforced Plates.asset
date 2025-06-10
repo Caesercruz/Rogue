@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Reinforced Plates
   m_EditorClassIdentifier: 
-  perkName: Reinforced Plates
   description: Increase your max health by 10.
   icon: {fileID: -7003405138980521047, guid: 217bd82a215ac744c920a6639703d4fd, type: 3}
   type: 0
-  active: 1
+  active: 0

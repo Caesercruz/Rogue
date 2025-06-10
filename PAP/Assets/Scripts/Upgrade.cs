@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Upgrade : MonoBehaviour
 {
     public List<Perk> allPerks;
-    GameScript gameScript;
+    public GameScript gameScript;
     Player player;
     public GameObject upgradeScreen;
     public GameObject hitBoxPrefab;
@@ -27,7 +27,6 @@ public class Upgrade : MonoBehaviour
     }
     private void Start()
     {
-        gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
         player = GameObject.Find("Player").GetComponent<Player>();
         upgradeScreen = gameObject;
         gameScript.GameControls.PlayerControls.Disable();

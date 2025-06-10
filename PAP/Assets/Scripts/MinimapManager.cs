@@ -1,4 +1,5 @@
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
@@ -11,7 +12,6 @@ public class MinimapManager : MonoBehaviour
     [SerializeField] private GameObject IntersectionPrefab;
     [SerializeField] private GameObject ArrowPrefab;
     [SerializeField] private GameScript gameScript;
-    //public GameObject Canvas;
 
     [SerializeField] private GameObject openMapInstance;
     [SerializeField] private GameObject hitboxInstance;
@@ -31,18 +31,19 @@ public class MinimapManager : MonoBehaviour
     public GameObject BossIconInstance;
     private void Update()
     {
-        if (openMapInstance != null)
-        {
-            if (gameScript.GameControls.Actions.Back.triggered) CloseMap();
-            if (!_movement) return;
-            if (gameScript.GameControls.MapMovement.Up.triggered) Move(0);
-            if (gameScript.GameControls.MapMovement.Right.triggered) Move(1);
-            if (gameScript.GameControls.MapMovement.Down.triggered) Move(2);
-            if (gameScript.GameControls.MapMovement.Left.triggered) Move(3);
-        }
+        if (openMapInstance == null) return;
+
+        if (gameScript.GameControls.Actions.Back.triggered) CloseMap();
+        if (!_movement) return;
+
+        if (gameScript.GameControls.MapMovement.Up.triggered) Move(0);
+        if (gameScript.GameControls.MapMovement.Right.triggered) Move(1);
+        if (gameScript.GameControls.MapMovement.Down.triggered) Move(2);
+        if (gameScript.GameControls.MapMovement.Left.triggered) Move(3);
     }
     private void Move(int dir)
     {
+        playersRoomGO.GetComponent<RoomData>().type = RoomData.Type.Nothing;
         if (!playersRoomGO.GetComponent<RoomData>().connections[dir])
         {
             //Error Animation(Player goes to the direction "hits" the room wall, glows red and vibrates)
@@ -62,14 +63,21 @@ public class MinimapManager : MonoBehaviour
         playersRoomGO.GetComponent<RoomData>().Explored = true;
         Destroy(gameObject.transform.Find("ArrowContainer").gameObject);
         _movement = false;
-        CloseMap();
-        UpdateMapVisual();
         gameScript.CleanScene();
-        if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Fight) gameScript.Combat(false);
-        if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Infected) gameScript.Combat(true);
-        else gameScript.Combat(false);
-    }
+        UpdateMapVisual();
+        CloseMap();
 
+        if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Fight) gameScript.Combat(false);
+        else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Infected) gameScript.Combat(true);
+        else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Nothing) Empty();
+        else gameScript.Combat(false);
+
+    }
+    public void Empty()
+    {
+
+        _movement = true;
+    }
     bool _movement = false;
     public void ShowMap(bool movement = false)
     {
@@ -98,7 +106,10 @@ public class MinimapManager : MonoBehaviour
                 roomGO.name = $"Room {x};{y}";
 
                 if (room.Explored) roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
-                if (room.GetComponent<RoomData>().type == RoomData.Type.Bossfight || room.GetComponent<RoomData>().type == RoomData.Type.Infected) roomGO.GetComponent<SpriteRenderer>().color = new(.876f, .327f, .38f, 1);
+                if (room.GetComponent<RoomData>().type == RoomData.Type.Bossfight ||
+                    room.GetComponent<RoomData>().type == RoomData.Type.Infected)
+                    roomGO.GetComponent<SpriteRenderer>().color = new(.876f, .327f, .38f, 1);
+
                 for (int i = 0; i < 4; i++)
                 {
                     if (!room.connections[i]) continue;
@@ -128,9 +139,10 @@ public class MinimapManager : MonoBehaviour
                 }
             }
         }
-        if (movement || _movement) EnableMovement(playersRoomGO.GetComponent<RoomData>());
         Instantiate(PlayerIconPrefab, openMapInstance.transform.Find($"Rooms/{playersRoomGO.name}"));
         Instantiate(BossIconPrefab, openMapInstance.transform.Find($"Rooms/{bossRoomGO.name}"));
+
+        if (movement || _movement) EnableMovement(playersRoomGO.GetComponent<RoomData>());
         gameScript.GameControls.PlayerControls.Disable();
     }
     public void CloseMap()
@@ -279,11 +291,14 @@ public class MinimapManager : MonoBehaviour
         Transform mapGO = gameScript.transform.Find("Canvas/Map");
 
         CreateArrow(room, minimapGO);
+//        Debug.Log(mapGO.Find("ArrowContainer").name);
         CreateArrow(room, mapGO);
+        
     }
     private void CreateArrow(RoomData room, Transform map)
     {
-        if (map.Find("ArrowContainer") != null) return;
+        if (map.Find("ArrowContainer") != null) Destroy(map.Find("ArrowContainer").gameObject);
+        
         // Criar novo container
         GameObject arrowContainerObj = new("ArrowContainer");
         arrowContainerObj.transform.parent = map;

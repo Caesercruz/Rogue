@@ -22,11 +22,11 @@ public class Enemy : Actors
     public Slider HealthBar;
     void Start()
     {
-        gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
-        actors = GameObject.Find("BoardManager").GetComponent<Actors>();
+        actors = transform.parent.GetComponent<Actors>();
+        gameScript = actors.transform.parent.GetComponent<GameScript>();
         gameScript.ratInstance = gameObject;
 
-        HealthBar = Instantiate(HealthBar, GameObject.Find("Canvas").GetComponent<HUDManager>().GetHealthBarContainer());
+        HealthBar = Instantiate(HealthBar, GameObject.Find("Canvas").GetComponent<HUDManager>().healthBarsContainer);
         HealthBar.name = $"{gameObject.name} HealthBar";
         //Debug.Log(HealthBar.transform.parent.name);
         HealthBarHoverHandler hoverScript = HealthBar.GetComponent<HealthBarHoverHandler>();
@@ -66,6 +66,7 @@ public class Enemy : Actors
                 
                 Canvas instance = Instantiate(gameScript.UpdateScreen);
                 instance.name = "UpdateScreen";
+                instance.GetComponent<Upgrade>().gameScript = gameScript;
 
                 // Inicia a animação
                 AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();

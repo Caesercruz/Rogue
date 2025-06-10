@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PopupPerks : MonoBehaviour
@@ -10,7 +11,7 @@ public class PopupPerks : MonoBehaviour
 
     void Awake()
     {
-        gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
+        gameScript = transform.parent.GetComponent<Upgrade>().gameScript;
     }
 
     public void NotifyButtonSpawned()
@@ -32,6 +33,7 @@ public class PopupPerks : MonoBehaviour
             if (gameScript.ActivePerks.Any(p => p.name == perkName))
             {
                 button.interactable = false;
+                button.GetComponent<EventTrigger>().enabled = false;
             }
         }
     }

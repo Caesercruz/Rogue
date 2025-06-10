@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -13,8 +14,8 @@ public class Player : Actors
 
     private void Start()
     {
-        gameScript = GameObject.Find("GameManager").GetComponent<GameScript>();
-        actors = gameScript.transform.Find("BoardManager").GetComponent<Actors>();
+        actors = transform.parent.GetComponent<Actors>();
+        gameScript = actors.transform.parent.GetComponent<GameScript>();
         perkEffects = gameScript.GetComponent<PerkEffects>();
         gameScript.GameControls.PlayerControls.Enable();
 
@@ -24,7 +25,7 @@ public class Player : Actors
         ChangeEnergy(MaxEnergy, MaxEnergy);
         ChangeHealth(HealthBar, MaxHealth, MaxHealth);
     }
-
+    
     private void Update()
     {
         if (Health == 0)
@@ -61,8 +62,8 @@ public class Player : Actors
 
     private void VerifyMove()
     {
-        if (actors.isPlayersTurn)
-        {
+        if (!actors.isPlayersTurn) return;
+        
             if (gameScript.GameControls.PlayerControls.Up.triggered || gameScript.GameControls.PlayerControls.Down.triggered
                 || gameScript.GameControls.PlayerControls.Left.triggered || gameScript.GameControls.PlayerControls.Right.triggered)
             {
@@ -131,7 +132,6 @@ public class Player : Actors
                 StoredEnergy = 0;
                 weakened = false;
             }
-        }
     }
 
     public void EnterAttackMode()
@@ -139,7 +139,6 @@ public class Player : Actors
         foreach (var tile in actors.GridTiles.Values)
             if (!tile.InAtackRange) tile.SetDarkOverlay(true);
     }
-
     private void TryAttackAt(Vector2Int targetPos)
     {
         bool doubleHit = perkEffects.DoubleHit();

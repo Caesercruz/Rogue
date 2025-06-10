@@ -17,17 +17,6 @@ public class GameScript : MonoBehaviour
         LostRun,
         WonEncounter,
     }
-    public enum Encounter
-    {
-        Rats_2,
-        Rats_3,
-    }
-    public enum InfectedEncounter
-    {
-        Rats_2,
-        Rats_3,
-    }
-    
 
     public List<Perk> ActivePerks = new();
     private GameObject combatUIInstance;
@@ -104,6 +93,10 @@ public class GameScript : MonoBehaviour
         GameControls.PlayerControls.Enable();
         combatUIInstance = Instantiate(combatUIPrefab,gameObject.transform.Find("Canvas"));
         combatUIInstance.name = "Combat UI";
+
+        HUDManager hudManager = transform.Find("Canvas").GetComponent<HUDManager>();
+        hudManager.healthBarsContainer = combatUIInstance.transform.Find("HealthBarsContainer");
+
         boardManagerInstance = Instantiate(boardManager,gameObject.transform);
         boardManagerInstance.name = "BoardManager";
         actors = boardManagerInstance.GetComponent<Actors>();
@@ -124,6 +117,7 @@ public class GameScript : MonoBehaviour
         playerInstance = actors.SpawnCharacter(_playerPrefab, "Player", true);
         GameControls.Enable();
         StartEncounter(infected);
+        Gamestate = GameState.Combat;
     }
 
     [SerializeField] private List<EncounterData> allEncounters;
@@ -146,6 +140,7 @@ public class GameScript : MonoBehaviour
             for (int i = 0; i < enemy.amount; i++)
             {
                 actors.SpawnCharacter(enemy.enemyPrefab, $"{enemy.Name} {i}", false);
+                TransformHealthBars();
             }
         }
     }

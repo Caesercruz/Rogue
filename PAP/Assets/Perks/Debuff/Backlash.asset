@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Backlash
   m_EditorClassIdentifier: 
-  perkName: Backlash
   description: Atacking has a chance of 10% of taking 2 damage back.
   icon: {fileID: -8682500171686231500, guid: f8af86e61d50ee84fa8ea68bdcc43c5b, type: 3}
   type: 1
