@@ -25,8 +25,8 @@ Transform:
   m_GameObject: {fileID: 3740491435579666746}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.478194, y: -10.852246, z: 0}
-  m_LocalScale: {x: 3.1318645, y: 3.7424667, z: 4.116734}
+  m_LocalPosition: {x: -8.65, y: -10, z: 0}
+  m_LocalScale: {x: 4.4328413, y: 5.2970877, z: 5.8268256}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2813112756744274848}
@@ -56,8 +56,8 @@ Transform:
   m_GameObject: {fileID: 4322869380632369320}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.478194, y: -10.852246, z: 0}
-  m_LocalScale: {x: 3.1318645, y: 3.7424667, z: 4.116734}
+  m_LocalPosition: {x: -8.65, y: -10, z: 0}
+  m_LocalScale: {x: 4.4328413, y: 5.2970877, z: 5.8268256}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2813112756744274848}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 2813112756744274848}
   - component: {fileID: 3876085222754589099}
   m_Layer: 5
-  m_Name: OpenMap
+  m_Name: Openmap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,7 @@ RectTransform:
   m_GameObject: {fileID: 5135254438552157757}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.501346, y: 0.501346, z: 0.501346}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7368322708251670484}

@@ -16,10 +16,10 @@ public class MinimapManager : MonoBehaviour
     [SerializeField] private GameObject openMapInstance;
     [SerializeField] private GameObject hitboxInstance;
 
-    public readonly int width = 7;
-    public readonly int height = 7;
+    public readonly int width = 5;
+    public readonly int height = 5;
     public RoomData[,] grid;
-    private readonly int maxRooms = 35;
+    private readonly int maxRooms = 20;
 
     public GameObject PlayerIconPrefab;
     private GameObject playersRoomGO = null;
@@ -222,7 +222,7 @@ public class MinimapManager : MonoBehaviour
         Destroy(PlayerIconInstance);
         PlayerIconInstance = Instantiate(PlayerIconPrefab, gameObject.transform);
         PlayerIconInstance.transform.position = playersRoomGO.transform.position;
-        PlayerIconInstance.transform.localScale = new(.25f, .3f, 1);
+        PlayerIconInstance.transform.localScale = new(.45f, .5f, 1);
     }
     public void SpawnIcons()
     {
