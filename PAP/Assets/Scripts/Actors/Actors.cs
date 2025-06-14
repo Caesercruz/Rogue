@@ -21,9 +21,9 @@ public class Actors : MonoBehaviour
 
     public int Strength, Weakness = 0;
 
-    private Vector2Int gridPosition;
     private float nextMoveTime = 0f;
-    private readonly int _spawnRangeWidth = 2, _spawnRangeHeight = 6, _enemySpawnRangeWidth = 5, _enemySpawnRangeHeight = 6;
+
+    public int _spawnRangeWidth = 2, _spawnRangeHeight = 6;
 
     private void Awake()
     {
@@ -75,28 +75,30 @@ public class Actors : MonoBehaviour
         return true;
     }
 
-    public GameObject SpawnCharacter(GameObject character, string name, bool isPlayer)
+    public GameObject SpawnCharacter(GameObject character, string name)
     {
-        do
-        {
-            if (isPlayer)
-                gridPosition = new Vector2Int(Random.Range(0, _spawnRangeWidth), Random.Range(0, _spawnRangeHeight));
-            else
-                gridPosition = new Vector2Int(Random.Range(_enemySpawnRangeWidth, 8), Random.Range(0, _enemySpawnRangeHeight));
-        }
-        while (IsSpaceOccupied(gridPosition));
-        Vector3 worldPosition = new(gridPosition.x, gridPosition.y, 0);
-
-        character = Instantiate(character, worldPosition, Quaternion.identity, actors.transform);
+        Debug.LogWarning(actors.name);
+        character = Instantiate(character, actors.transform);
         character.name = name;
 
+        Vector2Int gridPosition;
+        do
+        {
+            gridPosition = new Vector2Int(Random.Range(_spawnRangeWidth, 8), Random.Range(0, _spawnRangeHeight));
+        }
+        while (IsSpaceOccupied(gridPosition));
+
+        Debug.Log($"SpawnRange: {_spawnRangeWidth}, {_spawnRangeWidth}");
+
+        Vector3 worldPosition = new(gridPosition.x, gridPosition.y, 0);
+        character.transform.position = worldPosition;
         actors.ActorsCord.Add(character, gridPosition);
 
         if (GridTiles.TryGetValue(gridPosition, out Tile tile))
         {
             tile.IsOccupied = true;
         }
-        if (!isPlayer) gameScript.NumberOfEnemies++;
+        gameScript.NumberOfEnemies++;
         return character;
     }
 

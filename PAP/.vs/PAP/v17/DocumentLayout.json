@@ -1,14 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\",
+  "WorkspaceRootPath": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\assets\\scripts\\minimapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\minimapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|c:\\users\\utilizador\\documents\\rogue\\pap\\assets\\scripts\\gamescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\assets\\scripts\\gamescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\assets\\scripts\\actors\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\actors\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\assets\\scripts\\actors\\actors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\actors\\actors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\assets\\scripts\\minimapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF18C415-E1F5-8270-B0CB-1831F3106AC1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\minimapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,30 +26,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Player.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Actors\\Player.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Player.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Actors\\Player.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAgwNgAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T22:08:08.115Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Actors.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Actors.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Actors\\Actors.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\Actors\\Actors.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Actors\\Actors.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAA/wFwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T21:58:59.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "GameScript.cs",
-              "DocumentMoniker": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\GameScript.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\GameScript.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameScript.cs",
-              "ToolTip": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\GameScript.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\GameScript.cs",
               "RelativeToolTip": "Assets\\Scripts\\GameScript.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAEwFoAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAWwI0AAABvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-09T07:32:39.359Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "MinimapManager.cs",
-              "DocumentMoniker": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\MinimapManager.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\MinimapManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\MinimapManager.cs",
-              "ToolTip": "C:\\Users\\aluno.3psit2\\Documents\\Rogue\\PAP\\Assets\\Scripts\\MinimapManager.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Rogue\\PAP\\Assets\\Scripts\\MinimapManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\MinimapManager.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAowEkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAALgAAAAAAAAAAAAcwEkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-04T08:55:59.179Z",
               "EditorCaption": ""

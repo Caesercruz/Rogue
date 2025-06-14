@@ -1,8 +1,11 @@
+using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Player : Actors
 {
@@ -12,16 +15,21 @@ public class Player : Actors
     private bool inAttackMode, weakened = false;
     private int StoredEnergy;
 
-    private void Start()
+    private void Awake()
     {
         actors = transform.parent.GetComponent<Actors>();
+        Debug.Log(actors.name);
         gameScript = actors.transform.parent.GetComponent<GameScript>();
         perkEffects = gameScript.GetComponent<PerkEffects>();
         gameScript.GameControls.PlayerControls.Enable();
-
         gameScript.playerInstance = gameObject;
         HealthBar = gameScript.transform.Find("Canvas/Player's HealthBar").GetComponent<Slider>();
-
+        gameScript.playerInstance = gameObject;
+    }
+    private void Start()
+    {
+        Health = Convert.ToInt32(HealthBar.value);
+        MaxHealth = Convert.ToInt32(HealthBar.maxValue);
         ChangeEnergy(MaxEnergy, MaxEnergy);
         ChangeHealth(HealthBar, MaxHealth, MaxHealth);
     }
@@ -200,5 +208,12 @@ public class Player : Actors
         foreach (var tile in actors.GridTiles.Values)
             tile.SetDarkOverlay(false);
     }
-
+    public void SetPlayer()
+    {
+        Vector2Int gridPosition = new(Random.Range(0, _spawnRangeWidth), Random.Range(0, _spawnRangeHeight));
+        
+        Vector3 worldPosition = new(gridPosition.x, gridPosition.y, 0);
+        transform.position = worldPosition;
+        actors.ActorsCord.Add(gameObject, gridPosition);
+    }
 }

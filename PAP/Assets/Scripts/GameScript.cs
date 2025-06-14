@@ -114,7 +114,7 @@ public class GameScript : MonoBehaviour
                 spawnedTile.Init(isOffSet);
             }
         }
-        playerInstance = actors.SpawnCharacter(_playerPrefab, "Player", true);
+        playerInstance.GetComponent<Player>().SetPlayer();
         GameControls.Enable();
         StartEncounter(infected);
         Gamestate = GameState.Combat;
@@ -135,11 +135,11 @@ public class GameScript : MonoBehaviour
         EncounterData selected = validEncounters[UnityEngine.Random.Range(0, validEncounters.Count)];
         Debug.Log("Encontro selecionado: " + selected.name);
 
-        foreach (var enemy in selected.DiferentEnemies)
+        foreach (EnemySpawnInfo enemy in selected.DiferentEnemies)
         {
             for (int i = 0; i < enemy.amount; i++)
             {
-                actors.SpawnCharacter(enemy.enemyPrefab, $"{enemy.Name} {i}", false);
+                enemy.enemyPrefab.GetComponent<Enemy>().SpawnCharacter(enemy.enemyPrefab, $"{enemy.Name} {i}");
                 TransformHealthBars();
             }
         }
