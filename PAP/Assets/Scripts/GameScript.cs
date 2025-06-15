@@ -139,7 +139,8 @@ public class GameScript : MonoBehaviour
         {
             for (int i = 0; i < enemy.amount; i++)
             {
-                enemy.enemyPrefab.GetComponent<Enemy>().SpawnCharacter(enemy.enemyPrefab, $"{enemy.Name} {i}");
+                GameObject enemyInstance = Instantiate(enemy.enemyPrefab,actors.transform);
+                enemyInstance.GetComponent<Enemy>().SetCharacter(enemyInstance, $"{enemy.Name} {i}");
                 TransformHealthBars();
             }
         }

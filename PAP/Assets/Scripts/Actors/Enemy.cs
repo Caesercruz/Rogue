@@ -20,15 +20,18 @@ public class Enemy : Actors
     }
 
     public Slider HealthBar;
-    void Start()
+    private void Awake()
     {
         actors = transform.parent.GetComponent<Actors>();
         gameScript = actors.transform.parent.GetComponent<GameScript>();
+    }
+    void Start()
+    {
+        
         gameScript.ratInstance = gameObject;
 
         HealthBar = Instantiate(HealthBar, GameObject.Find("Canvas").GetComponent<HUDManager>().healthBarsContainer);
         HealthBar.name = $"{gameObject.name} HealthBar";
-        //Debug.Log(HealthBar.transform.parent.name);
         HealthBarHoverHandler hoverScript = HealthBar.GetComponent<HealthBarHoverHandler>();
         if (hoverScript == null)
         {
@@ -67,7 +70,7 @@ public class Enemy : Actors
                 Canvas instance = Instantiate(gameScript.UpdateScreen);
                 instance.name = "UpdateScreen";
                 instance.GetComponent<Upgrade>().gameScript = gameScript;
-
+                gameScript.CleanScene();
                 // Inicia a animação
                 AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
 
@@ -139,7 +142,7 @@ public class Enemy : Actors
                 if (!actors.IsValidPosition(neighborPos))
                     continue;
 
-                if (actors.IsSpaceOccupied(neighborPos) && neighborPos != targetPos)  // Ignora a tile do jogador
+                if (IsSpaceOccupied(neighborPos) && neighborPos != targetPos)  // Ignora a tile do jogador
                     continue;
 
                 if (closedList.Contains(neighborPos))

@@ -10,52 +10,51 @@ public class PerkEffects : MonoBehaviour
     {
         gameScript = GetComponent<GameScript>();
     }
-    public void ApplyPerks(Player player,Perk selectedBuff,Perk selectedByproduct)
+    public void ApplyPerks(Player player)
     {
-        switch (selectedBuff.name)
+        if(gameScript.ActivePerks.Find(p => p.name == "Energetic"))
         {
-            case "Energetic":
-                player.ChangeEnergy(player.MaxEnergy, player.MaxEnergy += 2);
-                break;
-            case "Reinforced Plates":
-                player.ChangeHealth(player.HealthBar, Mathf.CeilToInt(player.Health * 1.5f), Mathf.CeilToInt(player.MaxHealth * 1.5f));
-                break;
-            case "Increased Reach":
-                player.AttackPattern.Add(new Vector2Int(-2, -2));
-                player.AttackPattern.Add(new Vector2Int(-2, -1));
-                player.AttackPattern.Add(new Vector2Int(-2, -0));
-                player.AttackPattern.Add(new Vector2Int(-2, 1));
-                player.AttackPattern.Add(new Vector2Int(-2, 2));
+            player.ChangeEnergy(player.MaxEnergy, player.MaxEnergy + 2);
+        }
+        if (gameScript.ActivePerks.Find(p => p.name == "Reinforced Plates"))
+        {
+            player.ChangeHealth(player.HealthBar, player.Health + 10, player.MaxHealth + 10);
+        }
+        if (gameScript.ActivePerks.Find(p => p.name == "Increased Reach"))
+        {
+            player.AttackPattern.Add(new Vector2Int(-2, -2));
+            player.AttackPattern.Add(new Vector2Int(-2, -1));
+            player.AttackPattern.Add(new Vector2Int(-2, -0));
+            player.AttackPattern.Add(new Vector2Int(-2, 1));
+            player.AttackPattern.Add(new Vector2Int(-2, 2));
 
-                player.AttackPattern.Add(new Vector2Int(-1, -2));
-                player.AttackPattern.Add(new Vector2Int(-1, 2));
+            player.AttackPattern.Add(new Vector2Int(-1, -2));
+            player.AttackPattern.Add(new Vector2Int(-1, 2));
 
-                player.AttackPattern.Add(new Vector2Int(0, -2));
-                player.AttackPattern.Add(new Vector2Int(0, 2));
+            player.AttackPattern.Add(new Vector2Int(0, -2));
+            player.AttackPattern.Add(new Vector2Int(0, 2));
 
-                player.AttackPattern.Add(new Vector2Int(1, -2));
-                player.AttackPattern.Add(new Vector2Int(1, 2));
+            player.AttackPattern.Add(new Vector2Int(1, -2));
+            player.AttackPattern.Add(new Vector2Int(1, 2));
 
-                player.AttackPattern.Add(new Vector2Int(2, -2));
-                player.AttackPattern.Add(new Vector2Int(2, -1));
-                player.AttackPattern.Add(new Vector2Int(2, -0));
-                player.AttackPattern.Add(new Vector2Int(2, 1));
-                player.AttackPattern.Add(new Vector2Int(2, 2));
-
-                break;
+            player.AttackPattern.Add(new Vector2Int(2, -2));
+            player.AttackPattern.Add(new Vector2Int(2, -1));
+            player.AttackPattern.Add(new Vector2Int(2, -0));
+            player.AttackPattern.Add(new Vector2Int(2, 1));
+            player.AttackPattern.Add(new Vector2Int(2, 2));
         }
 
-        switch (selectedByproduct.name)
+        if (gameScript.ActivePerks.Find(p => p.name == "Weak"))
         {
-            case "Weak":
-                player.Strength = Mathf.CeilToInt(player.Strength * .7f);
-                break;
-            case "Rusty Plates":
-                player.ChangeHealth(player.HealthBar, player.Health, Mathf.CeilToInt(player.MaxHealth * .7f));
-                break;
-            case "Low Energy":
-                player.ChangeEnergy(player.Energy, player.MaxEnergy -= 1);
-                break;
+            player.Strength = player.Strength - 2;
+        }
+        if (gameScript.ActivePerks.Find(p => p.name == "Rusty Plates"))
+        {
+            player.ChangeHealth(player.HealthBar, player.Health,player.MaxHealth - 7);
+        }
+        if (gameScript.ActivePerks.Find(p => p.name == "Low Energy"))
+        {
+            player.ChangeEnergy(player.Energy, player.MaxEnergy - 1);
         }
     }
     //Active Perks
@@ -130,7 +129,7 @@ public class PerkEffects : MonoBehaviour
             }
         }
     }
-    //Active Debuffs
+    //Debuffs
     public void Rebound(Player player)
     {
         Perk rebound = gameScript.ActivePerks.Find(p => p.name == "Rebound");

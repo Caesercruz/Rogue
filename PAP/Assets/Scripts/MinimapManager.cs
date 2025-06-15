@@ -77,6 +77,7 @@ public class MinimapManager : MonoBehaviour
     {
 
         _movement = true;
+        ShowMap();
     }
     bool _movement = false;
     public void ShowMap(bool movement = false)
@@ -143,6 +144,7 @@ public class MinimapManager : MonoBehaviour
         Instantiate(BossIconPrefab, openMapInstance.transform.Find($"Rooms/{bossRoomGO.name}"));
 
         if (movement || _movement) EnableMovement(playersRoomGO.GetComponent<RoomData>());
+
         gameScript.GameControls.PlayerControls.Disable();
     }
     public void CloseMap()

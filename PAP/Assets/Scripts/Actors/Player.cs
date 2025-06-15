@@ -18,7 +18,6 @@ public class Player : Actors
     private void Awake()
     {
         actors = transform.parent.GetComponent<Actors>();
-        Debug.Log(actors.name);
         gameScript = actors.transform.parent.GetComponent<GameScript>();
         perkEffects = gameScript.GetComponent<PerkEffects>();
         gameScript.GameControls.PlayerControls.Enable();
@@ -30,10 +29,11 @@ public class Player : Actors
     {
         Health = Convert.ToInt32(HealthBar.value);
         MaxHealth = Convert.ToInt32(HealthBar.maxValue);
+        ChangeHealth(HealthBar, Convert.ToInt32(HealthBar.value), Convert.ToInt32(HealthBar.maxValue));
+        perkEffects.ApplyPerks(this);
         ChangeEnergy(MaxEnergy, MaxEnergy);
-        ChangeHealth(HealthBar, MaxHealth, MaxHealth);
     }
-    
+
     private void Update()
     {
         if (Health == 0)

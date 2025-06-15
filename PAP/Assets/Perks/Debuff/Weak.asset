@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Weak
   m_EditorClassIdentifier: 
-  description: Decreases your strength by 30%.
+  description: Decreases your strength by 2.
   icon: {fileID: -7977781763595671656, guid: a76de2deeca70614691bcbe16c2df8c4, type: 3}
   type: 1
-  active: 0
+  active: 1

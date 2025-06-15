@@ -58,7 +58,7 @@ MonoBehaviour:
   playerInstance: {fileID: 0}
   ratInstance: {fileID: 0}
   NumberOfEnemies: 4
-  Gamestate: 0
+  Gamestate: 1
   MapManager: {fileID: 6303260946941622842}
   allEncounters:
   - {fileID: 11400000, guid: be7290d8948fbfe49b1698144d979e6d, type: 2}

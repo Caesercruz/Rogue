@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         StartCoroutine(FadeOutAndStartGame());
+        Game.GetComponent<GameScript>().Gamestate = GameScript.GameState.Combat;
     }
 
     private System.Collections.IEnumerator FadeOutAndStartGame()

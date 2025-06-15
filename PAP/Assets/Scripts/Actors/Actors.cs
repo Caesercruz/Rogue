@@ -23,7 +23,7 @@ public class Actors : MonoBehaviour
 
     private float nextMoveTime = 0f;
 
-    public int _spawnRangeWidth = 2, _spawnRangeHeight = 6;
+    public int _spawnRangeWidth, _spawnRangeHeight;
 
     private void Awake()
     {
@@ -48,7 +48,7 @@ public class Actors : MonoBehaviour
         if (isPlayersTurn && Time.time < nextMoveTime) return false;
 
         // Liberta tile antiga
-        if (GridTiles.TryGetValue(position, out Tile currentTile))
+        if (actors.GridTiles.TryGetValue(position, out Tile currentTile))
         {
             currentTile.IsOccupied = false;
         }
@@ -62,7 +62,7 @@ public class Actors : MonoBehaviour
         // Atualiza a posição lógica antes da animação
         ActorsCord[character] = newPosition;
         // Ocupa nova tile
-        if (GridTiles.TryGetValue(newPosition, out Tile newTile))
+        if (actors.GridTiles.TryGetValue(newPosition, out Tile newTile))
         {
             newTile.IsOccupied = true;
         }
@@ -75,10 +75,8 @@ public class Actors : MonoBehaviour
         return true;
     }
 
-    public GameObject SpawnCharacter(GameObject character, string name)
+    public GameObject SetCharacter(GameObject character, string name)
     {
-        Debug.LogWarning(actors.name);
-        character = Instantiate(character, actors.transform);
         character.name = name;
 
         Vector2Int gridPosition;
@@ -87,17 +85,15 @@ public class Actors : MonoBehaviour
             gridPosition = new Vector2Int(Random.Range(_spawnRangeWidth, 8), Random.Range(0, _spawnRangeHeight));
         }
         while (IsSpaceOccupied(gridPosition));
-
-        Debug.Log($"SpawnRange: {_spawnRangeWidth}, {_spawnRangeWidth}");
-
+        
         Vector3 worldPosition = new(gridPosition.x, gridPosition.y, 0);
         character.transform.position = worldPosition;
         actors.ActorsCord.Add(character, gridPosition);
-
-        if (GridTiles.TryGetValue(gridPosition, out Tile tile))
+        if (actors.GridTiles.TryGetValue(gridPosition, out Tile tile))
         {
             tile.IsOccupied = true;
         }
+
         gameScript.NumberOfEnemies++;
         return character;
     }
@@ -109,11 +105,10 @@ public class Actors : MonoBehaviour
 
     public bool IsSpaceOccupied(Vector2Int position)
     {
-        if (GridTiles.TryGetValue(position, out Tile tile))
+        if (actors.GridTiles.TryGetValue(position, out Tile tile))
         {
             return tile.IsOccupied;
         }
-
         Debug.LogWarning($"Tile {position.x} {position.y} não foi encontrada no dicionário.");
         return false;
     }
