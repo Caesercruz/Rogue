@@ -27,20 +27,6 @@ public class Enemy : Actors
     }
     void Start()
     {
-        
-        gameScript.ratInstance = gameObject;
-
-        HealthBar = Instantiate(HealthBar, GameObject.Find("Canvas").GetComponent<HUDManager>().healthBarsContainer);
-        HealthBar.name = $"{gameObject.name} HealthBar";
-        HealthBarHoverHandler hoverScript = HealthBar.GetComponent<HealthBarHoverHandler>();
-        if (hoverScript == null)
-        {
-            hoverScript = HealthBar.gameObject.AddComponent<HealthBarHoverHandler>();
-        }
-        hoverScript.Initialize(gameObject);
-
-        GameObject.Find("Canvas").GetComponent<HUDManager>().OffsetHealthBar(HealthBar, gameObject);
-
         Energy = MaxEnergy;
         Health = MaxHealth;
 
@@ -65,16 +51,9 @@ public class Enemy : Actors
             Destroy(gameObject);
             if (gameScript.NumberOfEnemies == 0)
             {
-                gameScript.Gamestate = GameScript.GameState.WonEncounter;
                 
-                Canvas instance = Instantiate(gameScript.UpdateScreen);
-                instance.name = "UpdateScreen";
-                instance.GetComponent<Upgrade>().gameScript = gameScript;
-                gameScript.CleanScene();
-                // Inicia a animação
-                AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
-
-                //StartCoroutine(animationSpawner.AnimatePopupSpawn(instance.transform));
+                gameScript.ShowUpdateScreen();
+                
                 return;
             }
             RecalculateEnemyAttacks();

@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
+    
     private TextMeshProUGUI _txt_energy = null;
     private Image _image_Energy = null;
 
     public Transform healthBarsContainer;
+    
     public void UpdateHealth(Slider healthBar, int health, int maxHealth)
     {
         TextMeshProUGUI hpText = healthBar.GetComponentInChildren<TextMeshProUGUI>();
@@ -24,24 +26,37 @@ public class HUDManager : MonoBehaviour
         _image_Energy.fillAmount = (float)energy / maxEnergy;
     }
 
-    public void OffsetHealthBar(Slider healthbar, GameObject enemy)
+    public Slider SpawnHealthBar(GameObject enemyInstance,Enemy enemy)
     {
-        string enemyName = enemy.name;
-        System.Text.RegularExpressions.Regex regex = new(@"(\d+)$");
-        var match = regex.Match(enemyName);
+        enemy.HealthBar = Instantiate(enemy.HealthBar, healthBarsContainer);
+        enemy.HealthBar.name = $"{enemy.name} HealthBar";
 
-        int enemyNumber = 0;
-        if (match.Success)
-            enemyNumber = int.Parse(match.Value);
-
-        int offsetY = -1 * enemyNumber;
-
-        RectTransform rectTransform = healthbar.GetComponent<RectTransform>();
-        Vector3 newPos = new(0, offsetY, 0);
-
-        rectTransform.localPosition += newPos;
+        HealthBarHoverHandler hoverScript = enemy.HealthBar.GetComponent<HealthBarHoverHandler>();
+        if (hoverScript == null)hoverScript = enemy.HealthBar.gameObject.AddComponent<HealthBarHoverHandler>();
+        hoverScript.Initialize(enemyInstance);
+        return enemy.HealthBar;
     }
+    public void TransformHealthBars(Slider healthbar, int offSet)
+    {
+//        offSet *= 1;
+        healthbar.transform.localPosition += new Vector3(0, -offSet, 0);
+        
+        /*
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
 
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            Enemy enemy = enemies[i];
+            if (enemy.HealthBar != null)
+            {
+                int offsetY = 0 * i;
+
+                RectTransform rectTransform = enemy.HealthBar.transform as RectTransform;
+                Vector3 originalPos = rectTransform.localPosition;
+                rectTransform.localPosition = new Vector3(originalPos.x, originalPos.y + offsetY, originalPos.z);
+            }
+        }*/
+    }
     private void CheckUIElements()
     {
         if(_txt_energy == null)

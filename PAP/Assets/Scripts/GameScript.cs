@@ -4,6 +4,7 @@ using System.IO;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour
 {
@@ -18,27 +19,25 @@ public class GameScript : MonoBehaviour
         WonEncounter,
     }
 
+    [Header("Debugging")]
     public List<Perk> ActivePerks = new();
-    private GameObject combatUIInstance;
-    private GameObject boardManagerInstance;
-    [SerializeField] private GameObject combatUIPrefab;
-    [SerializeField] private GameObject boardManager;
-
-    [SerializeField] private TextMeshProUGUI _txt_energy;
-    [SerializeField] private Tile _tilePrefab;
-    public Canvas UpdateScreen;
-    [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private GameObject _ratPrefab;
-    [HideInInspector] public GameObject playerInstance;
-    [HideInInspector] public GameObject ratInstance;
-    [HideInInspector] public int NumberOfEnemies = 0;
-
+    [SerializeField] private List<EncounterData> allEncounters;
+    public int NumberOfEnemies = 0;
     public readonly int Width = 8, Height = 6;
-
     public GameState Gamestate;
 
+    [Header("Others")]
+    private GameObject combatUIInstance;
+    private GameObject boardManagerInstance;
+    [HideInInspector] public GameObject playerInstance;
     public MinimapManager MapManager;
 
+    [Header("Prefabs")]
+    [SerializeField] private GameObject combatUIPrefab;
+    [SerializeField] private GameObject boardManager;
+    [SerializeField] private GameObject UpdateScreenPrefab;
+    [SerializeField] private Tile _tilePrefab;
+    [SerializeField] private GameObject _playerPrefab;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F12))
@@ -70,23 +69,7 @@ public class GameScript : MonoBehaviour
         Combat(false);
     }
 
-    public void TransformHealthBars()
-    {
-        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
 
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            Enemy enemy = enemies[i];
-            if (enemy.HealthBar != null)
-            {
-                int offsetY = 0 * i;
-
-                RectTransform rectTransform = enemy.HealthBar.transform as RectTransform;
-                Vector3 originalPos = rectTransform.localPosition;
-                rectTransform.localPosition = new Vector3(originalPos.x, originalPos.y + offsetY, originalPos.z);
-            }
-        }
-    }
 
     public void Combat(bool infected)
     {
@@ -94,33 +77,44 @@ public class GameScript : MonoBehaviour
         combatUIInstance = Instantiate(combatUIPrefab,gameObject.transform.Find("Canvas"));
         combatUIInstance.name = "Combat UI";
 
-        HUDManager hudManager = transform.Find("Canvas").GetComponent<HUDManager>();
-        hudManager.healthBarsContainer = combatUIInstance.transform.Find("HealthBarsContainer");
-
         boardManagerInstance = Instantiate(boardManager,gameObject.transform);
         boardManagerInstance.name = "BoardManager";
         actors = boardManagerInstance.GetComponent<Actors>();
+        transform.Find("Canvas").GetComponent<HUDManager>().healthBarsContainer = transform.Find("Canvas/Combat UI/EnemyHealthBars");
         for (int x = 0; x < Width; x++)
         {
             for (int y = 0; y < Height; y++)
             {
-                float posX = x;
-                float posY = y;
-                Vector3 position = new(posX, posY, 0);
-                var spawnedTile = Instantiate(_tilePrefab, position, Quaternion.identity, actors.transform);
-                spawnedTile.name = $"Tile {x} {y}";
-                actors.GridTiles[new Vector2Int(x, y)] = spawnedTile;
-                bool isOffSet = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
-                spawnedTile.Init(isOffSet);
+                SpawnTile(x,y);
             }
         }
         playerInstance.GetComponent<Player>().SetPlayer();
-        GameControls.Enable();
         StartEncounter(infected);
         Gamestate = GameState.Combat;
-    }
 
-    [SerializeField] private List<EncounterData> allEncounters;
+        void SpawnTile(int x, int y)
+        {
+            Vector3 position = new(x, y, 0);
+            Tile spawnedTile = Instantiate(_tilePrefab, position, Quaternion.identity, actors.transform);
+            spawnedTile.name = $"Tile {x} {y}";
+            actors.GridTiles[new Vector2Int(x, y)] = spawnedTile;
+            bool isOffSet = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
+            spawnedTile.Init(isOffSet);
+        }
+    }
+    public void ShowUpdateScreen()
+    {
+        Gamestate = GameState.WonEncounter;
+
+        GameObject instance = Instantiate(UpdateScreenPrefab);
+        instance.name = "UpdateScreen";
+        instance.GetComponent<Upgrade>().gameScript = this;
+        CleanScene();
+        // Inicia a animação
+        AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
+
+        //StartCoroutine(animationSpawner.AnimatePopupSpawn(instance.transform));
+    }
     public void StartEncounter(bool infected)
     {
         NumberOfEnemies = 0;
@@ -128,7 +122,7 @@ public class GameScript : MonoBehaviour
 
         if (validEncounters.Count == 0)
         {
-            Debug.LogWarning("Nenhum encontro válido.");
+            Debug.LogError("Nenhum encontro válido.");
             return;
         }
 
@@ -137,13 +131,21 @@ public class GameScript : MonoBehaviour
 
         foreach (EnemySpawnInfo enemy in selected.DiferentEnemies)
         {
-            for (int i = 0; i < enemy.amount; i++)
+            for (int spawnedEnemies = 0; spawnedEnemies < enemy.amount; spawnedEnemies++)
             {
                 GameObject enemyInstance = Instantiate(enemy.enemyPrefab,actors.transform);
-                enemyInstance.GetComponent<Enemy>().SetCharacter(enemyInstance, $"{enemy.Name} {i}");
-                TransformHealthBars();
+                Enemy enemyScript = enemyInstance.GetComponent<Enemy>();
+                enemyScript.SetCharacter(enemyInstance, $"{enemy.Name} {spawnedEnemies}");
+
+                HUDManager hudManager = transform.Find("Canvas").GetComponent<HUDManager>();
+
+                Slider healthbar =  hudManager.SpawnHealthBar(enemyInstance,enemyScript);
+                hudManager.TransformHealthBars(healthbar,NumberOfEnemies);
+
+                NumberOfEnemies++;
             }
         }
+        
     }
     public void CleanScene()
     {

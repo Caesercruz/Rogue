@@ -85,16 +85,14 @@ public class Actors : MonoBehaviour
             gridPosition = new Vector2Int(Random.Range(_spawnRangeWidth, 8), Random.Range(0, _spawnRangeHeight));
         }
         while (IsSpaceOccupied(gridPosition));
-        
-        Vector3 worldPosition = new(gridPosition.x, gridPosition.y, 0);
-        character.transform.position = worldPosition;
+
+        character.transform.position = new(gridPosition.x,gridPosition.y,0);
+
         actors.ActorsCord.Add(character, gridPosition);
         if (actors.GridTiles.TryGetValue(gridPosition, out Tile tile))
         {
             tile.IsOccupied = true;
         }
-
-        gameScript.NumberOfEnemies++;
         return character;
     }
 
