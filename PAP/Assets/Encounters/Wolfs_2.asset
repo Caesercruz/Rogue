@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Rat_3
-  m_EditorClassIdentifier: Assembly-CSharp::EncounterData
-  isInfected: 0
+  m_Script: {fileID: 11500000, guid: 30382402c4d3c594ba6723bfde060fae, type: 3}
+  m_Name: Wolfs_2
+  m_EditorClassIdentifier: 
+  isInfected: 1
   DiferentEnemies:
-  - Name: Rat
-    enemyPrefab: {fileID: 658002794036794154, guid: d0724d75964b5dc4595ce31c3ef55c38, type: 3}
-    amount: 3
+  - Name: Wolf
+    enemyPrefab: {fileID: 658002794036794154, guid: a60a70b599beaf04b99ebaaa68072db1, type: 3}
+    amount: 2

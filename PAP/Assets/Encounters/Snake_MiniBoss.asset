@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30382402c4d3c594ba6723bfde060fae, type: 3}
+  m_Name: Snake_MiniBoss
+  m_EditorClassIdentifier: 
+  isInfected: 1
+  DiferentEnemies:
+  - Name: Wyrmous
+    enemyPrefab: {fileID: 658002794036794154, guid: 2e82faa58b1d28741be0cdfe0c0fc9b9, type: 3}
+    amount: 1
+  - Name: Snake
+    enemyPrefab: {fileID: 658002794036794154, guid: dae66d733c3b8284bb9df0dd94a9e10f, type: 3}
+    amount: 4

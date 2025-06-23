@@ -1,39 +1,47 @@
+using System;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
 public class MinimapManager : MonoBehaviour
 {
+    [Header("Prefabs")]
     [SerializeField] private GameObject openMapPrefab;
     [SerializeField] private GameObject hitboxPrefab;
     [SerializeField] private GameObject RoomPrefab;
     [SerializeField] private GameObject RoomPrefabVisual;
     [SerializeField] private GameObject IntersectionPrefab;
     [SerializeField] private GameObject ArrowPrefab;
-    [SerializeField] private GameScript gameScript;
+    public GameObject PlayerIconPrefab;
+    public GameObject BossIconPrefab;
 
+    [Header("Instances")]
     [SerializeField] private GameObject openMapInstance;
     [SerializeField] private GameObject hitboxInstance;
-
-    public readonly int width = 5;
-    public readonly int height = 5;
-    public RoomData[,] grid;
-    private readonly int maxRooms = 20;
-
-    public GameObject PlayerIconPrefab;
-    private GameObject playersRoomGO = null;
-
-    public GameObject BossIconPrefab;
-    private GameObject bossRoomGO = null;
-
     public GameObject PlayerIconInstance;
     public GameObject BossIconInstance;
+
+    [Header("Variables")]
+    [SerializeField] private int width = 5;
+    [SerializeField] private int height = 5;
+    [SerializeField] private float spawnIntersectionChance = .8f;
+    [SerializeField] private float spawnRoomChance = 0.8f; // 80% chance por padrão
+
+    [SerializeField] private int maxRooms = 20;
+    [SerializeField] private GameScript gameScript;
+
+    private GameObject playersRoomGO = null;
+    private GameObject bossRoomGO = null;
+    private Vector2Int lastInfectedPos;
+
+    public RoomData[,] grid;
     private void Update()
     {
-        if (openMapInstance == null) return;
+        if (gameScript.GameControls.Actions.OpenMap.triggered) { if (openMapInstance == null) ShowMap(); else CloseMap(); };
+        
+        if (openMapInstance == null) { return; };
 
-        if (gameScript.GameControls.Actions.Back.triggered) CloseMap();
+        if (gameScript.GameControls.Actions.Back.triggered) { CloseMap(); };
         if (!_movement) return;
 
         if (gameScript.GameControls.MapMovement.Up.triggered) Move(0);
@@ -64,20 +72,21 @@ public class MinimapManager : MonoBehaviour
         Destroy(gameObject.transform.Find("ArrowContainer").gameObject);
         _movement = false;
         gameScript.CleanScene();
+
+        InfectRoom();
         UpdateMapVisual();
+
         CloseMap();
 
         if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Fight) gameScript.Combat(false);
         else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Infected) gameScript.Combat(true);
         else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Nothing) Empty();
         else gameScript.Combat(false);
-
     }
     public void Empty()
     {
-
         _movement = true;
-        ShowMap();
+        ShowMap(true);
     }
     bool _movement = false;
     public void ShowMap(bool movement = false)
@@ -169,7 +178,7 @@ public class MinimapManager : MonoBehaviour
     {
         return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
     }
-    public void GenerateMiniMapIntersections()
+    public void ShowMiniMapIntersections()
     {
         Transform intersectionsParent = transform.Find("Intersections");
 
@@ -217,6 +226,9 @@ public class MinimapManager : MonoBehaviour
             {
                 RoomData room = grid[x, y];
                 if (room == null) continue;
+                if (room.type == RoomData.Type.Infected) gameObject.transform.Find($"Rooms/Room {x};{y}").GetComponent<SpriteRenderer>()
+                        .color = new(.876f, .327f, .38f, 1);
+
                 if (room.Explored) gameObject.transform.Find($"Rooms/Room {x};{y}").GetComponent<SpriteRenderer>()
                         .color = new(.676f, .827f, .38f, 1);
             }
@@ -277,6 +289,7 @@ public class MinimapManager : MonoBehaviour
         if (bossRoom != null)
         {
             bossRoomGO = GameObject.Find($"Room {bossRoom.position.x};{bossRoom.position.y}");
+            lastInfectedPos = bossRoom.position;
             BossIconInstance = Instantiate(BossIconPrefab, gameObject.transform);
             BossIconInstance.transform.position = bossRoomGO.transform.position;
             BossIconInstance.transform.localScale = new Vector3(.25f, .3f, 1);
@@ -293,14 +306,13 @@ public class MinimapManager : MonoBehaviour
         Transform mapGO = gameScript.transform.Find("Canvas/Map");
 
         CreateArrow(room, minimapGO);
-//        Debug.Log(mapGO.Find("ArrowContainer").name);
         CreateArrow(room, mapGO);
-        
+
     }
     private void CreateArrow(RoomData room, Transform map)
     {
         if (map.Find("ArrowContainer") != null) Destroy(map.Find("ArrowContainer").gameObject);
-        
+
         // Criar novo container
         GameObject arrowContainerObj = new("ArrowContainer");
         arrowContainerObj.transform.parent = map;
@@ -335,51 +347,161 @@ public class MinimapManager : MonoBehaviour
         }
     }
     private void CreateRoomRecursive(Vector2Int pos, ref int roomsCreated)
-    {
-        if (roomsCreated >= maxRooms || grid[pos.x, pos.y] != null) return;
+{
+    if (roomsCreated >= maxRooms || grid[pos.x, pos.y] != null) return;
 
+    RoomData room = CreateRoomAt(pos);
+    roomsCreated++;
+
+    foreach (var (i, dir) in GetShuffledDirections())
+    {
+        Vector2Int nextPos = pos + dir;
+
+        if (!IsInsideBounds(nextPos)) continue;
+
+        RoomData neighbor = grid[nextPos.x, nextPos.y];
+
+        if (neighbor != null)
+        {
+            TryConnectRooms(room, i, neighbor);
+            continue;
+        }
+
+        if (UnityEngine.Random.value <= spawnRoomChance)
+        {
+            room.connections[i] = true;
+            CreateRoomRecursive(nextPos, ref roomsCreated);
+
+            RoomData created = grid[nextPos.x, nextPos.y];
+            if (created == null)
+            {
+                room.connections[i] = false;
+            }
+            else
+            {
+                int opp = (i + 2) % 4;
+                created.connections[opp] = true;
+            }
+        }
+    }
+}
+
+
+    private RoomData CreateRoomAt(Vector2Int pos)
+    {
         GameObject roomGO = Instantiate(RoomPrefab, transform.Find("Rooms"));
         roomGO.name = $"Room {pos.x};{pos.y}";
         roomGO.transform.localPosition = new Vector3(pos.x, pos.y, 0);
 
-        //Change RoomData atributes
-
         RoomData room = roomGO.GetComponent<RoomData>();
         room.position = pos;
-
-        float roomRandom = Random.value;
-        if (roomRandom <= .4f) room.type = RoomData.Type.Fight;
-        else if (roomRandom <= .7f) room.type = RoomData.Type.Event;
-        else room.type = RoomData.Type.Nothing;
+        room.type = GetRandomRoomType();
 
         grid[pos.x, pos.y] = room;
-        roomsCreated++;
+        return room;
+    }
 
-        var directions = new (int index, Vector2Int dir)[]
+    private void TryConnectRooms(RoomData room, int direction, RoomData neighbor)
+    {
+        if (UnityEngine.Random.value < spawnIntersectionChance)
+        {
+            room.connections[direction] = true;
+            int opp = (direction + 2) % 4;
+            neighbor.connections[opp] = true;
+        }
+    }
+
+    private (int, Vector2Int)[] GetShuffledDirections()
+    {
+        return new (int, Vector2Int)[]
         {
         (0, Vector2Int.up),
         (1, Vector2Int.right),
         (2, Vector2Int.down),
         (3, Vector2Int.left)
-        }.OrderBy(_ => Random.value).ToArray();
+        }.OrderBy(_ => UnityEngine.Random.value).ToArray();
+    }
 
-        foreach (var (i, dir) in directions)
+
+    private RoomData.Type GetRandomRoomType()
+    {
+        float roomRandom = UnityEngine.Random.value;
+        if (roomRandom <= 0.4f) return RoomData.Type.Fight;
+        if (roomRandom <= spawnIntersectionChance) return RoomData.Type.Event;
+        return RoomData.Type.Nothing;
+    }
+
+    private void InfectRoom()
+    {
+        Debug.Log($"Tentando infectar da sala {lastInfectedPos} até {playersRoomGO.GetComponent<RoomData>().position}");
+
+        Vector2Int targetPos = playersRoomGO.GetComponent<RoomData>().position;
+
+        Vector2Int direction = PathfindingUtility.AStarPathfinding(
+            lastInfectedPos,
+            targetPos,
+            pos => IsInsideBounds(pos) && grid[pos.x, pos.y] != null,
+            pos => false,
+            out var path,
+            CanMoveBetween // função que valida se há conexão
+        );
+
+        if (path == null || path.Count < 2)
         {
-            Vector2Int nextPos = pos + dir;
-            if (!IsInsideBounds(nextPos)) continue;
-            if (grid[nextPos.x, nextPos.y] != null && Random.value >= 0.7f) return;
+            Debug.LogWarning("Nenhum caminho válido de infecção encontrado.");
+            return;
+        }
 
-            room.connections[i] = true;
-            CreateRoomRecursive(nextPos, ref roomsCreated);
+        // Pula o primeiro (lastInfectedPos), percorre os próximos
+        for (int i = 1; i < path.Count; i++)
+        {
+            Vector2Int nextPos = path[i];
+            RoomData room = grid[nextPos.x, nextPos.y];
 
-            if (grid[nextPos.x, nextPos.y] == null)
+            if (room == null)
             {
-                room.connections[i] = false;
-                return;
+                Debug.LogWarning($"Erro: posição {nextPos} sem sala.");
+                continue;
             }
 
-            int opposite = (i + 2) % 4;
-            grid[nextPos.x, nextPos.y].connections[opposite] = true;
+            if (room.type != RoomData.Type.Infected)
+            {
+                room.type = RoomData.Type.Infected;
+                lastInfectedPos = nextPos; // Atualiza a última infectada para próxima chamada
+                Debug.Log($"Sala infectada em {nextPos}");
+                return;
+            }
+            else
+            {
+                Debug.Log($"Sala em {nextPos} já estava infectada. Procurando próxima...");
+            }
         }
+
+        Debug.Log("Todas as salas no caminho já estavam infectadas.");
     }
+    private bool CanMoveBetween(Vector2Int from, Vector2Int to)
+    {
+        Vector2Int dir = to - from;
+
+        int fromIndex = -1;
+        if (dir == Vector2Int.up) fromIndex = 0;
+        else if (dir == Vector2Int.right) fromIndex = 1;
+        else if (dir == Vector2Int.down) fromIndex = 2;
+        else if (dir == Vector2Int.left) fromIndex = 3;
+
+        int toIndex = -1;
+        if (dir == Vector2Int.down) toIndex = 0;
+        else if (dir == Vector2Int.left) toIndex = 1;
+        else if (dir == Vector2Int.up) toIndex = 2;
+        else if (dir == Vector2Int.right) toIndex = 3;
+
+        if (fromIndex == -1 || toIndex == -1)
+            return false;
+
+        RoomData fromRoom = grid[from.x, from.y];
+        RoomData toRoom = grid[to.x, to.y];
+
+        return fromRoom != null && toRoom != null &&
+               fromRoom.connections[fromIndex] && toRoom.connections[toIndex];
+    } 
 }

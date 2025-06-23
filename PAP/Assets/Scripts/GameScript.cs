@@ -64,12 +64,10 @@ public class GameScript : MonoBehaviour
     private void Gameplay()
     {
         MapManager.GenerateMap();
-        MapManager.GenerateMiniMapIntersections();
+        MapManager.ShowMiniMapIntersections();
         MapManager.SpawnIcons();
         Combat(false);
     }
-
-
 
     public void Combat(bool infected)
     {

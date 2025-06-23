@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -110382233
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -458185587419916677, guid: 417b5844f40e70a429e3c848b220a8d1, type: 3}
+  m_Sprite: {fileID: 1195458779362535816, guid: b2f3c96d19fff524eb282c0294d41f9f, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 7702314242520494852}
   - component: {fileID: -4130426134131171054}
   m_Layer: 0
-  m_Name: Wolf
+  m_Name: Unknown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,7 @@ SpriteRenderer:
   m_SortingLayerID: -110382233
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: -458185587419916677, guid: 417b5844f40e70a429e3c848b220a8d1, type: 3}
+  m_Sprite: {fileID: 1195458779362535816, guid: b2f3c96d19fff524eb282c0294d41f9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -207,22 +207,30 @@ MonoBehaviour:
   Energy: 0
   MaxEnergy: 4
   Health: 0
-  MaxHealth: 20
+  MaxHealth: 50
   AttackPattern:
-  - {x: -1, y: -1}
-  - {x: -1, y: 0}
+  - {x: -2, y: -1}
+  - {x: -2, y: 0}
+  - {x: -2, y: 1}
+  - {x: -1, y: 2}
   - {x: -1, y: 1}
+  - {x: -1, y: 0}
+  - {x: -1, y: -1}
+  - {x: -1, y: -2}
+  - {x: 0, y: -2}
   - {x: 0, y: -1}
   - {x: 0, y: 1}
-  - {x: 1, y: -1}
-  - {x: 1, y: 0}
-  - {x: 1, y: 1}
-  - {x: 2, y: 0}
   - {x: 0, y: 2}
-  - {x: 0, y: -2}
-  - {x: -2, y: 0}
-  Strength: 6
+  - {x: 1, y: 2}
+  - {x: 1, y: 1}
+  - {x: 1, y: 0}
+  - {x: 1, y: -1}
+  - {x: 1, y: -2}
+  - {x: 2, y: 1}
+  - {x: 2, y: 0}
+  - {x: 2, y: -1}
+  Strength: 12
   Weakness: 0
   _spawnRangeWidth: 6
-  _spawnRangeHeight: 6
-  HealthBar: {fileID: 5777422298668556072, guid: f88b80314eae5d245bf61f46d81c43ca, type: 3}
+  _spawnRangeHeight: 4
+  HealthBar: {fileID: 5777422298668556072, guid: 079a2b5746ab70c4c95ddf6b1d46773e, type: 3}

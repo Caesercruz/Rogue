@@ -49,8 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivePerks: []
   allEncounters:
-  - {fileID: 11400000, guid: cd68da217242b964bb15b419be783754, type: 2}
-  NumberOfEnemies: 4
+  - {fileID: 11400000, guid: dbedaa0a518680e4ca6dc548963f3a5a, type: 2}
+  NumberOfEnemies: 0
   Gamestate: 0
   playerInstance: {fileID: 0}
   MapManager: {fileID: 6303260946941622842}
@@ -749,13 +749,16 @@ MonoBehaviour:
   RoomPrefabVisual: {fileID: 6477668810553360538, guid: 9c9cc837196ea714d958d0c42b8a031f, type: 3}
   IntersectionPrefab: {fileID: 6477668810553360538, guid: 347f5be78ac87af4b9fcb7a1a2f7f3aa, type: 3}
   ArrowPrefab: {fileID: 1718707279431145499, guid: f0ad22174fdd63147ac94a717880d898, type: 3}
-  gameScript: {fileID: 6298731560577338984}
-  openMapInstance: {fileID: 0}
-  hitboxInstance: {fileID: 0}
   PlayerIconPrefab: {fileID: 948714116832981898, guid: 12029aa0b131a294e84b60d02f47bf01, type: 3}
   BossIconPrefab: {fileID: 3090825680938069439, guid: 00ddf9fa421eadf45a37418d9e7892ae, type: 3}
+  openMapInstance: {fileID: 0}
+  hitboxInstance: {fileID: 0}
   PlayerIconInstance: {fileID: 0}
   BossIconInstance: {fileID: 0}
+  width: 5
+  height: 5
+  maxRooms: 20
+  gameScript: {fileID: 6298731560577338984}
 --- !u!114 &7012276734056102250
 MonoBehaviour:
   m_ObjectHideFlags: 0

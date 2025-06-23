@@ -10,22 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30382402c4d3c594ba6723bfde060fae, type: 3}
-  m_Name: Test
+  m_Name: Wolfs_2 Snakes_3
   m_EditorClassIdentifier: 
-  isInfected: 0
+  isInfected: 1
   DiferentEnemies:
-  - Name: Rat
-    enemyPrefab: {fileID: 658002794036794154, guid: d0724d75964b5dc4595ce31c3ef55c38, type: 3}
-    amount: 1
   - Name: Wolf
     enemyPrefab: {fileID: 658002794036794154, guid: a60a70b599beaf04b99ebaaa68072db1, type: 3}
-    amount: 1
+    amount: 2
   - Name: Snake
     enemyPrefab: {fileID: 658002794036794154, guid: dae66d733c3b8284bb9df0dd94a9e10f, type: 3}
-    amount: 1
-  - Name: Wyrmous
-    enemyPrefab: {fileID: 658002794036794154, guid: 2e82faa58b1d28741be0cdfe0c0fc9b9, type: 3}
-    amount: 1
-  - Name: Unknown
-    enemyPrefab: {fileID: 658002794036794154, guid: 37cafdbc4e7306041aac121293121a61, type: 3}
-    amount: 1
+    amount: 3
