@@ -37,12 +37,12 @@ public class Enemy : Actors
             Destroy(gameObject);
             if (gameScript.NumberOfEnemies == 0)
             {
-                
+                gameScript.firstTurn = true;
                 gameScript.ShowUpdateScreen();
                 
                 return;
             }
-            RecalculateEnemyAttacks();
+            if(!gameScript.firstTurn) RecalculateEnemyAttacks();
         }
 
         if (gameScript.Gamestate != GameScript.GameState.Combat || actors.isPlayersTurn) return;

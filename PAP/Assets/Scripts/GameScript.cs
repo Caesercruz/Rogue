@@ -25,6 +25,7 @@ public class GameScript : MonoBehaviour
     public int NumberOfEnemies = 0;
     public readonly int Width = 8, Height = 6;
     public GameState Gamestate;
+    public bool firstTurn = true;
 
     [Header("Others")]
     private GameObject combatUIInstance;
@@ -143,7 +144,6 @@ public class GameScript : MonoBehaviour
                 NumberOfEnemies++;
             }
         }
-        
     }
     public void CleanScene()
     {

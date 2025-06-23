@@ -139,6 +139,7 @@ public class Player : Actors
                 actors.isPlayersTurn = false;
                 StoredEnergy = 0;
                 weakened = false;
+                gameScript.firstTurn = false;
             }
     }
 

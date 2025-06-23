@@ -1003,6 +1003,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3837431532144576784, guid: cd0800f27b1cd5f44bbb80076d6e57b6, type: 3}
+      propertyPath: newGameButton
+      value: 
+      objectReference: {fileID: 2072506145}
+    - target: {fileID: 5516296619143974388, guid: cd0800f27b1cd5f44bbb80076d6e57b6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2987,6 +2995,17 @@ Transform:
   - {fileID: 524817338}
   m_Father: {fileID: 1395875829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2072506145 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5516296619143974388, guid: cd0800f27b1cd5f44bbb80076d6e57b6, type: 3}
+  m_PrefabInstance: {fileID: 670538204}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2116221733
 GameObject:
   m_ObjectHideFlags: 0
