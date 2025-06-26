@@ -38,44 +38,6 @@ public class Upgrade : MonoBehaviour
         else Popup = Instantiate(_popupDowngrade, upgradeScreen.transform);
         Popup.name = "Popup";
         hitBox.GetComponent<Button>().onClick.AddListener(() => upgradeScreen.GetComponent<Upgrade>().ClosePopup());
-        foreach (Transform child in Popup.transform)
-        {
-            if (child.name != "Perk Name")
-            {
-                GameObject buttonObj = child.gameObject;
-                string perkName = buttonObj.name;
-
-                Perk perk = gameScript.AllPerks.Find(p => p.name == perkName);
-                if (perk == null)
-                {
-                    Debug.LogWarning($"Perk '{perkName}' não encontrado!");
-                    continue;
-                }
-
-                EventTrigger trigger = buttonObj.GetComponent<EventTrigger>();
-                if (trigger == null)
-                    trigger = buttonObj.AddComponent<EventTrigger>();
-
-                // Limpa eventos antigos
-                trigger.triggers.Clear();
-
-                //Hover-mostrar nome do perk
-                EventTrigger.Entry hoverEntry = new()
-                {
-                    eventID = EventTriggerType.PointerEnter
-                };
-                hoverEntry.callback.AddListener((data) => GetPerkDescription(perk));
-                trigger.triggers.Add(hoverEntry);
-
-                // Click-selecionar perk
-                EventTrigger.Entry clickEntry = new()
-                {
-                    eventID = EventTriggerType.PointerClick
-                };
-                clickEntry.callback.AddListener((data) => SelectAtribute(perk));
-                trigger.triggers.Add(clickEntry);
-            }
-        }
     }
     public void SelectAtribute(Perk perk)
     {
@@ -104,9 +66,6 @@ public class Upgrade : MonoBehaviour
             animationSpawner.PerksSelectedAnimation(upgradeScreen, SelectedBuff == null, SelectedByproduct == null);
             return;
         }
-
-        SelectedBuff.active = true;
-        SelectedByproduct.active = true;
 
         gameScript.ActivePerks.Add(SelectedBuff);
         gameScript.ActivePerks.Add(SelectedByproduct);
@@ -140,18 +99,7 @@ public class Upgrade : MonoBehaviour
             Debug.LogWarning("Label não encontrada!");
         }
     }
-    public void GetPerkDescription(Perk perk)
-    {
-        Transform label = Popup.transform.Find("Perk Name");
-        if (label != null)
-        {
-            label.GetComponent<TextMeshProUGUI>().text = perk.description;
-        }
-        else
-        {
-            Debug.LogWarning("Label não encontrada!");
-        }
-    }
+    
     private bool PerksSelectedValidation()
     {
 

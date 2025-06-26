@@ -66,13 +66,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c6a06ad228a348449f28e46b6ede9e9, type: 2}
   - {fileID: 11400000, guid: ff7a126bfef244b42bdf1b65109bc67c, type: 2}
   - {fileID: 11400000, guid: be1990e508b84cf419d6aea2d89e1e09, type: 2}
-  ActivePerks:
-  - {fileID: 11400000, guid: 4c2671148548b1b4e8dbef8a82e625a1, type: 2}
-  - {fileID: 11400000, guid: ef9c318ef7e37024fb0624b1bb5c87ac, type: 2}
-  - {fileID: 11400000, guid: 1702faec436b927488757eaeb021ae25, type: 2}
-  - {fileID: 11400000, guid: ff7a126bfef244b42bdf1b65109bc67c, type: 2}
-  - {fileID: 11400000, guid: be1990e508b84cf419d6aea2d89e1e09, type: 2}
-  - {fileID: 11400000, guid: c1d2b170e8c79db4aaf54dbd77a26024, type: 2}
+  ActivePerks: []
   allEncounters:
   - {fileID: 11400000, guid: dbedaa0a518680e4ca6dc548963f3a5a, type: 2}
   - {fileID: 11400000, guid: 8bad42f87507c7c44b3c84330f91f5c2, type: 2}
@@ -84,8 +78,11 @@ MonoBehaviour:
   NumberOfEnemies: 0
   Gamestate: 0
   firstTurn: 1
+  bossFight: {fileID: 11400000, guid: a2d057c6656202d49a3a8df58601cb76, type: 2}
   playerInstance: {fileID: 0}
   MapManager: {fileID: 6303260946941622842}
+  RenforcedPlates: 0
+  RustyPlates: 0
   combatUIPrefab: {fileID: 5596798264354962279, guid: cde0081af322ca34eb38df1bda2c8064, type: 3}
   boardManager: {fileID: 5216829209019658469, guid: 724734ba1f4b5bb43adaa3dd99a7639d, type: 3}
   UpdateScreenPrefab: {fileID: 3689550112863654208, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d89044ea960c3714786a958d07167699
+guid: 9d6dfd4b5f8481e429225c5b268e199c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4780096612902141515
-    second: AlterTile_0
+      213: -5109843014221220039
+    second: GroundCrack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AlterTile_0
+      name: GroundCrack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 101
-        height: 101
+        width: 800
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b4e741c1b80565240800000000000000
-      internalID: 4780096612902141515
+      spriteID: 93735570ad03619b0800000000000000
+      internalID: -5109843014221220039
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      AlterTile_0: 4780096612902141515
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,23 +11,36 @@ public class PopupPerks : MonoBehaviour
 
     public int ButtonCounter = 0;
     public int TotalButtonsToSpawn = 9;
-    private GameScript gameScript;
+    public Upgrade Upgrade;
+    public GameScript gameScript;
 
     void Awake()
     {
-        gameScript = transform.parent.GetComponent<Upgrade>().gameScript;
+        Upgrade = transform.parent.GetComponent<Upgrade>();
+        gameScript = Upgrade.gameScript;
     }
 
-    public void NotifyButtonSpawned(bool disableActiveButtons)
+    public void NotifyButtonSpawned(bool disableActivePerks)
     {
         ButtonCounter++;
         if (ButtonCounter == TotalButtonsToSpawn)
         {
-            if(disableActiveButtons) DisableActivePerkButtons();
-            else EnableActivePerkButtons();
+            if (disableActivePerks) DisableActivePerkButtons();
+            else EnableActivePerkButtons(); 
         }
     }
-
+    public void GetPerkDescription(Perk perk)
+    {
+        Transform label = transform.Find("Perk Name");
+        if (label != null)
+        {
+            label.GetComponent<TextMeshProUGUI>().text = perk.description;
+        }
+        else
+        {
+            Debug.LogWarning("Label não encontrada!");
+        }
+    }
     public void DisableActivePerkButtons()
     {
         foreach (Transform child in transform)

@@ -78,10 +78,10 @@ public class MinimapManager : MonoBehaviour
 
         CloseMap();
 
-        if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Fight) gameScript.Combat(false);
-        else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Infected) gameScript.Combat(true);
+        if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Fight) gameScript.Combat(RoomData.Type.Fight);
+        else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Infected) gameScript.Combat(RoomData.Type.Infected);
+        else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Infected) gameScript.Combat(RoomData.Type.Bossfight);
         else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Nothing) Empty();
-        else gameScript.Combat(false);
     }
     public void Empty()
     {
@@ -385,8 +385,6 @@ public class MinimapManager : MonoBehaviour
         }
     }
 }
-
-
     private RoomData CreateRoomAt(Vector2Int pos)
     {
         GameObject roomGO = Instantiate(RoomPrefab, transform.Find("Rooms"));
@@ -400,7 +398,6 @@ public class MinimapManager : MonoBehaviour
         grid[pos.x, pos.y] = room;
         return room;
     }
-
     private void TryConnectRooms(RoomData room, int direction, RoomData neighbor)
     {
         if (UnityEngine.Random.value < spawnIntersectionChance)
@@ -410,7 +407,6 @@ public class MinimapManager : MonoBehaviour
             neighbor.connections[opp] = true;
         }
     }
-
     private (int, Vector2Int)[] GetShuffledDirections()
     {
         return new (int, Vector2Int)[]
@@ -421,8 +417,6 @@ public class MinimapManager : MonoBehaviour
         (3, Vector2Int.left)
         }.OrderBy(_ => UnityEngine.Random.value).ToArray();
     }
-
-
     private RoomData.Type GetRandomRoomType()
     {
         float roomRandom = UnityEngine.Random.value;
@@ -430,7 +424,6 @@ public class MinimapManager : MonoBehaviour
         if (roomRandom <= spawnIntersectionChance) return RoomData.Type.Event;
         return RoomData.Type.Nothing;
     }
-
     private void InfectRoom()
     {
         Debug.Log($"Tentando infectar da sala {lastInfectedPos} até {playersRoomGO.GetComponent<RoomData>().position}");

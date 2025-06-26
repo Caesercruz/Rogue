@@ -6,7 +6,6 @@ public class Perk : ScriptableObject
     [TextArea] public string description;
     public Sprite icon;
     public PerkType type;
-    public bool active;
 
 }
 

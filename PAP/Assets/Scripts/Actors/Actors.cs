@@ -24,6 +24,7 @@ public class Actors : MonoBehaviour
     private float nextMoveTime = 0f;
 
     public int _spawnRangeWidth, _spawnRangeHeight;
+    public Vector2Int fixedPosition;
 
     private void Awake()
     {
@@ -80,11 +81,11 @@ public class Actors : MonoBehaviour
         character.name = name;
 
         Vector2Int gridPosition;
-        do
-        {
-            gridPosition = new Vector2Int(Random.Range(_spawnRangeWidth, 8), Random.Range(0, _spawnRangeHeight));
-        }
+        do gridPosition = new Vector2Int(Random.Range(_spawnRangeWidth, 8), Random.Range(0, _spawnRangeHeight));
         while (IsSpaceOccupied(gridPosition));
+        
+        if (fixedPosition != null && !IsSpaceOccupied(fixedPosition)) gridPosition = fixedPosition;
+
 
         character.transform.position = new(gridPosition.x,gridPosition.y,0);
 
@@ -149,7 +150,6 @@ public class Actors : MonoBehaviour
         Health = Mathf.Clamp(health, 0, maxhealth);
         FindAnyObjectByType<HUDManager>().UpdateHealth(healthBar, Health, MaxHealth);
     }
-
     public void ChangeEnergy(int energy, int maxenergy)
     {
         MaxEnergy = maxenergy;

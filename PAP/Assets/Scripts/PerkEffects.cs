@@ -1,6 +1,5 @@
-using static UnityEngine.EventSystems.EventTrigger;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PerkEffects : MonoBehaviour
 {
@@ -12,13 +11,14 @@ public class PerkEffects : MonoBehaviour
     }
     public void ApplyPerks(Player player)
     {
-        if(gameScript.ActivePerks.Find(p => p.name == "Energetic"))
+        if (gameScript.ActivePerks.Find(p => p.name == "Energetic"))
         {
             player.ChangeEnergy(player.MaxEnergy, player.MaxEnergy + 2);
         }
-        if (gameScript.ActivePerks.Find(p => p.name == "Reinforced Plates"))
+        if (gameScript.ActivePerks.Find(p => p.name == "Reinforced Plates") && !gameScript.RenforcedPlates)
         {
             player.ChangeHealth(player.HealthBar, player.Health + 10, player.MaxHealth + 10);
+            gameScript.RenforcedPlates = true;
         }
         if (gameScript.ActivePerks.Find(p => p.name == "Increased Reach"))
         {
@@ -48,9 +48,10 @@ public class PerkEffects : MonoBehaviour
         {
             player.Strength = player.Strength - 2;
         }
-        if (gameScript.ActivePerks.Find(p => p.name == "Rusty Plates"))
+        if (gameScript.ActivePerks.Find(p => p.name == "Rusty Plates") && !gameScript.RustyPlates)
         {
-            player.ChangeHealth(player.HealthBar, player.Health,player.MaxHealth - 7);
+            player.ChangeHealth(player.HealthBar, player.Health, player.MaxHealth - 7);
+            gameScript.RustyPlates = true;
         }
         if (gameScript.ActivePerks.Find(p => p.name == "Low Energy"))
         {

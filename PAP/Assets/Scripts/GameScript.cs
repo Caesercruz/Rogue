@@ -29,10 +29,14 @@ public class GameScript : MonoBehaviour
     public bool firstTurn = true;
 
     [Header("Others")]
+    [SerializeField] private EncounterData bossFight;
     private GameObject combatUIInstance;
     private GameObject boardManagerInstance;
     [HideInInspector] public GameObject playerInstance;
+    private GameObject showPerksInstance;
     public MinimapManager MapManager;
+    public bool RenforcedPlates = false;
+    public bool RustyPlates = false;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject combatUIPrefab;
@@ -48,6 +52,12 @@ public class GameScript : MonoBehaviour
             ClearWarningData();
             Debug.Log("Warnings resetados.");
         }
+
+        if(showPerksInstance != null && GameControls.Actions.Back.triggered)
+        {
+            Destroy(showPerksInstance);
+            if (Gamestate == GameState.Combat) GameControls.PlayerControls.Enable();
+        } 
     }
     public void ClearWarningData()
     {
@@ -69,10 +79,9 @@ public class GameScript : MonoBehaviour
         MapManager.GenerateMap();
         MapManager.ShowMiniMapIntersections();
         MapManager.SpawnIcons();
-        Combat(false);
+        Combat(RoomData.Type.Fight);
     }
-
-    public void Combat(bool infected)
+    public void Combat(RoomData.Type roomType)
     {
         GameControls.PlayerControls.Enable();
         combatUIInstance = Instantiate(combatUIPrefab,gameObject.transform.Find("Canvas"));
@@ -90,7 +99,7 @@ public class GameScript : MonoBehaviour
             }
         }
         playerInstance.GetComponent<Player>().SetPlayer();
-        StartEncounter(infected);
+        StartEncounter(roomType);
         Gamestate = GameState.Combat;
 
         void SpawnTile(int x, int y)
@@ -103,6 +112,7 @@ public class GameScript : MonoBehaviour
             spawnedTile.Init(isOffSet);
         }
     }
+    
     public void ShowUpdateScreen()
     {
         Gamestate = GameState.WonEncounter;
@@ -116,10 +126,13 @@ public class GameScript : MonoBehaviour
 
         //StartCoroutine(animationSpawner.AnimatePopupSpawn(instance.transform));
     }
-    public void StartEncounter(bool infected)
+    public void StartEncounter(RoomData.Type fightType)
     {
         NumberOfEnemies = 0;
-        var validEncounters = allEncounters.FindAll(e => e.isInfected == infected);
+        List<EncounterData> validEncounters = new();
+        if (fightType == RoomData.Type.Fight) validEncounters = allEncounters.FindAll(e => e.isInfected == false);
+        if (fightType == RoomData.Type.Infected) validEncounters = allEncounters.FindAll(e => e.isInfected == true);
+        else validEncounters.Add(bossFight);
 
         if (validEncounters.Count == 0)
         {
@@ -149,7 +162,8 @@ public class GameScript : MonoBehaviour
     }
     public void ShowEquipedPerks()
     {
-        Instantiate(showPerksPrefab,transform);
+        showPerksInstance = Instantiate(showPerksPrefab,transform);
+        GameControls.PlayerControls.Disable();
     }
     public void CleanScene()
     {
