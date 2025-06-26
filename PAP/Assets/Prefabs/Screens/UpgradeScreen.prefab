@@ -394,7 +394,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821770864490049933}
         m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: ShowAtributes
+        m_MethodName: ShowPerks
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -613,7 +613,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 821770864490049933}
         m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
-        m_MethodName: ShowAtributes
+        m_MethodName: ShowPerks
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1014,26 +1014,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36bdd4e22b11b549844434170f59722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allPerks:
-  - {fileID: 11400000, guid: 0c6a06ad228a348449f28e46b6ede9e9, type: 2}
-  - {fileID: 11400000, guid: f26464f0a7af2e640b8229f0c215be3d, type: 2}
-  - {fileID: 11400000, guid: 1702faec436b927488757eaeb021ae25, type: 2}
-  - {fileID: 11400000, guid: cb75452e5ffee3d48ad71c79031a9b19, type: 2}
-  - {fileID: 11400000, guid: 3e019ab97115742419bc41c1821549e0, type: 2}
-  - {fileID: 11400000, guid: 0570690da2d313e43bf61dde048479a8, type: 2}
-  - {fileID: 11400000, guid: 9c1ecf44260d5f34c9aeb0b788db9e9a, type: 2}
-  - {fileID: 11400000, guid: ef9c318ef7e37024fb0624b1bb5c87ac, type: 2}
-  - {fileID: 11400000, guid: 2820725c5411d924ca55712c60c7b390, type: 2}
-  - {fileID: 11400000, guid: ff574fb79274f514ab7bd682e608efdf, type: 2}
-  - {fileID: 11400000, guid: c1d2b170e8c79db4aaf54dbd77a26024, type: 2}
-  - {fileID: 11400000, guid: 4523c3bfce1b04e45917e4430c0908e8, type: 2}
-  - {fileID: 11400000, guid: 6ef3acfee069e604f9f32cbb25df94f0, type: 2}
-  - {fileID: 11400000, guid: 3ab734a24d4923f43b3e9a7d1b9affc4, type: 2}
-  - {fileID: 11400000, guid: 06193bfdf43aaa54a94fb72e500b67ea, type: 2}
-  - {fileID: 11400000, guid: 5c99291a050efac489e395365bb47bd4, type: 2}
-  - {fileID: 11400000, guid: ff7a126bfef244b42bdf1b65109bc67c, type: 2}
-  - {fileID: 11400000, guid: be1990e508b84cf419d6aea2d89e1e09, type: 2}
-  - {fileID: 11400000, guid: 4c2671148548b1b4e8dbef8a82e625a1, type: 2}
   gameScript: {fileID: 0}
   upgradeScreen: {fileID: 3689550112863654208}
   hitBoxPrefab: {fileID: 2849204629144880126, guid: 566a58aedc4b0794e9fcc81b8c10c931, type: 3}

@@ -20,6 +20,7 @@ public class GameScript : MonoBehaviour
     }
 
     [Header("Debugging")]
+    public List<Perk> AllPerks;
     public List<Perk> ActivePerks = new();
     [SerializeField] private List<EncounterData> allEncounters;
     public int NumberOfEnemies = 0;
@@ -39,6 +40,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] private GameObject UpdateScreenPrefab;
     [SerializeField] private Tile _tilePrefab;
     [SerializeField] private GameObject _playerPrefab;
+    [SerializeField] private GameObject showPerksPrefab;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F12))
@@ -105,7 +107,7 @@ public class GameScript : MonoBehaviour
     {
         Gamestate = GameState.WonEncounter;
 
-        GameObject instance = Instantiate(UpdateScreenPrefab);
+        GameObject instance = Instantiate(UpdateScreenPrefab,transform);
         instance.name = "UpdateScreen";
         instance.GetComponent<Upgrade>().gameScript = this;
         CleanScene();
@@ -144,6 +146,10 @@ public class GameScript : MonoBehaviour
                 NumberOfEnemies++;
             }
         }
+    }
+    public void ShowEquipedPerks()
+    {
+        Instantiate(showPerksPrefab,transform);
     }
     public void CleanScene()
     {

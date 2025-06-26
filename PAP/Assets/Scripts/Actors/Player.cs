@@ -216,5 +216,6 @@ public class Player : Actors
         Vector3 worldPosition = new(gridPosition.x, gridPosition.y, 0);
         transform.position = worldPosition;
         actors.ActorsCord.Add(gameObject, gridPosition);
+        transform.parent.transform.Find($"Tile {gridPosition.x} {gridPosition.y}").GetComponent<Tile>().IsOccupied = true;
     }
 }

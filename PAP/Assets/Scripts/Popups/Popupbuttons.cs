@@ -4,7 +4,7 @@ public class Popupbuttons : MonoBehaviour
 {
     void Start()
     {
-        PopupPerks popup = GameObject.Find("Popup").GetComponent<PopupPerks>();
-        popup.NotifyButtonSpawned();
+        PopupPerks popup = transform.parent.GetComponent<PopupPerks>();
+         popup.NotifyButtonSpawned(popup.Selectable);
     }
 }

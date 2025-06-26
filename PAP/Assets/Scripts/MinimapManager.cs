@@ -25,7 +25,7 @@ public class MinimapManager : MonoBehaviour
     [SerializeField] private int width = 5;
     [SerializeField] private int height = 5;
     [SerializeField] private float spawnIntersectionChance = .8f;
-    [SerializeField] private float spawnRoomChance = 0.8f; // 80% chance por padrão
+    [SerializeField] private float spawnRoomChance = 0.8f;
 
     [SerializeField] private int maxRooms = 20;
     [SerializeField] private GameScript gameScript;

@@ -6,9 +6,7 @@ using UnityEngine.UI;
 
 public class Upgrade : MonoBehaviour
 {
-    public List<Perk> allPerks;
     public GameScript gameScript;
-    Player player;
     public GameObject upgradeScreen;
     public GameObject hitBoxPrefab;
     public GameObject hitBox;
@@ -17,7 +15,15 @@ public class Upgrade : MonoBehaviour
     [HideInInspector] public GameObject Popup;
 
     public Perk SelectedBuff, SelectedByproduct;
-
+    private void Awake()
+    {
+        upgradeScreen = gameObject;
+        gameScript = transform.parent.GetComponent<GameScript>();
+    }
+    private void Start()
+    {
+        gameScript.GameControls.PlayerControls.Disable();
+    }
     private void Update()
     {
         if (Popup != null)
@@ -25,16 +31,10 @@ public class Upgrade : MonoBehaviour
             if (gameScript.GameControls.Actions.Back.triggered) ClosePopup();
         }
     }
-    private void Start()
-    {
-        player = GameObject.Find("Player").GetComponent<Player>();
-        upgradeScreen = gameObject;
-        gameScript.GameControls.PlayerControls.Disable();
-    }
-    public void ShowAtributes(bool Upside)
+    public void ShowPerks(bool buff)
     {
         hitBox = Instantiate(hitBoxPrefab, upgradeScreen.transform);
-        if (Upside) Popup = Instantiate(_popupUpgrade, upgradeScreen.transform);
+        if (buff) Popup = Instantiate(_popupUpgrade, upgradeScreen.transform);
         else Popup = Instantiate(_popupDowngrade, upgradeScreen.transform);
         Popup.name = "Popup";
         hitBox.GetComponent<Button>().onClick.AddListener(() => upgradeScreen.GetComponent<Upgrade>().ClosePopup());
@@ -45,7 +45,7 @@ public class Upgrade : MonoBehaviour
                 GameObject buttonObj = child.gameObject;
                 string perkName = buttonObj.name;
 
-                Perk perk = allPerks.Find(p => p.name == perkName);
+                Perk perk = gameScript.AllPerks.Find(p => p.name == perkName);
                 if (perk == null)
                 {
                     Debug.LogWarning($"Perk '{perkName}' não encontrado!");
@@ -64,7 +64,7 @@ public class Upgrade : MonoBehaviour
                 {
                     eventID = EventTriggerType.PointerEnter
                 };
-                hoverEntry.callback.AddListener((data) => GetPerkName(perk));
+                hoverEntry.callback.AddListener((data) => GetPerkDescription(perk));
                 trigger.triggers.Add(hoverEntry);
 
                 // Click-selecionar perk
@@ -89,7 +89,7 @@ public class Upgrade : MonoBehaviour
         Transform description = atribute.transform.Find("Description");
 
         icon.GetComponent<Image>().sprite = perk.icon;
-        description.GetComponent<TextMeshProUGUI>().text = perk.description;
+        description.GetComponent<TextMeshProUGUI>().text = perk.name;
 
         if (perk.type == PerkType.Buff) SelectedBuff = perk;
         if (perk.type == PerkType.Debuff) SelectedByproduct = perk;
@@ -134,6 +134,18 @@ public class Upgrade : MonoBehaviour
         if (label != null)
         {
             label.GetComponent<TextMeshProUGUI>().text = perk.name;
+        }
+        else
+        {
+            Debug.LogWarning("Label não encontrada!");
+        }
+    }
+    public void GetPerkDescription(Perk perk)
+    {
+        Transform label = Popup.transform.Find("Perk Name");
+        if (label != null)
+        {
+            label.GetComponent<TextMeshProUGUI>().text = perk.description;
         }
         else
         {

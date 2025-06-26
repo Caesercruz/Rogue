@@ -47,7 +47,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053d8c264bc1a6e489ef1419ac97488e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivePerks: []
+  AllPerks:
+  - {fileID: 11400000, guid: 4c2671148548b1b4e8dbef8a82e625a1, type: 2}
+  - {fileID: 11400000, guid: ff574fb79274f514ab7bd682e608efdf, type: 2}
+  - {fileID: 11400000, guid: c1d2b170e8c79db4aaf54dbd77a26024, type: 2}
+  - {fileID: 11400000, guid: 2820725c5411d924ca55712c60c7b390, type: 2}
+  - {fileID: 11400000, guid: 4523c3bfce1b04e45917e4430c0908e8, type: 2}
+  - {fileID: 11400000, guid: ef9c318ef7e37024fb0624b1bb5c87ac, type: 2}
+  - {fileID: 11400000, guid: 9c1ecf44260d5f34c9aeb0b788db9e9a, type: 2}
+  - {fileID: 11400000, guid: 6ef3acfee069e604f9f32cbb25df94f0, type: 2}
+  - {fileID: 11400000, guid: 0570690da2d313e43bf61dde048479a8, type: 2}
+  - {fileID: 11400000, guid: 3ab734a24d4923f43b3e9a7d1b9affc4, type: 2}
+  - {fileID: 11400000, guid: 3e019ab97115742419bc41c1821549e0, type: 2}
+  - {fileID: 11400000, guid: 1702faec436b927488757eaeb021ae25, type: 2}
+  - {fileID: 11400000, guid: 06193bfdf43aaa54a94fb72e500b67ea, type: 2}
+  - {fileID: 11400000, guid: f26464f0a7af2e640b8229f0c215be3d, type: 2}
+  - {fileID: 11400000, guid: 5c99291a050efac489e395365bb47bd4, type: 2}
+  - {fileID: 11400000, guid: 0c6a06ad228a348449f28e46b6ede9e9, type: 2}
+  - {fileID: 11400000, guid: ff7a126bfef244b42bdf1b65109bc67c, type: 2}
+  - {fileID: 11400000, guid: be1990e508b84cf419d6aea2d89e1e09, type: 2}
+  ActivePerks:
+  - {fileID: 11400000, guid: 4c2671148548b1b4e8dbef8a82e625a1, type: 2}
+  - {fileID: 11400000, guid: ef9c318ef7e37024fb0624b1bb5c87ac, type: 2}
+  - {fileID: 11400000, guid: 1702faec436b927488757eaeb021ae25, type: 2}
+  - {fileID: 11400000, guid: ff7a126bfef244b42bdf1b65109bc67c, type: 2}
+  - {fileID: 11400000, guid: be1990e508b84cf419d6aea2d89e1e09, type: 2}
+  - {fileID: 11400000, guid: c1d2b170e8c79db4aaf54dbd77a26024, type: 2}
   allEncounters:
   - {fileID: 11400000, guid: dbedaa0a518680e4ca6dc548963f3a5a, type: 2}
   - {fileID: 11400000, guid: 8bad42f87507c7c44b3c84330f91f5c2, type: 2}
@@ -66,6 +91,7 @@ MonoBehaviour:
   UpdateScreenPrefab: {fileID: 3689550112863654208, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
   _tilePrefab: {fileID: 5538682261457699561, guid: 6489228b5461c8046921953f7f996f49, type: 3}
   _playerPrefab: {fileID: 7105682245982518747, guid: 63fd3c4fd4954c340a7d8f829a57d38b, type: 3}
+  showPerksPrefab: {fileID: 5138201893042506748, guid: d545fc79449c12745b0400c965d0bd0c, type: 3}
 --- !u!114 &4377681145316759486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,8 +737,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6298731560577338984}
         m_TargetAssemblyTypeName: GameScript, Assembly-CSharp
-        m_MethodName: Combat
-        m_Mode: 6
+        m_MethodName: ShowEquipedPerks
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
