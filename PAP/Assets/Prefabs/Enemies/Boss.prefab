@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -110382233
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -700936815634684779, guid: 25736ed4ba9b063428bda0fa9f25df32, type: 3}
+  m_Sprite: {fileID: -112644981218386394, guid: 442e0487e83464d4f870fd6962c7ca00, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 5440141276539668396}
   - component: {fileID: 7702314242520494852}
   - component: {fileID: -4130426134131171054}
+  - component: {fileID: 5179629654046784276}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -239,3 +240,16 @@ MonoBehaviour:
   _spawnRangeHeight: 0
   fixedPosition: {x: 7, y: 2}
   HealthBar: {fileID: 5777422298668556072, guid: 0ccfee81788b02344b5cba02ec7747fc, type: 3}
+--- !u!114 &5179629654046784276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658002794036794154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d94ea77033485342bf84c4fb3646031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GroundPrefab: {fileID: 4748493439356519684, guid: 6f9187ac0ab35f340b6a5ac7c77f571c, type: 3}

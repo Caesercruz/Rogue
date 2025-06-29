@@ -29,6 +29,7 @@ public class GameScript : MonoBehaviour
     public bool firstTurn = true;
 
     [Header("Others")]
+    public List<GroundHealth> timedGrounds = new();
     [SerializeField] private EncounterData bossFight;
     private GameObject combatUIInstance;
     private GameObject boardManagerInstance;
@@ -132,8 +133,7 @@ public class GameScript : MonoBehaviour
         List<EncounterData> validEncounters = new();
         if (fightType == RoomData.Type.Fight) validEncounters = allEncounters.FindAll(e => e.isInfected == false);
         if (fightType == RoomData.Type.Infected) validEncounters = allEncounters.FindAll(e => e.isInfected == true);
-        else validEncounters.Add(bossFight);
-
+        if (fightType == RoomData.Type.Bossfight) validEncounters.Add(bossFight);
         if (validEncounters.Count == 0)
         {
             Debug.LogError("Nenhum encontro válido.");

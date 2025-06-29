@@ -80,7 +80,7 @@ public class MinimapManager : MonoBehaviour
 
         if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Fight) gameScript.Combat(RoomData.Type.Fight);
         else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Infected) gameScript.Combat(RoomData.Type.Infected);
-        else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Infected) gameScript.Combat(RoomData.Type.Bossfight);
+        else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Bossfight) gameScript.Combat(RoomData.Type.Bossfight);
         else if (playersRoomGO.GetComponent<RoomData>().type == RoomData.Type.Nothing) Empty();
     }
     public void Empty()
@@ -114,11 +114,10 @@ public class MinimapManager : MonoBehaviour
                 roomGO.transform.localPosition = pos;
 
                 roomGO.name = $"Room {x};{y}";
-
-                if (room.Explored) roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
                 if (room.GetComponent<RoomData>().type == RoomData.Type.Bossfight ||
                     room.GetComponent<RoomData>().type == RoomData.Type.Infected)
                     roomGO.GetComponent<SpriteRenderer>().color = new(.876f, .327f, .38f, 1);
+                if (room.Explored) roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
 
                 for (int i = 0; i < 4; i++)
                 {
@@ -240,7 +239,7 @@ public class MinimapManager : MonoBehaviour
     }
     public void SpawnIcons()
     {
-        RoomData mostBottomRight = null;
+        RoomData mostBottomLeft = null;
 
         for (int x = 0; x < width; x++)
         {
@@ -249,11 +248,11 @@ public class MinimapManager : MonoBehaviour
                 RoomData room = grid[x, y];
                 if (room == null) continue;
 
-                if (mostBottomRight == null ||
-                    room.position.x < mostBottomRight.position.x ||
-                    (room.position.x == mostBottomRight.position.x && room.position.y < mostBottomRight.position.y))
+                if (mostBottomLeft == null ||
+                    room.position.x < mostBottomLeft.position.x ||
+                    (room.position.x == mostBottomLeft.position.x && room.position.y < mostBottomLeft.position.y))
                 {
-                    mostBottomRight = room;
+                    mostBottomLeft = room;
                 }
             }
         }
@@ -274,9 +273,9 @@ public class MinimapManager : MonoBehaviour
             }
         }
 
-        if (mostBottomRight != null)
+        if (mostBottomLeft != null)
         {
-            playersRoomGO = GameObject.Find($"Room {mostBottomRight.position.x};{mostBottomRight.position.y}");
+            playersRoomGO = GameObject.Find($"Room {mostBottomLeft.position.x};{mostBottomLeft.position.y}");
             PlayerIconInstance = Instantiate(PlayerIconPrefab, gameObject.transform);
             PlayerIconInstance.transform.position = playersRoomGO.transform.position;
             PlayerIconInstance.transform.localScale = new Vector3(.25f, .3f, 1);
@@ -421,7 +420,6 @@ public class MinimapManager : MonoBehaviour
     {
         float roomRandom = UnityEngine.Random.value;
         if (roomRandom <= 0.4f) return RoomData.Type.Fight;
-        if (roomRandom <= spawnIntersectionChance) return RoomData.Type.Event;
         return RoomData.Type.Nothing;
     }
     private void InfectRoom()

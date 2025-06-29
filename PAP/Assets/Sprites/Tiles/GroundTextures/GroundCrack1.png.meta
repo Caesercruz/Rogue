@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9d6dfd4b5f8481e429225c5b268e199c
+guid: ed9e5d0280649244983323f3436a08cc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5109843014221220039
-    second: GroundCrack_0
+      213: -2649265539946663409
+    second: GroundCrack1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GroundCrack_0
+      name: GroundCrack1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 800
-        height: 500
+        width: 270
+        height: 93
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 93735570ad03619b0800000000000000
-      internalID: -5109843014221220039
+      spriteID: f02bbcf170beb3bd0800000000000000
+      internalID: -2649265539946663409
       vertices: []
       indices: 
       edges: []

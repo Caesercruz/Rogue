@@ -88,7 +88,6 @@ public class Actors : MonoBehaviour
 
 
         character.transform.position = new(gridPosition.x,gridPosition.y,0);
-
         actors.ActorsCord.Add(character, gridPosition);
         if (actors.GridTiles.TryGetValue(gridPosition, out Tile tile))
         {

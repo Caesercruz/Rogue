@@ -49,7 +49,16 @@ public class Enemy : Actors
 
         Energy = MaxEnergy;
         Weakness = 0;
+
+        BossBehavior bossBehavior = gameObject.GetComponent<BossBehavior>();
+        foreach (var ground in gameScript.timedGrounds.ToArray())
+        {
+            ground.DecreaseHealth();
+        }
+        if (bossBehavior != null) bossBehavior.DamageGround();
+
         EnemyMove();
+
         SetAttackableTiles(false);
     }
     private void EnemyMove()
