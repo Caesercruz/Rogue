@@ -69,6 +69,8 @@ public class MinimapManager : MonoBehaviour
         Vector2Int newPos = playersRoomGO.GetComponent<RoomData>().position + direction;
         playersRoomGO = gameObject.transform.Find($"Rooms/Room {newPos.x};{newPos.y}").gameObject;
         playersRoomGO.GetComponent<RoomData>().Explored = true;
+        playersRoomGO.GetComponent<RoomData>().infectedStatus = 0;
+
         Destroy(gameObject.transform.Find("ArrowContainer").gameObject);
         _movement = false;
         gameScript.CleanScene();
@@ -114,10 +116,13 @@ public class MinimapManager : MonoBehaviour
                 roomGO.transform.localPosition = pos;
 
                 roomGO.name = $"Room {x};{y}";
-                if (room.GetComponent<RoomData>().type == RoomData.Type.Bossfight ||
-                    room.GetComponent<RoomData>().type == RoomData.Type.Infected)
-                    roomGO.GetComponent<SpriteRenderer>().color = new(.876f, .327f, .38f, 1);
                 if (room.Explored) roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
+
+                if (room.GetComponent<RoomData>().infectedStatus == 1)
+                    roomGO.GetComponent<SpriteRenderer>().color = new(.876f, .327f, .38f, 1);
+                if (room.GetComponent<RoomData>().infectedStatus == 2)
+                    roomGO.GetComponent<SpriteRenderer>().color = new(.42f, .16f, .17f, 1);
+
 
                 for (int i = 0; i < 4; i++)
                 {
@@ -225,11 +230,12 @@ public class MinimapManager : MonoBehaviour
             {
                 RoomData room = grid[x, y];
                 if (room == null) continue;
-                if (room.type == RoomData.Type.Infected) gameObject.transform.Find($"Rooms/Room {x};{y}").GetComponent<SpriteRenderer>()
-                        .color = new(.876f, .327f, .38f, 1);
-
                 if (room.Explored) gameObject.transform.Find($"Rooms/Room {x};{y}").GetComponent<SpriteRenderer>()
                         .color = new(.676f, .827f, .38f, 1);
+                if (room.infectedStatus == 1) gameObject.transform.Find($"Rooms/Room {x};{y}").GetComponent<SpriteRenderer>()
+                        .color = new(.876f, .327f, .38f, 1);
+                if (room.infectedStatus == 2) gameObject.transform.Find($"Rooms/Room {x};{y}").GetComponent<SpriteRenderer>()
+                        .color = new(.42f, .16f, .17f, 1);
             }
         }
         Destroy(PlayerIconInstance);
@@ -294,7 +300,6 @@ public class MinimapManager : MonoBehaviour
             BossIconInstance.transform.localScale = new Vector3(.25f, .3f, 1);
 
             bossRoomGO.GetComponent<RoomData>().type = RoomData.Type.Bossfight;
-            bossRoomGO.GetComponent<SpriteRenderer>().color = new(.876f, .327f, .38f, 1);
         }
     }
     private void EnableMovement(RoomData room)
@@ -332,18 +337,19 @@ public class MinimapManager : MonoBehaviour
         {
             if (!room.connections[i]) continue;
 
-            //Vector2Int targetPos = room.position + offsets[i];
+            int dir = i; // Captura correta do valor de i
 
             GameObject arrow = Instantiate(ArrowPrefab, arrowContainerObj.transform);
-            arrow.name = $"Arrow_{i}";
+            arrow.name = $"Arrow_{dir}";
+            arrow.AddComponent<Button>().onClick.AddListener(() => Move(dir));
 
             Transform arrowRoomPosition = arrowContainerObj.transform.Find("../Rooms");
-
-            Transform RoomTransform = arrowRoomPosition.Find($"Room {room.position.x + offsets[i].x};{room.position.y + offsets[i].y}");
+            Transform RoomTransform = arrowRoomPosition.Find($"Room {room.position.x + offsets[dir].x};{room.position.y + offsets[dir].y}");
 
             Vector3 targetPos = RoomTransform.position;
-            arrow.transform.SetPositionAndRotation(new(targetPos.x, targetPos.y, 0), Quaternion.Euler(0, 0, rotations[i]));
+            arrow.transform.SetPositionAndRotation(new(targetPos.x, targetPos.y, 0), Quaternion.Euler(0, 0, rotations[dir]));
         }
+
     }
     private void CreateRoomRecursive(Vector2Int pos, ref int roomsCreated)
 {
@@ -419,12 +425,25 @@ public class MinimapManager : MonoBehaviour
     private RoomData.Type GetRandomRoomType()
     {
         float roomRandom = UnityEngine.Random.value;
-        if (roomRandom <= 0.4f) return RoomData.Type.Fight;
+        if (roomRandom <= 0.75f) return RoomData.Type.Fight;
         return RoomData.Type.Nothing;
     }
     private void InfectRoom()
     {
-        Debug.Log($"Tentando infectar da sala {lastInfectedPos} até {playersRoomGO.GetComponent<RoomData>().position}");
+        Debug.Log($"A infectar a sala {lastInfectedPos} até {playersRoomGO.GetComponent<RoomData>().position}");
+
+        //Room infection in tier 1
+        foreach (var room in grid)
+        {
+            if (room != null && room.infectedStatus == 1)
+            {
+                room.infectedStatus = 2;
+                room.type = RoomData.Type.Infected;
+                lastInfectedPos = room.position;
+                Debug.Log($"Sala em {room.position} foi infectada.");
+                return;
+            }
+        }
 
         Vector2Int targetPos = playersRoomGO.GetComponent<RoomData>().position;
 
@@ -434,7 +453,7 @@ public class MinimapManager : MonoBehaviour
             pos => IsInsideBounds(pos) && grid[pos.x, pos.y] != null,
             pos => false,
             out var path,
-            CanMoveBetween // função que valida se há conexão
+            CanMoveBetween
         );
 
         if (path == null || path.Count < 2)
@@ -443,7 +462,6 @@ public class MinimapManager : MonoBehaviour
             return;
         }
 
-        // Pula o primeiro (lastInfectedPos), percorre os próximos
         for (int i = 1; i < path.Count; i++)
         {
             Vector2Int nextPos = path[i];
@@ -455,21 +473,22 @@ public class MinimapManager : MonoBehaviour
                 continue;
             }
 
-            if (room.type != RoomData.Type.Infected)
+            if (room.infectedStatus == 0 && room.type != RoomData.Type.Infected)
             {
-                room.type = RoomData.Type.Infected;
-                lastInfectedPos = nextPos; // Atualiza a última infectada para próxima chamada
-                Debug.Log($"Sala infectada em {nextPos}");
+                room.infectedStatus = 1;
+                Debug.Log($"Sala marcada para infecção futura em {nextPos}");
                 return;
             }
             else
             {
-                Debug.Log($"Sala em {nextPos} já estava infectada. Procurando próxima...");
+                Debug.Log($"Sala em {nextPos} já está infectada ou marcada.");
             }
         }
 
-        Debug.Log("Todas as salas no caminho já estavam infectadas.");
+        Debug.Log("Todas as salas no caminho já estavam marcadas ou infectadas.");
     }
+
+
     private bool CanMoveBetween(Vector2Int from, Vector2Int to)
     {
         Vector2Int dir = to - from;

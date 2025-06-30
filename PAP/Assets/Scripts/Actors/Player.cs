@@ -12,7 +12,7 @@ public class Player : Actors
     public bool leakedEnergy = false;
     private bool inAttackMode, weakened = false;
     private int StoredEnergy;
-
+    
     private void Awake()
     {
         actors = transform.parent.GetComponent<Actors>();
@@ -37,7 +37,9 @@ public class Player : Actors
         if (Health == 0)
         {
             gameScript.Gamestate = GameScript.GameState.LostRun;
+            gameScript.GameControls.PlayerControls.Disable();
             Destroy(gameObject);
+            gameScript.GameOver();
         }
         else if (gameScript.Gamestate == GameScript.GameState.Combat && !actors.isPlayersTurn)
         {

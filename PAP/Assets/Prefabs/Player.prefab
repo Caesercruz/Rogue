@@ -115,7 +115,10 @@ MonoBehaviour:
   - {x: 1, y: -1}
   - {x: 1, y: 0}
   - {x: 1, y: 1}
-  Strength: 12
+  Strength: 4
   Weakness: 0
+  _spawnRangeWidth: 0
+  _spawnRangeHeight: 0
+  fixedPosition: {x: 0, y: 0}
   HealthBar: {fileID: 0}
   leakedEnergy: 0

@@ -35,6 +35,7 @@ public class GameScript : MonoBehaviour
     private GameObject boardManagerInstance;
     [HideInInspector] public GameObject playerInstance;
     private GameObject showPerksInstance;
+    [SerializeField] private GameObject hitboxInstance;
     public MinimapManager MapManager;
     public bool RenforcedPlates = false;
     public bool RustyPlates = false;
@@ -43,9 +44,12 @@ public class GameScript : MonoBehaviour
     [SerializeField] private GameObject combatUIPrefab;
     [SerializeField] private GameObject boardManager;
     [SerializeField] private GameObject UpdateScreenPrefab;
+    [SerializeField] private GameObject gameOver;
+    [SerializeField] private GameObject tutorial;
     [SerializeField] private Tile _tilePrefab;
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private GameObject showPerksPrefab;
+    [SerializeField] private GameObject hitboxPrefab;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F12))
@@ -54,11 +58,11 @@ public class GameScript : MonoBehaviour
             Debug.Log("Warnings resetados.");
         }
 
-        if(showPerksInstance != null && GameControls.Actions.Back.triggered)
+        if (showPerksInstance != null && GameControls.Actions.Back.triggered)
         {
             Destroy(showPerksInstance);
             if (Gamestate == GameState.Combat) GameControls.PlayerControls.Enable();
-        } 
+        }
     }
     public void ClearWarningData()
     {
@@ -66,15 +70,13 @@ public class GameScript : MonoBehaviour
         if (File.Exists(path))
             File.Delete(path);
     }
-
     private void Start()
     {
         GameControls = new();
         GameControls.Enable();
-        
+
         Gameplay();
     }
-    
     private void Gameplay()
     {
         MapManager.GenerateMap();
@@ -85,10 +87,10 @@ public class GameScript : MonoBehaviour
     public void Combat(RoomData.Type roomType)
     {
         GameControls.PlayerControls.Enable();
-        combatUIInstance = Instantiate(combatUIPrefab,gameObject.transform.Find("Canvas"));
+        combatUIInstance = Instantiate(combatUIPrefab, gameObject.transform.Find("Canvas"));
         combatUIInstance.name = "Combat UI";
 
-        boardManagerInstance = Instantiate(boardManager,gameObject.transform);
+        boardManagerInstance = Instantiate(boardManager, gameObject.transform);
         boardManagerInstance.name = "BoardManager";
         actors = boardManagerInstance.GetComponent<Actors>();
         transform.Find("Canvas").GetComponent<HUDManager>().healthBarsContainer = transform.Find("Canvas/Combat UI/EnemyHealthBars");
@@ -96,7 +98,7 @@ public class GameScript : MonoBehaviour
         {
             for (int y = 0; y < Height; y++)
             {
-                SpawnTile(x,y);
+                SpawnTile(x, y);
             }
         }
         playerInstance.GetComponent<Player>().SetPlayer();
@@ -113,12 +115,11 @@ public class GameScript : MonoBehaviour
             spawnedTile.Init(isOffSet);
         }
     }
-    
     public void ShowUpdateScreen()
     {
         Gamestate = GameState.WonEncounter;
 
-        GameObject instance = Instantiate(UpdateScreenPrefab,transform);
+        GameObject instance = Instantiate(UpdateScreenPrefab, transform);
         instance.name = "UpdateScreen";
         instance.GetComponent<Upgrade>().gameScript = this;
         CleanScene();
@@ -147,14 +148,14 @@ public class GameScript : MonoBehaviour
         {
             for (int spawnedEnemies = 0; spawnedEnemies < enemy.amount; spawnedEnemies++)
             {
-                GameObject enemyInstance = Instantiate(enemy.enemyPrefab,actors.transform);
+                GameObject enemyInstance = Instantiate(enemy.enemyPrefab, actors.transform);
                 Enemy enemyScript = enemyInstance.GetComponent<Enemy>();
                 enemyScript.SetCharacter(enemyInstance, $"{enemy.Name} {spawnedEnemies}");
 
                 HUDManager hudManager = transform.Find("Canvas").GetComponent<HUDManager>();
 
-                Slider healthbar =  hudManager.SpawnHealthBar(enemyInstance,enemyScript);
-                hudManager.TransformHealthBars(healthbar,NumberOfEnemies);
+                Slider healthbar = hudManager.SpawnHealthBar(enemyInstance, enemyScript);
+                hudManager.TransformHealthBars(healthbar, NumberOfEnemies);
 
                 NumberOfEnemies++;
             }
@@ -162,12 +163,31 @@ public class GameScript : MonoBehaviour
     }
     public void ShowEquipedPerks()
     {
-        showPerksInstance = Instantiate(showPerksPrefab,transform);
+        if (tutorialInstance != null && showPerksInstance != null) return;
+        showPerksInstance = Instantiate(showPerksPrefab, transform);
         GameControls.PlayerControls.Disable();
     }
     public void CleanScene()
     {
         Destroy(combatUIInstance);
         Destroy(boardManagerInstance);
+    }
+
+    public void GameOver()
+    {
+        Destroy(gameObject);
+        GameObject gameover = Instantiate(gameOver);
+    }
+    [SerializeField] private GameObject tutorialInstance;
+    public void OpenTutorial()
+    {
+        if (showPerksInstance != null && tutorialInstance != null) return;
+        hitboxInstance = Instantiate(hitboxPrefab);
+        tutorialInstance = Instantiate(tutorial, transform);
+    }
+    public void CloseTutorial()
+    {
+        Destroy(hitboxInstance);
+        Destroy(tutorialInstance);
     }
 }

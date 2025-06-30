@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject Game;
+    [SerializeField] private GameObject menu;
     [SerializeField] private GameObject Settings;
     [SerializeField] private float fadeDuration = 1f;
 
@@ -20,6 +21,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        if(newGameButton!=null)
         newGameButton.onClick.AddListener(NewGame);
     }
 
@@ -49,5 +51,10 @@ public class MainMenu : MonoBehaviour
     public void CloseGame()
     {
         Application.Quit();
+    }
+    public void OpenMenu()
+    {
+        Instantiate(menu);
+        Destroy(transform.parent.gameObject);
     }
 }
