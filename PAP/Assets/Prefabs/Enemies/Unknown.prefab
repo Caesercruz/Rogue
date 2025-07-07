@@ -233,4 +233,6 @@ MonoBehaviour:
   Weakness: 0
   _spawnRangeWidth: 6
   _spawnRangeHeight: 4
+  fixedPosition: {x: 0, y: 0}
+  XP: 8
   HealthBar: {fileID: 5777422298668556072, guid: 079a2b5746ab70c4c95ddf6b1d46773e, type: 3}

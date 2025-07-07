@@ -16,7 +16,7 @@ public class MinimapManager : MonoBehaviour
     public GameObject BossIconPrefab;
 
     [Header("Instances")]
-    [SerializeField] private GameObject openMapInstance;
+    public GameObject openMapInstance;
     [SerializeField] private GameObject hitboxInstance;
     public GameObject PlayerIconInstance;
     public GameObject BossIconInstance;
@@ -94,7 +94,7 @@ public class MinimapManager : MonoBehaviour
     public void ShowMap(bool movement = false)
     {
         if (movement == true) _movement = true;
-        if (openMapInstance != null) return;
+        if (openMapInstance != null||gameScript.showPerksInstance != null || gameScript.tutorialInstance != null) return;
 
         hitboxInstance = Instantiate(hitboxPrefab, transform.parent);
         openMapInstance = Instantiate(openMapPrefab, transform.parent);
@@ -287,7 +287,7 @@ public class MinimapManager : MonoBehaviour
             PlayerIconInstance.transform.localScale = new Vector3(.25f, .3f, 1);
 
             playersRoomGO.GetComponent<RoomData>().Explored = true;
-            playersRoomGO.GetComponent<RoomData>().type = RoomData.Type.Fight;
+            playersRoomGO.GetComponent<RoomData>().type = RoomData.Type.Bossfight;
             playersRoomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
         }
 
@@ -487,8 +487,6 @@ public class MinimapManager : MonoBehaviour
 
         Debug.Log("Todas as salas no caminho já estavam marcadas ou infectadas.");
     }
-
-
     private bool CanMoveBetween(Vector2Int from, Vector2Int to)
     {
         Vector2Int dir = to - from;

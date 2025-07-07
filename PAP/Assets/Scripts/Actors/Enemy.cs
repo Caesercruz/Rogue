@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Enemy : Actors
 {
+    public int XP;
     public Slider HealthBar;
     private void Awake()
     {
@@ -23,8 +24,9 @@ public class Enemy : Actors
         if (Health == 0)
         {
             gameScript.NumberOfEnemies--;
+            gameScript.Score += XP;
             ClearAttackableTiles(false);
-
+            if (gameObject.GetComponent<BossBehavior>() != null) GetComponent<BossBehavior>().Win();
             actors.ActorsCord.TryGetValue(gameObject, out Vector2Int enemyPos);
 
             string tileName = $"Tile {enemyPos.x} {enemyPos.y}";

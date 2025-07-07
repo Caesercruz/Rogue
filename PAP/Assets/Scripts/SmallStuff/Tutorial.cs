@@ -15,20 +15,20 @@ public class Tutorial : MonoBehaviour
     {
         if (sliderIndex < 4)
         {
-            slidesParent.transform.Find($"Slide {sliderIndex}").transform.position = new Vector3(2.5f, 2, 0);
+            slidesParent.transform.Find($"Slide {sliderIndex}").transform.localPosition += new Vector3(0, -18, 0);
             sliderIndex++;
             sliderNumber.text = $"{sliderIndex}/4";
-            slidesParent.transform.Find($"Slide {sliderIndex}").transform.position = new Vector3(2.5f, 18, 0);
+            slidesParent.transform.Find($"Slide {sliderIndex}").transform.localPosition += new Vector3(0, 18, 0);
         }
     }
     public void PreviousSlide()
     {
         if (sliderIndex > 1)
         {
-            slidesParent.transform.Find($"Slide {sliderIndex}").transform.position = new Vector3(2.5f, 2, 0);
+            slidesParent.transform.Find($"Slide {sliderIndex}").transform.localPosition += new Vector3(0, -18, 0);
             sliderIndex--;
             sliderNumber.text = $"{sliderIndex}/4";
-            slidesParent.transform.Find($"Slide {sliderIndex}").transform.position = new Vector3(2.5f, 18, 0);
+            slidesParent.transform.Find($"Slide {sliderIndex}").transform.localPosition += new Vector3(0, 18, 0);
         }
     }
 }

@@ -27,6 +27,7 @@ public class GameScript : MonoBehaviour
     public readonly int Width = 8, Height = 6;
     public GameState Gamestate;
     public bool firstTurn = true;
+    public int Score = 0;
 
     [Header("Others")]
     public List<GroundHealth> timedGrounds = new();
@@ -34,7 +35,9 @@ public class GameScript : MonoBehaviour
     private GameObject combatUIInstance;
     private GameObject boardManagerInstance;
     [HideInInspector] public GameObject playerInstance;
-    private GameObject showPerksInstance;
+    [SerializeField] private GameObject pauseMenuInstance;
+    [HideInInspector] public GameObject tutorialInstance;
+    [HideInInspector] public GameObject showPerksInstance;
     [SerializeField] private GameObject hitboxInstance;
     public MinimapManager MapManager;
     public bool RenforcedPlates = false;
@@ -44,6 +47,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] private GameObject combatUIPrefab;
     [SerializeField] private GameObject boardManager;
     [SerializeField] private GameObject UpdateScreenPrefab;
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameOver;
     [SerializeField] private GameObject tutorial;
     [SerializeField] private Tile _tilePrefab;
@@ -52,12 +56,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] private GameObject hitboxPrefab;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F12))
-        {
-            ClearWarningData();
-            Debug.Log("Warnings resetados.");
-        }
-
+        if (GameControls.Actions.Pause.triggered) Pause();
         if (showPerksInstance != null && GameControls.Actions.Back.triggered)
         {
             Destroy(showPerksInstance);
@@ -163,7 +162,7 @@ public class GameScript : MonoBehaviour
     }
     public void ShowEquipedPerks()
     {
-        if (tutorialInstance != null && showPerksInstance != null) return;
+        if (tutorialInstance != null || showPerksInstance != null) return;
         showPerksInstance = Instantiate(showPerksPrefab, transform);
         GameControls.PlayerControls.Disable();
     }
@@ -172,16 +171,15 @@ public class GameScript : MonoBehaviour
         Destroy(combatUIInstance);
         Destroy(boardManagerInstance);
     }
-
     public void GameOver()
     {
         Destroy(gameObject);
-        GameObject gameover = Instantiate(gameOver);
+        Instantiate(gameOver);
+        GameControls.PlayerControls.Disable();
     }
-    [SerializeField] private GameObject tutorialInstance;
     public void OpenTutorial()
     {
-        if (showPerksInstance != null && tutorialInstance != null) return;
+        if (showPerksInstance != null || tutorialInstance != null || MapManager.openMapInstance != null) return;
         hitboxInstance = Instantiate(hitboxPrefab);
         tutorialInstance = Instantiate(tutorial, transform);
     }
@@ -189,5 +187,11 @@ public class GameScript : MonoBehaviour
     {
         Destroy(hitboxInstance);
         Destroy(tutorialInstance);
+    }
+    public void Pause()
+    {
+        Debug.Log("Paused");
+        if (pauseMenuInstance != null) { Destroy(pauseMenuInstance); return; }
+        pauseMenuInstance = Instantiate(pauseMenu,transform);
     }
 }

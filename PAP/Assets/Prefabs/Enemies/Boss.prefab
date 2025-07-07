@@ -239,6 +239,7 @@ MonoBehaviour:
   _spawnRangeWidth: 7
   _spawnRangeHeight: 0
   fixedPosition: {x: 7, y: 2}
+  XP: 10
   HealthBar: {fileID: 5777422298668556072, guid: 0ccfee81788b02344b5cba02ec7747fc, type: 3}
 --- !u!114 &5179629654046784276
 MonoBehaviour:
@@ -253,3 +254,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GroundPrefab: {fileID: 4748493439356519684, guid: 6f9187ac0ab35f340b6a5ac7c77f571c, type: 3}
+  numberOfDestroyedTiles: 1
+  winScreen: {fileID: 1542421470853907510, guid: 42e27cb9b60f56043b17fac5fb2cffb9, type: 3}

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BossBehavior : MonoBehaviour
@@ -7,6 +8,7 @@ public class BossBehavior : MonoBehaviour
     Actors actors;
     [SerializeField] private GameObject GroundPrefab;
     [SerializeField] private int numberOfDestroyedTiles = 1;
+    [SerializeField] private GameObject winScreen;
     void Start()
     {
         actors = transform.parent.GetComponent<Actors>();
@@ -57,5 +59,12 @@ public class BossBehavior : MonoBehaviour
         tile.IsOccupied = true;
         GameObject ground = Instantiate(GroundPrefab, actors.transform);
         ground.transform.position = new(position.x, position.y, 0);
+    }
+    public void Win()
+    {
+        GameObject winscreen = Instantiate(winScreen, gameScript.transform.parent);
+        winscreen.transform.Find("XP").GetComponent<TextMeshProUGUI>().text += gameScript.Score;
+        Destroy(gameScript.gameObject);
+        gameScript.GameControls.Disable();
     }
 }

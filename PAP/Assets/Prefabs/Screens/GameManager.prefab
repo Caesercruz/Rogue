@@ -78,9 +78,12 @@ MonoBehaviour:
   NumberOfEnemies: 0
   Gamestate: 0
   firstTurn: 1
+  Score: 0
   timedGrounds: []
   bossFight: {fileID: 11400000, guid: a2d057c6656202d49a3a8df58601cb76, type: 2}
   playerInstance: {fileID: 0}
+  tutorialInstance: {fileID: 0}
+  showPerksInstance: {fileID: 0}
   hitboxInstance: {fileID: 0}
   MapManager: {fileID: 6303260946941622842}
   RenforcedPlates: 0
@@ -88,6 +91,7 @@ MonoBehaviour:
   combatUIPrefab: {fileID: 5596798264354962279, guid: cde0081af322ca34eb38df1bda2c8064, type: 3}
   boardManager: {fileID: 5216829209019658469, guid: 724734ba1f4b5bb43adaa3dd99a7639d, type: 3}
   UpdateScreenPrefab: {fileID: 3689550112863654208, guid: 8b0a0db687407274c9cc3af7e223126f, type: 3}
+  pauseMenu: {fileID: 4602131964137273568, guid: 366d524f856b71e439afd28e1bd94861, type: 3}
   gameOver: {fileID: 8736263494851132160, guid: 5eb623ce6b2249c4f8c2efa11c709b2a, type: 3}
   tutorial: {fileID: 7767295179240398603, guid: 95c89d38cc412864d895d14b45b15328, type: 3}
   _tilePrefab: {fileID: 5538682261457699561, guid: 6489228b5461c8046921953f7f996f49, type: 3}
