@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,6 +51,11 @@ public class GameScript : MonoBehaviour
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private GameObject showPerksPrefab;
     [SerializeField] private GameObject hitboxPrefab;
+
+    private void Start()
+    {
+        Gameplay();
+    }
     private void Update()
     {
         if (GameControls.Actions.Pause.triggered) Pause();
@@ -69,19 +71,23 @@ public class GameScript : MonoBehaviour
         if (File.Exists(path))
             File.Delete(path);
     }
-    private void Start()
+    public bool NewGame = false;
+    public void Gameplay()
     {
         GameControls = new();
         GameControls.Enable();
 
-        Gameplay();
-    }
-    private void Gameplay()
-    {
-        MapManager.GenerateMap();
-        MapManager.ShowMiniMapIntersections();
+        Debug.Log(NewGame);
+        if (!NewGame) MapManager.Load();
+        else
+        {
+            MapManager.GenerateMap();
+            MapManager.Save();
+        }
+        MapManager.LoadMiniMap();
         MapManager.SpawnIcons();
-        Combat(RoomData.Type.Fight);
+        if (MapManager.playersRoom.type == RoomData.Type.Nothing) MapManager.Empty();
+        else Combat(MapManager.playersRoom.type);
     }
     public void Combat(RoomData.Type roomType)
     {
@@ -190,8 +196,13 @@ public class GameScript : MonoBehaviour
     }
     public void Pause()
     {
-        Debug.Log("Paused");
-        if (pauseMenuInstance != null) { Destroy(pauseMenuInstance); return; }
-        pauseMenuInstance = Instantiate(pauseMenu,transform);
+        if (pauseMenuInstance != null)
+        {
+            Destroy(pauseMenuInstance);
+            if (Gamestate == GameState.Combat) GameControls.PlayerControls.Enable();
+            return;
+        }
+        pauseMenuInstance = Instantiate(pauseMenu, transform);
+        GameControls.PlayerControls.Disable();
     }
 }

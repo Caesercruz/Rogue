@@ -1,3 +1,5 @@
+using System.IO;
+using System.Linq;
 using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,16 +24,13 @@ public class PauseMenu : MonoBehaviour
     }
     public void OpenMenu()
     {
-        Save();
+        GameScript gameScript = transform.parent.GetComponent<GameScript>();
+        MinimapManager minimapManager = gameScript.GetComponentInChildren<MinimapManager>();
+        gameScript.GameControls.Disable();
         Instantiate(menu);
         Destroy(transform.parent.gameObject);
     }
-    public void Save()
-    {
-        GameScript gameScript = transform.parent.GetComponent<GameScript>();
-        MinimapManager minimapManager = gameScript.transform.GetComponentInChildren<MinimapManager>();
-
-    }
+    
     public void OpenSettings()
     {
         Instantiate(settings);

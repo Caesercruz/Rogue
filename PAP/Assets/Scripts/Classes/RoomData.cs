@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class RoomData : MonoBehaviour
+public class RoomData
 {
     public Vector2Int position;
     public bool[] connections = new bool[4];

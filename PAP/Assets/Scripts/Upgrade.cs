@@ -33,6 +33,7 @@ public class Upgrade : MonoBehaviour
     }
     public void ShowPerks(bool buff)
     {
+        if (Popup != null) return;
         hitBox = Instantiate(hitBoxPrefab, upgradeScreen.transform);
         if (buff) Popup = Instantiate(_popupUpgrade, upgradeScreen.transform);
         else Popup = Instantiate(_popupDowngrade, upgradeScreen.transform);
@@ -70,7 +71,7 @@ public class Upgrade : MonoBehaviour
         gameScript.ActivePerks.Add(SelectedBuff);
         gameScript.ActivePerks.Add(SelectedByproduct);
 
-        gameScript.MapManager.ShowMap(true);
+        gameScript.MapManager.OpenMap(true);
         if (upgradeScreen != null)
         {
             Destroy(upgradeScreen);

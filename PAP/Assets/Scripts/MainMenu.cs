@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject Settings;
     [SerializeField] private float fadeDuration = 1f;
 
+    [SerializeField] private Button continueButton;
     [SerializeField] private Button newGameButton;
 
     private CanvasGroup canvasGroup;
@@ -28,12 +30,16 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         transform.Find("New Game").GetComponent<Button>().onClick.RemoveAllListeners();
-        StartCoroutine(FadeOutAndStartGame());
-        Game.GetComponent<GameScript>().Gamestate = GameScript.GameState.Combat;
+        StartCoroutine(FadeOutAndStartGame(true));
     }
-
-    private System.Collections.IEnumerator FadeOutAndStartGame()
+    public void Continue()
     {
+        transform.Find("New Game").GetComponent<Button>().onClick.RemoveAllListeners();
+        StartCoroutine(FadeOutAndStartGame(false));
+    }
+    private System.Collections.IEnumerator FadeOutAndStartGame(bool newGame)
+    {
+        Game.GetComponent<GameScript>().NewGame = newGame;
         Instantiate(Game);
         float timer = 0f;
         while (timer < fadeDuration)

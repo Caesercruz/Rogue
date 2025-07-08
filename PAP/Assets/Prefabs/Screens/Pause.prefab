@@ -412,7 +412,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 2060156203
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &8944615434251406072
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &1612805030400451652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 3836881492082967961, guid: cd0800f27b1cd5f44bbb80076d6e57b6, type: 3}
-  Settings: {fileID: 0}
+  settings: {fileID: 0}
 --- !u!1 &4617048263595051252
 GameObject:
   m_ObjectHideFlags: 0

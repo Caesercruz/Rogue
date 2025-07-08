@@ -82,6 +82,7 @@ MonoBehaviour:
   timedGrounds: []
   bossFight: {fileID: 11400000, guid: a2d057c6656202d49a3a8df58601cb76, type: 2}
   playerInstance: {fileID: 0}
+  pauseMenuInstance: {fileID: 0}
   tutorialInstance: {fileID: 0}
   showPerksInstance: {fileID: 0}
   hitboxInstance: {fileID: 0}
@@ -246,6 +247,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1428239778012495584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 681051657480675290}
+  m_Layer: 5
+  m_Name: IconsContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &681051657480675290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428239778012495584}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.9, y: -10, z: 0}
+  m_LocalScale: {x: 4.343942, y: 5.190856, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8205376583657712656}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1723597226051135850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,6 +1299,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 269932036416350709}
+  - {fileID: 681051657480675290}
   - {fileID: 8175185613879427162}
   m_Father: {fileID: 3556451040105785197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1351,6 +1384,10 @@ MonoBehaviour:
   BossIconInstance: {fileID: 0}
   width: 5
   height: 5
+  ExploredColor: {r: 0.676, g: 0.827, b: 0.38, a: 1}
+  BossColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  Infected1Color: {r: 0.876, g: 0.327, b: 0.38, a: 1}
+  Infected2Color: {r: 0.42, g: 0.16, b: 0.17, a: 1}
   spawnIntersectionChance: 0.8
   spawnRoomChance: 0.8
   maxRooms: 20
@@ -1401,7 +1438,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6303260946941622842}
         m_TargetAssemblyTypeName: MinimapManager, Assembly-CSharp
-        m_MethodName: ShowMap
+        m_MethodName: OpenMap
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
