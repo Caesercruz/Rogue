@@ -9,7 +9,6 @@ public class HealthBarHoverHandler : MonoBehaviour, IPointerEnterHandler, IPoint
     
     public float fadeDuration = 0.3f;
 
-    private GameObject enemy; // Referência ao inimigo associado
     private SpriteRenderer glowRenderer;
     private Coroutine fadeCoroutine;
     public void Initialize(GameObject enemy)
@@ -48,15 +47,15 @@ public class HealthBarHoverHandler : MonoBehaviour, IPointerEnterHandler, IPoint
         while (time < fadeDuration)
         {
             float alpha = Mathf.Lerp(startAlpha, targetAlpha, time / fadeDuration);
-            SetAlpha(alpha);
+            SetOpacity(alpha);
             time += Time.deltaTime;
             yield return null;
         }
 
-        SetAlpha(targetAlpha);
+        SetOpacity(targetAlpha);
     }
 
-    private void SetAlpha(float alpha)
+    private void SetOpacity(float alpha)
     {
         Color color = glowRenderer.color;
         color.a = alpha;

@@ -58,7 +58,7 @@ public class BossBehavior : MonoBehaviour
     {
         tile.IsOccupied = true;
         GameObject ground = Instantiate(GroundPrefab, actors.transform);
-        ground.transform.position = new(position.x, position.y, 0);
+        ground.transform.localPosition = new(position.x, position.y, 0);
     }
     public void Win()
     {

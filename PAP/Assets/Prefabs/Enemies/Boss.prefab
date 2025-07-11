@@ -234,7 +234,11 @@ MonoBehaviour:
   - {x: 2, y: 0}
   - {x: 2, y: 1}
   - {x: 2, y: 2}
-  Strength: 14
+  - {x: 0, y: 3}
+  - {x: 3, y: 0}
+  - {x: -3, y: 0}
+  - {x: 0, y: -3}
+  Strength: 12
   Weakness: 0
   _spawnRangeWidth: 7
   _spawnRangeHeight: 0

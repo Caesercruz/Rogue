@@ -38,24 +38,7 @@ public class HUDManager : MonoBehaviour
     }
     public void TransformHealthBars(Slider healthbar, int offSet)
     {
-//        offSet *= 1;
         healthbar.transform.localPosition += new Vector3(0, -offSet, 0);
-        
-        /*
-        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            Enemy enemy = enemies[i];
-            if (enemy.HealthBar != null)
-            {
-                int offsetY = 0 * i;
-
-                RectTransform rectTransform = enemy.HealthBar.transform as RectTransform;
-                Vector3 originalPos = rectTransform.localPosition;
-                rectTransform.localPosition = new Vector3(originalPos.x, originalPos.y + offsetY, originalPos.z);
-            }
-        }*/
     }
     private void CheckUIElements()
     {

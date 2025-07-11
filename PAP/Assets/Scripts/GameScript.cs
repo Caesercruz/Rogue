@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameScript : MonoBehaviour
 {
@@ -27,15 +28,14 @@ public class GameScript : MonoBehaviour
     public int Score = 0;
 
     [Header("Others")]
+    public bool NewGame = false;
     public List<GroundHealth> timedGrounds = new();
     [SerializeField] private EncounterData bossFight;
     private GameObject combatUIInstance;
     private GameObject boardManagerInstance;
     [HideInInspector] public GameObject playerInstance;
-    [SerializeField] private GameObject pauseMenuInstance;
-    [HideInInspector] public GameObject tutorialInstance;
-    [HideInInspector] public GameObject showPerksInstance;
-    [SerializeField] private GameObject hitboxInstance;
+    [SerializeField] public GameObject MenuInstance;
+    [SerializeField] public GameObject hitboxInstance;
     public MinimapManager MapManager;
     public bool RenforcedPlates = false;
     public bool RustyPlates = false;
@@ -59,11 +59,7 @@ public class GameScript : MonoBehaviour
     private void Update()
     {
         if (GameControls.Actions.Pause.triggered) Pause();
-        if (showPerksInstance != null && GameControls.Actions.Back.triggered)
-        {
-            Destroy(showPerksInstance);
-            if (Gamestate == GameState.Combat) GameControls.PlayerControls.Enable();
-        }
+        if (MenuInstance != null && GameControls.Actions.Back.triggered) CloseAction();
     }
     public void ClearWarningData()
     {
@@ -71,21 +67,19 @@ public class GameScript : MonoBehaviour
         if (File.Exists(path))
             File.Delete(path);
     }
-    public bool NewGame = false;
     public void Gameplay()
     {
         GameControls = new();
         GameControls.Enable();
 
-        Debug.Log(NewGame);
         if (!NewGame) MapManager.Load();
         else
-        {
             MapManager.GenerateMap();
-            MapManager.Save();
-        }
-        MapManager.LoadMiniMap();
+        
+        MapManager.LoadMap(MapManager.gameObject);
         MapManager.SpawnIcons();
+        if (NewGame) MapManager.Save();
+
         if (MapManager.playersRoom.type == RoomData.Type.Nothing) MapManager.Empty();
         else Combat(MapManager.playersRoom.type);
     }
@@ -112,9 +106,11 @@ public class GameScript : MonoBehaviour
 
         void SpawnTile(int x, int y)
         {
-            Vector3 position = new(x, y, 0);
-            Tile spawnedTile = Instantiate(_tilePrefab, position, Quaternion.identity, actors.transform);
+            Vector3Int position = new(x, y, 0);
+            Tile spawnedTile = Instantiate(_tilePrefab, actors.transform);
             spawnedTile.name = $"Tile {x} {y}";
+            spawnedTile.transform.localPosition = position;
+            spawnedTile.GetComponent<Tile>().Position = new(x,y);
             actors.GridTiles[new Vector2Int(x, y)] = spawnedTile;
             bool isOffSet = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
             spawnedTile.Init(isOffSet);
@@ -168,8 +164,10 @@ public class GameScript : MonoBehaviour
     }
     public void ShowEquipedPerks()
     {
-        if (tutorialInstance != null || showPerksInstance != null) return;
-        showPerksInstance = Instantiate(showPerksPrefab, transform);
+        if (MenuInstance != null) return;
+        MenuInstance = Instantiate(showPerksPrefab, transform);
+        hitboxInstance = Instantiate(hitboxPrefab, transform.Find("Canvas"));
+        hitboxInstance.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => CloseAction());
         GameControls.PlayerControls.Disable();
     }
     public void CleanScene()
@@ -185,24 +183,32 @@ public class GameScript : MonoBehaviour
     }
     public void OpenTutorial()
     {
-        if (showPerksInstance != null || tutorialInstance != null || MapManager.openMapInstance != null) return;
-        hitboxInstance = Instantiate(hitboxPrefab);
-        tutorialInstance = Instantiate(tutorial, transform);
+        if (MenuInstance != null) return;
+        hitboxInstance = Instantiate(hitboxPrefab,transform.Find("Canvas"));
+        MenuInstance = Instantiate(tutorial, transform);
+        hitboxInstance.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => CloseAction());
     }
-    public void CloseTutorial()
+    public void CloseAction()
     {
+        if (Gamestate == GameState.Combat) GameControls.PlayerControls.Enable();
+        Destroy(MenuInstance);
+        MenuInstance = null;
         Destroy(hitboxInstance);
-        Destroy(tutorialInstance);
     }
     public void Pause()
     {
-        if (pauseMenuInstance != null)
+        if (MenuInstance != null)
         {
-            Destroy(pauseMenuInstance);
+            Destroy(MenuInstance);
+            MenuInstance = null;
+            Destroy(hitboxInstance);
+            hitboxInstance = null;
             if (Gamestate == GameState.Combat) GameControls.PlayerControls.Enable();
             return;
         }
-        pauseMenuInstance = Instantiate(pauseMenu, transform);
+        MenuInstance = Instantiate(pauseMenu, transform);
+        hitboxInstance = Instantiate(hitboxPrefab, transform.Find("Canvas"));
+        hitboxInstance.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => CloseAction());
         GameControls.PlayerControls.Disable();
     }
 }

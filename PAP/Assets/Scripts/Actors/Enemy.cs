@@ -29,11 +29,7 @@ public class Enemy : Actors
             if (gameObject.GetComponent<BossBehavior>() != null) GetComponent<BossBehavior>().Win();
             actors.ActorsCord.TryGetValue(gameObject, out Vector2Int enemyPos);
 
-            string tileName = $"Tile {enemyPos.x} {enemyPos.y}";
-            GameObject tileObj = GameObject.Find(tileName);
-
-            Tile tile = tileObj.GetComponent<Tile>();
-            tile.IsOccupied = false;
+            actors.GridTiles[enemyPos].IsOccupied = false;
             actors.ActorsCord.Remove(gameObject);
 
             Destroy(gameObject);
@@ -93,7 +89,6 @@ public class Enemy : Actors
             Energy--;
         }
     }
-
 
     public void RecalculateEnemyAttacks()
     {

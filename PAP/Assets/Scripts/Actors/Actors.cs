@@ -48,26 +48,18 @@ public class Actors : MonoBehaviour
         }
         if (isPlayersTurn && Time.time < nextMoveTime) return false;
 
-        // Liberta tile antiga
-        if (actors.GridTiles.TryGetValue(position, out Tile currentTile))
-        {
-            currentTile.IsOccupied = false;
-        }
-
         if (!ActorsCord.ContainsKey(character))
         {
             Debug.Log("O dicionário não encontrou a chave. Personagem não encontrado: " + character.name);
             return false;
         }
 
+        actors.GridTiles[position].IsOccupied = false;
         // Atualiza a posição lógica antes da animação
         ActorsCord[character] = newPosition;
-        // Ocupa nova tile
-        if (actors.GridTiles.TryGetValue(newPosition, out Tile newTile))
-        {
-            newTile.IsOccupied = true;
-        }
-
+        
+        actors.GridTiles[newPosition].IsOccupied = true;
+        
         // Inicia animação
         AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
         StartCoroutine(animationSpawner.MoveOverTime(character.transform, new Vector3(newPosition.x, newPosition.y, 0), 0.15f));
@@ -86,8 +78,7 @@ public class Actors : MonoBehaviour
         
         if (fixedPosition != null && !IsSpaceOccupied(fixedPosition)) gridPosition = fixedPosition;
 
-
-        character.transform.position = new(gridPosition.x,gridPosition.y,0);
+        character.transform.localPosition = new(gridPosition.x,gridPosition.y,0);
         actors.ActorsCord.Add(character, gridPosition);
         if (actors.GridTiles.TryGetValue(gridPosition, out Tile tile))
         {

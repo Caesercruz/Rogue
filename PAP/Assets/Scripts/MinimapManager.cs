@@ -2,13 +2,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 public class MinimapManager : MonoBehaviour
 {
     [Header("Prefabs")]
     [SerializeField] private GameObject openMapPrefab;
-    [SerializeField] private GameObject hitboxPrefab;
+    [SerializeField] private GameObject HitboxPrefab;
     [SerializeField] private GameObject RoomPrefab;
     [SerializeField] private GameObject RoomPrefabVisual;
     [SerializeField] private GameObject IntersectionPrefab;
@@ -17,8 +18,6 @@ public class MinimapManager : MonoBehaviour
     public GameObject BossIconPrefab;
 
     [Header("Instances")]
-    public GameObject openMapInstance;
-    [SerializeField] private GameObject hitboxInstance;
     public GameObject PlayerIconInstance;
     public GameObject BossIconInstance;
 
@@ -42,11 +41,11 @@ public class MinimapManager : MonoBehaviour
     public RoomData[,] grid;
     private void Update()
     {
-        if (gameScript.GameControls.Actions.OpenMap.triggered) { if (openMapInstance == null) OpenMap(); else CloseMap(); };
+        if (gameScript.GameControls.Actions.OpenMap.triggered) { if (gameScript.MenuInstance == null) OpenMap(); else gameScript.CloseAction(); };
 
-        if (openMapInstance == null) { return; };
+        if (gameScript.MenuInstance == null) { return; };
 
-        if (gameScript.GameControls.Actions.Back.triggered) { CloseMap(); };
+        if (gameScript.GameControls.Actions.Back.triggered) { gameScript.CloseAction(); };
         if (!_movement) return;
 
         if (gameScript.GameControls.MapMovement.Up.triggered) Move(0);
@@ -54,7 +53,6 @@ public class MinimapManager : MonoBehaviour
         if (gameScript.GameControls.MapMovement.Down.triggered) Move(2);
         if (gameScript.GameControls.MapMovement.Left.triggered) Move(3);
     }
-
     public void Load()
     {
         string path = Application.persistentDataPath + "/save.json";
@@ -117,7 +115,6 @@ public class MinimapManager : MonoBehaviour
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(Application.persistentDataPath + "/save.json", json);
     }
-
     private void Move(int dir)
     {
         playersRoom.type = RoomData.Type.Nothing;
@@ -157,7 +154,7 @@ public class MinimapManager : MonoBehaviour
         InfectRoom();
         UpdateMapVisual();
 
-        CloseMap();
+        gameScript.CloseAction();
 
         if (playersRoom.type == RoomData.Type.Fight) gameScript.Combat(RoomData.Type.Fight);
         else if (playersRoom.type == RoomData.Type.Infected) gameScript.Combat(RoomData.Type.Infected);
@@ -173,79 +170,22 @@ public class MinimapManager : MonoBehaviour
     public void OpenMap(bool movement = false)
     {
         if (movement == true) _movement = true;
-        if (openMapInstance != null || gameScript.showPerksInstance != null || gameScript.tutorialInstance != null) return;
+        if (gameScript.MenuInstance != null) return;
 
-        hitboxInstance = Instantiate(hitboxPrefab, transform.parent);
-        openMapInstance = Instantiate(openMapPrefab, transform.parent);
-        openMapInstance.name = "Map";
-        hitboxInstance.GetComponent<Button>().onClick.AddListener(() => GetComponent<MinimapManager>().CloseMap());
+        gameScript.hitboxInstance = Instantiate(HitboxPrefab, transform.parent);
+        gameScript.hitboxInstance.GetComponent<Button>().onClick.AddListener(() => gameScript.CloseAction());
 
-        Transform roomsParent = openMapInstance.transform.Find("Rooms");
-        Transform intersectionsParent = openMapInstance.transform.Find("Intersections");
+        gameScript.MenuInstance = Instantiate(openMapPrefab, transform.parent);
+        gameScript.MenuInstance.name = "Map";
 
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                RoomData room = grid[x, y];
-                if (room == null) continue;
+        LoadMap(gameScript.MenuInstance);
 
-                Vector3 pos = new(x, y, 0);
-                GameObject roomGO = Instantiate(RoomPrefab, Vector3.zero, Quaternion.identity, roomsParent);
-                roomGO.transform.localPosition = pos;
-
-                roomGO.name = $"Room {x} {y}";
-                if (room.Explored) roomGO.GetComponent<SpriteRenderer>().color = new(.676f, .827f, .38f, 1);
-
-                if (room.infectedStatus == 1)
-                    roomGO.GetComponent<SpriteRenderer>().color = new(.876f, .327f, .38f, 1);
-                if (room.infectedStatus == 2)
-                    roomGO.GetComponent<SpriteRenderer>().color = new(.42f, .16f, .17f, 1);
-
-                for (int i = 0; i < 4; i++)
-                {
-                    if (!room.connections[i]) continue;
-
-                    Vector2Int dir = i switch
-                    {
-                        0 => Vector2Int.up,
-                        1 => Vector2Int.right,
-                        2 => Vector2Int.down,
-                        3 => Vector2Int.left,
-                        _ => Vector2Int.zero
-                    };
-
-                    int nx = x + dir.x;
-                    int ny = y + dir.y;
-
-                    if (nx < 0 || nx >= width || ny < 0 || ny >= height || grid[nx, ny] == null)
-                        continue;
-
-                    Vector3 interPos = new(x + dir.x * 0.5f, y + dir.y * 0.5f, 0);
-                    GameObject interGO = Instantiate(IntersectionPrefab, Vector3.zero, Quaternion.identity, intersectionsParent);
-                    interGO.transform.localPosition = interPos;
-                    interGO.name = $"Intersection {interPos.x} {interPos.y}";
-
-                    if (i == 0 || i == 2) interGO.transform.rotation = Quaternion.Euler(0, 0, 90);
-                }
-            }
-        }
-        Instantiate(PlayerIconPrefab, openMapInstance.transform.Find($"Rooms/Room {playersRoom.position.x} {playersRoom.position.y}").transform);
-        Instantiate(BossIconPrefab, openMapInstance.transform.Find($"Rooms/Room {bossRoom.position.x} {bossRoom.position.y}").transform);
+        Instantiate(PlayerIconPrefab, gameScript.MenuInstance.transform.Find($"Rooms/Room {playersRoom.position.x} {playersRoom.position.y}").transform);
+        Instantiate(BossIconPrefab, gameScript.MenuInstance.transform.Find($"Rooms/Room {bossRoom.position.x} {bossRoom.position.y}").transform);
 
         if (movement || _movement) EnableMovement(playersRoom);
 
         gameScript.GameControls.PlayerControls.Disable();
-    }
-    public void CloseMap()
-    {
-        if (openMapInstance != null)
-        {
-            if (gameScript.Gamestate == GameScript.GameState.Combat) gameScript.GameControls.PlayerControls.Enable();
-            Destroy(openMapInstance);
-            openMapInstance = null;
-            Destroy(hitboxInstance);
-        }
     }
     public void GenerateMap()
     {
@@ -255,13 +195,14 @@ public class MinimapManager : MonoBehaviour
         int roomsCreated = 0;
         CreateRoomRecursive(startPos, ref roomsCreated);
     }
-    public void LoadMiniMap()
+    public void LoadMap(GameObject parent)
     {
-        LoadRooms();
-        LoadIntersections();
-        void LoadRooms()
+        LoadRooms(parent);
+        LoadIntersections(parent);
+
+        void LoadRooms(GameObject parent)
         {
-            Transform roomsParent = transform.Find("Rooms");
+            Transform roomsParent = parent.transform.Find("Rooms");
 
             for (int x = 0; x < width; x++)
             {
@@ -273,15 +214,15 @@ public class MinimapManager : MonoBehaviour
                     GameObject roomInstance = Instantiate(RoomPrefab, roomsParent.transform);
                     roomInstance.name = $"Room {room.position.x} {room.position.y}";
                     roomInstance.transform.localPosition = new(x, y, 0);
-                    if (room.Explored) roomInstance.GetComponent<SpriteRenderer>().color = ExploredColor;
-                    if (room.infectedStatus == 1) roomInstance.GetComponent<SpriteRenderer>().color = Infected1Color;
-                    if (room.infectedStatus == 2) roomInstance.GetComponent<SpriteRenderer>().color = Infected2Color;
+                    if (room.Explored) roomInstance.GetComponent<Image>().color = ExploredColor;
+                    if (room.infectedStatus == 1) roomInstance.GetComponent<Image>().color = Infected1Color;
+                    if (room.infectedStatus == 2) roomInstance.GetComponent<Image>().color = Infected2Color;
                 }
             }
         }
-        void LoadIntersections()
+        void LoadIntersections(GameObject parent)
         {
-            Transform intersectionsParent = transform.Find("Intersections");
+            Transform intersectionsParent = parent.transform.Find("Intersections");
 
             for (int x = 0; x < width; x++)
             {
@@ -328,11 +269,11 @@ public class MinimapManager : MonoBehaviour
             {
                 RoomData room = grid[x, y];
                 if (room == null) continue;
-                if (room.Explored) gameObject.transform.Find($"Rooms/Room {x} {y}").GetComponent<SpriteRenderer>()
+                if (room.Explored) gameObject.transform.Find($"Rooms/Room {x} {y}").GetComponent<Image>()
                         .color = ExploredColor;
-                if (room.infectedStatus == 1) gameObject.transform.Find($"Rooms/Room {x} {y}").GetComponent<SpriteRenderer>()
+                if (room.infectedStatus == 1) gameObject.transform.Find($"Rooms/Room {x} {y}").GetComponent<Image>()
                         .color = Infected1Color;
-                if (room.infectedStatus == 2) gameObject.transform.Find($"Rooms/Room {x} {y}").GetComponent<SpriteRenderer>()
+                if (room.infectedStatus == 2) gameObject.transform.Find($"Rooms/Room {x} {y}").GetComponent<Image>()
                         .color = Infected2Color;
             }
         }
@@ -340,20 +281,6 @@ public class MinimapManager : MonoBehaviour
         PlayerIconInstance = Instantiate(PlayerIconPrefab, transform.Find("IconsContainer").transform);
         PlayerIconInstance.transform.localPosition = new(playersRoom.position.x, playersRoom.position.y, 0);
         PlayerIconInstance.transform.localScale = new(.1f, .1f, 1);
-    }
-    public void LoadIcons()
-    {
-        PlayerIconInstance = Instantiate(PlayerIconPrefab, gameObject.transform.Find("IconsContainer").transform);
-        PlayerIconInstance.transform.localPosition = new(playersRoom.position.x, playersRoom.position.y, 0);
-        PlayerIconInstance.transform.localScale = new Vector3(.1f, .1f, 1);
-
-        playersRoom.Explored = true;
-        transform.Find($"Rooms/Room {playersRoom.position.x} {playersRoom.position.y}").GetComponent<SpriteRenderer>().color = ExploredColor;
-
-        lastInfectedPos = bossRoom.position;
-        BossIconInstance = Instantiate(BossIconPrefab, gameObject.transform.Find("IconsContainer").transform);
-        BossIconInstance.transform.localPosition = new(bossRoom.position.x, bossRoom.position.y, 0);
-        BossIconInstance.transform.localScale = new Vector3(.08f, .09f, 1);
     }
     public void SpawnIcons()
     {
@@ -394,6 +321,21 @@ public class MinimapManager : MonoBehaviour
         LoadIcons();
         playersRoom.type = RoomData.Type.Fight;
         bossRoom.type = RoomData.Type.Bossfight;
+
+        void LoadIcons()
+        {
+            PlayerIconInstance = Instantiate(PlayerIconPrefab, gameObject.transform.Find("IconsContainer").transform);
+            PlayerIconInstance.transform.localPosition = new(playersRoom.position.x, playersRoom.position.y, 0);
+            PlayerIconInstance.transform.localScale = new Vector3(.1f, .1f, 1);
+
+            playersRoom.Explored = true;
+            transform.Find($"Rooms/Room {playersRoom.position.x} {playersRoom.position.y}").GetComponent<Image>().color = ExploredColor;
+
+            lastInfectedPos = bossRoom.position;
+            BossIconInstance = Instantiate(BossIconPrefab, gameObject.transform.Find("IconsContainer").transform);
+            BossIconInstance.transform.localPosition = new(bossRoom.position.x, bossRoom.position.y, 0);
+            BossIconInstance.transform.localScale = new Vector3(.08f, .09f, 1);
+        }
     }
     private void EnableMovement(RoomData room)
     {
@@ -432,7 +374,8 @@ public class MinimapManager : MonoBehaviour
 
             GameObject arrow = Instantiate(ArrowPrefab, arrowContainerObj.transform);
             arrow.name = $"Arrow_{dir}";
-            arrow.AddComponent<Button>().onClick.AddListener(() => Move(dir));
+            if(arrowContainerObj.transform.parent.GetComponents<MinimapManager>() ==  null) 
+                arrow.AddComponent<Button>().onClick.AddListener(() => Move(dir));
 
             Transform RoomsContainer = map.transform.Find("Rooms");
             Transform RoomGlobalPosition = RoomsContainer.Find($"Room {room.position.x + offsets[dir].x} {room.position.y + offsets[dir].y}");

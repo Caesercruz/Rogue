@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Continue()
     {
-        Destroy(gameObject);
+        transform.GetComponentInParent<GameScript>().CloseAction();
     }
     public void OpenMenu()
     {
@@ -33,7 +33,7 @@ public class PauseMenu : MonoBehaviour
     
     public void OpenSettings()
     {
-        Instantiate(settings);
-        Destroy(gameObject);
+        //Instantiate(settings);
+        //Destroy(gameObject);
     }
 }

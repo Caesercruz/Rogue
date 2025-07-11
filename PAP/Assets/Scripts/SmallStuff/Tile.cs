@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject darkOverlay;
     public TextMeshProUGUI damage;
 
+    public Vector2Int Position;
     public bool IsOccupied = false;
     public bool InAtackRange = false;
     public int UnderAtack = 0;

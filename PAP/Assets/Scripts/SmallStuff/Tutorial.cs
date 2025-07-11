@@ -9,7 +9,7 @@ public class Tutorial : MonoBehaviour
 
     private void Update()
     {
-        if (transform.parent.GetComponent<GameScript>().GameControls.Actions.Back.triggered) transform.parent.GetComponent<GameScript>().CloseTutorial();
+        if (transform.parent.GetComponent<GameScript>().GameControls.Actions.Back.triggered) transform.parent.GetComponent<GameScript>().CloseAction();
     }
     public void NextSlide()
     {

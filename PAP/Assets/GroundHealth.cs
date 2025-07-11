@@ -16,7 +16,7 @@ public class GroundHealth : MonoBehaviour
         {
             GameScript gameScript = FindAnyObjectByType<GameScript>();
             gameScript.timedGrounds.Remove(this);
-            Tile occupiedTile = transform.parent.Find($"Tile {transform.position.x} {transform.position.y}").GetComponent<Tile>();
+            Tile occupiedTile = transform.parent.Find($"Tile {transform.localPosition.x} {transform.localPosition.y}").GetComponent<Tile>();
             occupiedTile.IsOccupied = false;
             Destroy(gameObject);
         }

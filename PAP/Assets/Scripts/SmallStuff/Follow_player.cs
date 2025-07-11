@@ -5,22 +5,18 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private float fixmodel = 90f;
 
+    private void Start()
+    {
+        player = FindFirstObjectByType<Player>().gameObject;
+    }
     void Update()
     {
-        GameObject foundPlayer = GameObject.Find("Player");
-
-        if (foundPlayer == null) return;
-
-        player = foundPlayer.GetComponent<Player>().gameObject;
-        if (player == null) return;
-
         RotateTowardsPlayer();
     }
 
     void RotateTowardsPlayer()
     {
         Vector3 playerPos = player.transform.position;
-        playerPos.z = 0;
 
         Vector3 direction = playerPos - transform.position;
 

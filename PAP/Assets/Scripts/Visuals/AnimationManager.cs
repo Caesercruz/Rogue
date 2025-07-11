@@ -7,17 +7,17 @@ public class AnimationManager : MonoBehaviour
     public GameObject slashAnimationPrefab, DoubleSlashPrefab;
     public IEnumerator MoveOverTime(Transform objTransform, Vector3 targetPosition, float duration)
     {
-        Vector3 startPos = objTransform.position;
+        Vector3 startPos = objTransform.localPosition;
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
-            objTransform.position = Vector3.Lerp(startPos, targetPosition, elapsed / duration);
+            objTransform.localPosition = Vector3.Lerp(startPos, targetPosition, elapsed / duration);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        objTransform.position = targetPosition;
+        objTransform.localPosition = targetPosition;
     }
     public enum StrikeType
     {

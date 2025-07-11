@@ -12,7 +12,7 @@ public class Player : Actors
     public bool leakedEnergy = false;
     private bool inAttackMode, weakened = false;
     private int StoredEnergy;
-    
+
     private void Awake()
     {
         actors = transform.parent.GetComponent<Actors>();
@@ -71,76 +71,84 @@ public class Player : Actors
     private void VerifyMove()
     {
         if (!actors.isPlayersTurn) return;
-        
-            if (gameScript.GameControls.PlayerControls.Up.triggered || gameScript.GameControls.PlayerControls.Down.triggered
-                || gameScript.GameControls.PlayerControls.Left.triggered || gameScript.GameControls.PlayerControls.Right.triggered)
+
+        if (gameScript.GameControls.PlayerControls.Up.triggered || gameScript.GameControls.PlayerControls.Down.triggered
+            || gameScript.GameControls.PlayerControls.Left.triggered || gameScript.GameControls.PlayerControls.Right.triggered)
+        {
+            if (Energy < 1)
+            {
+                Debug.Log("Insufficient energy ");
+                return;
+            }
+        }
+
+        bool moved = false;
+        if (gameScript.GameControls.PlayerControls.Up.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.up);
+        if (gameScript.GameControls.PlayerControls.Left.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.left);
+        if (gameScript.GameControls.PlayerControls.Down.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.down);
+        if (gameScript.GameControls.PlayerControls.Right.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.right);
+
+        if (moved)
+        {
+            ChangeEnergy(--Energy, MaxEnergy);
+            ExitAttackMode();
+            inAttackMode = false;
+
+            StoredEnergy += 3;
+        }
+
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            if (gameScript.GameControls.PlayerControls.Atack.triggered)
             {
                 if (Energy < 1)
                 {
                     Debug.Log("Insufficient energy ");
                     return;
                 }
+
+                ClearAttackableTiles(true);
+                SetAttackableTiles(true);
+                if (inAttackMode)
+                {
+                    Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                    Vector2 mouseWorld2D = new(mouseWorldPos.x, mouseWorldPos.y);
+                    RaycastHit2D hit = Physics2D.Raycast(mouseWorld2D, Vector2.zero);
+
+                    if (hit.collider != null)
+                    {
+                        Tile tile = hit.collider.GetComponent<Tile>();
+                        if (tile != null)
+                        {
+                            TryAttackAt(tile.Position);
+                        }
+                    }
+                }
+                else
+                {
+                    EnterAttackMode();
+                    inAttackMode = true;
+                }
             }
 
-            bool moved = false;
-            if (gameScript.GameControls.PlayerControls.Up.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.up);
-            if (gameScript.GameControls.PlayerControls.Left.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.left);
-            if (gameScript.GameControls.PlayerControls.Down.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.down);
-            if (gameScript.GameControls.PlayerControls.Right.triggered) moved = actors.MoveCharacter(gameObject, Vector2Int.right);
-
-            if (moved)
+            if (gameScript.GameControls.PlayerControls.Back.triggered)
             {
-                ChangeEnergy(--Energy, MaxEnergy);
                 ExitAttackMode();
                 inAttackMode = false;
-
-                StoredEnergy += 3;
             }
-
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                if (gameScript.GameControls.PlayerControls.Atack.triggered)
-                {
-                    if (Energy < 1)
-                    {
-                        Debug.Log("Insufficient energy ");
-                        return;
-                    }
-
-                    ClearAttackableTiles(true);
-                    SetAttackableTiles(true);
-                    if (inAttackMode)
-                    {
-                        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                        Vector2Int clickedPos = new(Mathf.RoundToInt(mouseWorldPos.x), Mathf.RoundToInt(mouseWorldPos.y));
-
-                        TryAttackAt(clickedPos);
-                    }
-                    else
-                    {
-                        EnterAttackMode();
-                        inAttackMode = true;
-                    }
-                }
-
-                if (gameScript.GameControls.PlayerControls.Back.triggered)
-                {
-                    ExitAttackMode();
-                    inAttackMode = false;
-                }
-            }
-            if (gameScript.GameControls.PlayerControls.EndTurn.triggered)
-            {
-                ExitAttackMode();
-                perkEffects.Rebound(this);
-                perkEffects.Reboot(this);
-                DamageTiles();
-                ClearAttackableTiles(false);
-                actors.isPlayersTurn = false;
-                StoredEnergy = 0;
-                weakened = false;
-                gameScript.firstTurn = false;
-            }
+        }
+        if (gameScript.GameControls.PlayerControls.EndTurn.triggered)
+        {
+            ExitAttackMode();
+            perkEffects.Rebound(this);
+            perkEffects.Reboot(this);
+            DamageTiles();
+            ClearAttackableTiles(false);
+            actors.isPlayersTurn = false;
+            StoredEnergy = 0;
+            weakened = false;
+            gameScript.firstTurn = false;
+        }
     }
 
     public void EnterAttackMode()
@@ -212,10 +220,12 @@ public class Player : Actors
     public void SetPlayer()
     {
         Vector2Int gridPosition = new(Random.Range(0, _spawnRangeWidth), Random.Range(0, _spawnRangeHeight));
-        
+
         Vector3 worldPosition = new(gridPosition.x, gridPosition.y, 0);
-        transform.position = worldPosition;
+        transform.localPosition = worldPosition;
         actors.ActorsCord.Add(gameObject, gridPosition);
-        transform.parent.transform.Find($"Tile {gridPosition.x} {gridPosition.y}").GetComponent<Tile>().IsOccupied = true;
+        
+        Tile tile = actors.GridTiles[gridPosition];
+        tile.IsOccupied = true;
     }
 }
