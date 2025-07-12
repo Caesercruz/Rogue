@@ -1,0 +1,111 @@
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class HUDManager : MonoBehaviour
+{
+    [SerializeField] private Player player;
+    [SerializeField] private TextMeshProUGUI _txt_energy;
+    [SerializeField] private Image _image_Energy;
+
+    public Transform healthBarsContainer;
+    private Dictionary<Slider, Vector3> healthBarsOriginalPositions = new();
+
+    private List<Slider> healthBars = new();
+
+    public void UpdateHealth(Slider healthBar, int health, int maxHealth)
+    {
+        TextMeshProUGUI hpText = healthBar.GetComponentInChildren<TextMeshProUGUI>();
+        healthBar.maxValue = maxHealth;
+        healthBar.value = health;
+        hpText.text = health + "/" + maxHealth;
+    }
+
+    public void UpdateEnergy(int energy, int maxEnergy)
+    {
+        _txt_energy.text = energy.ToString();
+        _image_Energy.fillAmount = (float)energy / maxEnergy;
+    }
+
+    public void AddHealthBar(Slider healthBar, GameObject enemy)
+    {
+        healthBars.Add(healthBar);
+        OffsetHealthBar(healthBar.gameObject, enemy);
+
+        // Adicionar o script de hover na hora
+        HealthBarHoverHandler hoverHandler = healthBar.gameObject.AddComponent<HealthBarHoverHandler>();
+        hoverHandler.hudManager = this;
+    }
+
+    private void OffsetHealthBar(GameObject healthbar, GameObject enemy)
+    {
+        string enemyName = enemy.name;
+        System.Text.RegularExpressions.Regex regex = new(@"(\d+)$");
+        var match = regex.Match(enemyName);
+
+        int enemyNumber = 0;
+        if (match.Success)
+            enemyNumber = int.Parse(match.Value);
+
+        int offsetY = -1 * enemyNumber;
+
+        RectTransform rectTransform = healthbar.GetComponent<RectTransform>();
+        Vector3 originalPos = rectTransform.localPosition;
+        Vector3 newPos = new Vector3(originalPos.x, originalPos.y + offsetY, originalPos.z);
+
+        rectTransform.localPosition = newPos;
+
+        // GUARDAR a posição correta para o dicionário
+        Slider slider = healthbar.GetComponent<Slider>();
+        if (!healthBarsOriginalPositions.ContainsKey(slider))
+        {
+            healthBarsOriginalPositions.Add(slider, newPos);
+        }
+    }
+
+
+    public void ShowHealthBars()
+    {
+        if (healthBars.Count == 0) return;
+
+        for (int i = 1; i < healthBars.Count; i++)
+        {
+            var rectTransform = healthBars[i].GetComponent<RectTransform>();
+
+            if (healthBarsOriginalPositions.TryGetValue(healthBars[i], out Vector3 originalPos))
+            {
+                StartCoroutine(AnimateMove(rectTransform, originalPos));
+            }
+        }
+    }
+
+    public void HideHealthBars()
+    {
+        if (healthBars.Count == 0) return;
+
+        Vector3 firstBarPosition = healthBars[0].GetComponent<RectTransform>().localPosition;
+
+        for (int i = 1; i < healthBars.Count; i++)
+        {
+            var rectTransform = healthBars[i].GetComponent<RectTransform>();
+            StartCoroutine(AnimateMove(rectTransform, firstBarPosition));
+        }
+    }
+
+    private System.Collections.IEnumerator AnimateMove(RectTransform rectTransform, Vector3 targetPos)
+    {
+        Vector3 startPos = rectTransform.localPosition;
+        float duration = 0.2f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            rectTransform.localPosition = Vector3.Lerp(startPos, targetPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        rectTransform.localPosition = targetPos;
+    }
+}

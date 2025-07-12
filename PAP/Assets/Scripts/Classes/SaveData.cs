@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [System.Serializable]
 public class SaveData
@@ -9,6 +7,9 @@ public class SaveData
     public List<SerializableRoomData> allRooms;
     public Vector2Int playerRoomPos;
     public Vector2Int bossRoomPos;
+
+    public List<SerializablePerk> activePerks;
+    public int Health;
 }
 
 [System.Serializable]
@@ -20,6 +21,7 @@ public class SerializableRoomData
     public bool explored;
     public int infectedStatus;
 
+    //Convert to Serializable
     public SerializableRoomData(RoomData room)
     {
         position = room.position;
@@ -28,7 +30,7 @@ public class SerializableRoomData
         explored = room.Explored;
         infectedStatus = room.infectedStatus;
     }
-
+    //Convert to RoomData
     public RoomData ToRoomData()
     {
         RoomData room = new();
@@ -38,5 +40,23 @@ public class SerializableRoomData
         room.Explored = explored;
         room.infectedStatus = infectedStatus;
         return room;
+    }
+}
+
+[System.Serializable]
+public class SerializablePerk
+{
+    public string Name;
+    public string PerkType;
+
+    public SerializablePerk(Perk perk)
+    {
+        Name = perk.name;
+        PerkType = perk.type.ToString();
+    }
+
+    public PerkType GetPerkType()
+    {
+        return (PerkType)System.Enum.Parse(typeof(PerkType), PerkType);
     }
 }

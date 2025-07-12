@@ -11,12 +11,13 @@ public class HUDManager : MonoBehaviour
 
     public Transform healthBarsContainer;
     
-    public void UpdateHealth(Slider healthBar, int health, int maxHealth)
+    public void UpdateHealth(Slider healthBar, int health, int maxHealth = -1)
     {
         TextMeshProUGUI hpText = healthBar.GetComponentInChildren<TextMeshProUGUI>();
-        healthBar.maxValue = maxHealth;
+        if(maxHealth != -1) healthBar.maxValue = maxHealth;
         healthBar.value = health;
         hpText.text = health + "/" + maxHealth;
+        if (maxHealth == -1) hpText.text = health + "/20";
     }
 
     public void UpdateEnergy(int energy, int maxEnergy)

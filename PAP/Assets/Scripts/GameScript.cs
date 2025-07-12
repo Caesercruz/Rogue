@@ -37,18 +37,19 @@ public class GameScript : MonoBehaviour
     [SerializeField] public GameObject MenuInstance;
     [SerializeField] public GameObject hitboxInstance;
     public MinimapManager MapManager;
+
+    public int SavedHealth;
     public bool RenforcedPlates = false;
     public bool RustyPlates = false;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject combatUIPrefab;
-    [SerializeField] private GameObject boardManager;
+    [SerializeField] public GameObject boardManager;
     [SerializeField] private GameObject UpdateScreenPrefab;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameOver;
     [SerializeField] private GameObject tutorial;
     [SerializeField] private Tile _tilePrefab;
-    [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private GameObject showPerksPrefab;
     [SerializeField] private GameObject hitboxPrefab;
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -68,12 +69,23 @@ public class MinimapManager : MonoBehaviour
 
         // Reconstrói a grid a partir dos dados salvos
         RebuildGridFromSave(saveData);
-
+        
         // Reatribui as referências do jogador e do boss
         playersRoom = grid[saveData.playerRoomPos.x, saveData.playerRoomPos.y];
         bossRoom = grid[saveData.bossRoomPos.x, saveData.bossRoomPos.y];
 
         Debug.Log("Mapa carregado com sucesso.");
+
+        foreach (SerializablePerk perkData in saveData.activePerks)
+        {
+            Perk perk = gameScript.AllPerks.Find(p => p.name == perkData.Name);
+            if (perk != null) gameScript.ActivePerks.Add(perk);
+            else
+                Debug.LogWarning($"Perk com nome '{perkData.Name}' não encontrado.");
+        }
+
+        FindAnyObjectByType<HUDManager>().UpdateHealth(gameScript.transform.Find("Canvas/Player's HealthBar").GetComponent<Slider>(), saveData.Health);
+        gameScript.boardManager.transform.Find("Player").GetComponent<Player>().Health = saveData.Health;
         
         void RebuildGridFromSave(SaveData saveData)
         {
@@ -92,24 +104,23 @@ public class MinimapManager : MonoBehaviour
     }
     public void Save()
     {
+        GameScript gameScript = transform.parent.transform.parent.GetComponent<GameScript>();
 
-        var allRooms = new List<SerializableRoomData>();
-
-        for (int x = 0; x < grid.GetLength(0); x++)
+        List<SerializablePerk> perksToSave = new();
+        foreach (Perk perk in gameScript.ActivePerks)
         {
-            for (int y = 0; y < grid.GetLength(1); y++)
-            {
-                RoomData room = grid[x, y];
-                if (room != null)
-                    allRooms.Add(new SerializableRoomData(room));
-            }
+            perksToSave.Add(new SerializablePerk(perk));
         }
 
         SaveData saveData = new SaveData
         {
-            allRooms = allRooms,
+            allRooms = grid.Cast<RoomData>()
+                             .Where(r => r != null)
+                             .Select(r => new SerializableRoomData(r)).ToList(),
             playerRoomPos = playersRoom.position,
-            bossRoomPos = bossRoom.position
+            bossRoomPos = bossRoom.position,
+            activePerks = perksToSave,
+            Health = Convert.ToInt32(gameScript.transform.Find("Canvas/Player's HealthBar").GetComponent<Slider>().value),
         };
 
         string json = JsonUtility.ToJson(saveData, true);
@@ -374,7 +385,7 @@ public class MinimapManager : MonoBehaviour
 
             GameObject arrow = Instantiate(ArrowPrefab, arrowContainerObj.transform);
             arrow.name = $"Arrow_{dir}";
-            if(arrowContainerObj.transform.parent.GetComponents<MinimapManager>() ==  null) 
+            if(arrowContainerObj.transform.parent.GetComponent<MinimapManager>() ==  null)
                 arrow.AddComponent<Button>().onClick.AddListener(() => Move(dir));
 
             Transform RoomsContainer = map.transform.Find("Rooms");
@@ -405,7 +416,7 @@ public class MinimapManager : MonoBehaviour
                 continue;
             }
 
-            if (Random.value <= spawnRoomChance)
+            if (UnityEngine.Random.value <= spawnRoomChance)
             {
                 room.connections[i] = true;
                 CreateRoomRecursive(nextPos, ref roomsCreated);
@@ -442,7 +453,7 @@ public class MinimapManager : MonoBehaviour
     }
     private void TryConnectRooms(RoomData room, int direction, RoomData neighbor)
     {
-        if (Random.value < spawnIntersectionChance)
+        if (UnityEngine.Random.value < spawnIntersectionChance)
         {
             room.connections[direction] = true;
             int opp = (direction + 2) % 4;
