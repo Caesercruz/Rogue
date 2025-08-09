@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Kinetic Energy
   m_EditorClassIdentifier: 
-  description: Moving increases your damage by 3. Hiting resets the buff.
-  icon: {fileID: 4401870907467595010, guid: e6ce4ce83b5817542b33ccc7d70ac2d8, type: 3}
-  type: 0
-  active: 0
+  Description: Moving increases your strength by 2.(temporary)
+  Icon: {fileID: 4401870907467595010, guid: e6ce4ce83b5817542b33ccc7d70ac2d8, type: 3}
+  Type: 0
+  Level: 0

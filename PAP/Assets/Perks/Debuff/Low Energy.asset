@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Low Energy
   m_EditorClassIdentifier: 
-  description: Decreases your maximum energy by 1.
-  icon: {fileID: 634573245595973833, guid: 7660bb1e507c3b04098bea308e211740, type: 3}
-  type: 1
-  active: 0
+  Description: Decreases your energy capacity by 1.
+  Icon: {fileID: 634573245595973833, guid: 7660bb1e507c3b04098bea308e211740, type: 3}
+  Type: 1
+  Level: 0

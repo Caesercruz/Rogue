@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: KnockBack
   m_EditorClassIdentifier: 
-  perkName: KnockBack
-  description: Atacking an enemy pushes him 1 tile away
-  icon: {fileID: 8648408496548531939, guid: 2446becf16b671940a7b4c64049aaf03, type: 3}
-  type: 0
-  active: 0
+  Description: Atacking moves the enemy away.
+  Icon: {fileID: 8648408496548531939, guid: 2446becf16b671940a7b4c64049aaf03, type: 3}
+  Type: 0
+  Level: 0

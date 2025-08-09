@@ -52,7 +52,7 @@ public class SerializablePerk
     public SerializablePerk(Perk perk)
     {
         Name = perk.name;
-        PerkType = perk.type.ToString();
+        PerkType = perk.Type.ToString();
     }
 
     public PerkType GetPerkType()

@@ -22,11 +22,9 @@ public class PerkEffects : MonoBehaviour
         }
         if (gameScript.ActivePerks.Find(p => p.name == "Increased Reach"))
         {
-            player.AttackPattern.Add(new Vector2Int(-2, -2));
             player.AttackPattern.Add(new Vector2Int(-2, -1));
             player.AttackPattern.Add(new Vector2Int(-2, -0));
             player.AttackPattern.Add(new Vector2Int(-2, 1));
-            player.AttackPattern.Add(new Vector2Int(-2, 2));
 
             player.AttackPattern.Add(new Vector2Int(-1, -2));
             player.AttackPattern.Add(new Vector2Int(-1, 2));
@@ -37,11 +35,9 @@ public class PerkEffects : MonoBehaviour
             player.AttackPattern.Add(new Vector2Int(1, -2));
             player.AttackPattern.Add(new Vector2Int(1, 2));
 
-            player.AttackPattern.Add(new Vector2Int(2, -2));
             player.AttackPattern.Add(new Vector2Int(2, -1));
             player.AttackPattern.Add(new Vector2Int(2, -0));
             player.AttackPattern.Add(new Vector2Int(2, 1));
-            player.AttackPattern.Add(new Vector2Int(2, 2));
         }
 
         if (gameScript.ActivePerks.Find(p => p.name == "Weak"))
@@ -63,7 +59,7 @@ public class PerkEffects : MonoBehaviour
     {
         Perk bewildered = gameScript.ActivePerks.Find(p => p.name == "Bewildered");
         if (bewildered == null) return;
-        enemy.Weakness += 2;
+        enemy.Weakness = enemy.Strength/2;
 
         enemy.ClearAttackableTiles(false);
         enemy.RecalculateEnemyAttacks();
@@ -81,7 +77,7 @@ public class PerkEffects : MonoBehaviour
     {
         Perk lifesteal = gameScript.ActivePerks.Find(p => p.name == "LifeSteal");
         if (lifesteal == null) return;
-        player.ChangeHealth(player.HealthBar, player.Health + 2, player.MaxHealth);
+        player.ChangeHealth(player.HealthBar, player.Health + 1, player.MaxHealth);
     }
     public bool DoubleHit()
     {
@@ -104,7 +100,7 @@ public class PerkEffects : MonoBehaviour
         Perk acidicBlade = gameScript.ActivePerks.Find(p => p.name == "Acidic Blade");
         if (acidicBlade == null) return;
 
-        // Vetores de posições adjacentes (8 direções)
+        // Vetores de posiï¿½ï¿½es adjacentes (8 direï¿½ï¿½es)
         Vector2Int[] adjacentOffsets = new Vector2Int[]
         {
         new (-1, -1), new (-1, 0), new (-1, 1),

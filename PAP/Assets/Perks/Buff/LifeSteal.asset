@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: LifeSteal
   m_EditorClassIdentifier: 
-  perkName: LifeSteal
-  description: Atacks heal 2 Health Points.
-  icon: {fileID: -7023080013790042470, guid: 60391ca181a8c79428449d51a355aa0f, type: 3}
-  type: 0
-  active: 0
+  Description: Atacks heal you by 1 HP.
+  Icon: {fileID: -7023080013790042470, guid: 60391ca181a8c79428449d51a355aa0f, type: 3}
+  Type: 0
+  Level: 0

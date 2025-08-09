@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Exposed Circuits
   m_EditorClassIdentifier: 
-  description: Chance of 20% of getting extra damaged by +20%
-  icon: {fileID: 766735046712930671, guid: 26d6c7704bbcc0d46b21da2185a29b20, type: 3}
-  type: 1
-  active: 0
+  Description: 20% chance of taking 20% more damged by an atack.
+  Icon: {fileID: 766735046712930671, guid: 26d6c7704bbcc0d46b21da2185a29b20, type: 3}
+  Type: 1
+  Level: 0

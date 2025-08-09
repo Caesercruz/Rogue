@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Intimidated
   m_EditorClassIdentifier: 
-  description: Being atacked decreases your strength by half.
-  icon: {fileID: 4425450252774458811, guid: cf16faa23415871469e46ce3ddf53d9b, type: 3}
-  type: 1
-  active: 1
+  Description: Getting hit decreases your strenght by half.
+  Icon: {fileID: 4425450252774458811, guid: cf16faa23415871469e46ce3ddf53d9b, type: 3}
+  Type: 1
+  Level: 0

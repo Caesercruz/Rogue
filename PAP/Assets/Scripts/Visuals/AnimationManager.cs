@@ -92,13 +92,10 @@ public class AnimationManager : MonoBehaviour
         }
     }
     
-    public IEnumerator AnimatePopupSpawn(Transform target, float duration = 0.5f)
+    public IEnumerator AnimatePopupSpawn(Transform target, float duration = 0.7f)
     {
-        Debug.Log("Iniciando animação de escala...");
-        Debug.Log("timeScale: " + Time.timeScale);
-
         Vector3 initialScale = Vector3.zero;
-        Vector3 finalScale = Vector3.one;
+        Vector3 finalScale = new(target.localScale.x, target.localScale.y,1);
         float elapsedTime = 0f;
 
         target.localScale = initialScale;
@@ -110,14 +107,10 @@ public class AnimationManager : MonoBehaviour
             Vector3 newScale = Vector3.Lerp(initialScale, finalScale, t);
             target.localScale = newScale;
 
-            Debug.Log($"[ANIMAÇÃO] t={t}, scale={newScale}, elapsed={elapsedTime}");
-
             elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
 
-
         target.localScale = finalScale;
-        Debug.Log("Animação concluída.");
     }
 }

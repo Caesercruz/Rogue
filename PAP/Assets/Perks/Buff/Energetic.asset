@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Energetic
   m_EditorClassIdentifier: 
-  description: Increase max energy by 2.
-  icon: {fileID: -7213742777133032008, guid: a85cc97423984c640b3f3a03bd4d08f7, type: 3}
-  type: 0
-  active: 0
+  Description: Increase energy capacity by 2.
+  Icon: {fileID: -7213742777133032008, guid: a85cc97423984c640b3f3a03bd4d08f7, type: 3}
+  Type: 0
+  Level: 0

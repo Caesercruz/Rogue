@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayersTurn: 1
-  Energy: 20
-  MaxEnergy: 20
+  Energy: 5
+  MaxEnergy: 5
   Health: 20
   MaxHealth: 20
   AttackPattern:
@@ -115,7 +115,7 @@ MonoBehaviour:
   - {x: 1, y: -1}
   - {x: 1, y: 0}
   - {x: 1, y: 1}
-  Strength: 100
+  Strength: 4
   Weakness: 0
   _spawnRangeWidth: 0
   _spawnRangeHeight: 0

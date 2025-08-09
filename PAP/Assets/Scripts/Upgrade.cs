@@ -44,18 +44,18 @@ public class Upgrade : MonoBehaviour
     {
         GameObject upgrade = gameObject;
         Transform area = upgrade.transform.Find("Upgrade Area");
-        if (perk.type == PerkType.Debuff) area = upgrade.transform.Find("Down Side Area");
+        if (perk.Type == PerkType.Debuff) area = upgrade.transform.Find("Down Side Area");
 
         Transform atribute = area.transform.Find("Atribute");
 
         Transform icon = atribute.transform.Find("Icon");
         Transform description = atribute.transform.Find("Description");
 
-        icon.GetComponent<Image>().sprite = perk.icon;
+        icon.GetComponent<Image>().sprite = perk.Icon;
         description.GetComponent<TextMeshProUGUI>().text = perk.name;
 
-        if (perk.type == PerkType.Buff) SelectedBuff = perk;
-        if (perk.type == PerkType.Debuff) SelectedByproduct = perk;
+        if (perk.Type == PerkType.Buff) SelectedBuff = perk;
+        if (perk.Type == PerkType.Debuff) SelectedByproduct = perk;
         ClosePopup();
     }
     public void Close()
@@ -86,7 +86,7 @@ public class Upgrade : MonoBehaviour
             Destroy(hitBox);
             return;
         }
-        Debug.Log("Popup é null");
+        Debug.Log("Popup ï¿½ null");
     }
     public void GetPerkName(Perk perk)
     {
@@ -97,22 +97,14 @@ public class Upgrade : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Label não encontrada!");
+            Debug.LogWarning("Label nï¿½o encontrada!");
         }
     }
     
     private bool PerksSelectedValidation()
     {
-
-        if (SelectedBuff == null && SelectedByproduct == null)
-        {
-            WarningPerks();
-        }
+        if (SelectedBuff == null && SelectedByproduct == null) return true;
         if (SelectedBuff == null || SelectedByproduct == null) return false;
         return true;
-    }
-    public void WarningPerks()
-    {
-        //No perk selected
     }
 }

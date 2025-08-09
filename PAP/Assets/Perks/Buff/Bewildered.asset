@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Bewildered
   m_EditorClassIdentifier: 
-  description: Atacking an enemy reduses it's strength by 2.
-  icon: {fileID: 594318413343068850, guid: fc408a0b76f8c7640ac88d1c8d05edf4, type: 3}
-  type: 0
-  active: 0
+  Description: Atacks decrease de enemies strenght by half.
+  Icon: {fileID: 594318413343068850, guid: fc408a0b76f8c7640ac88d1c8d05edf4, type: 3}
+  Type: 0
+  Level: 0

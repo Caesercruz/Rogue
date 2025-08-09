@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Reboot
   m_EditorClassIdentifier: 
-  description: If you end your turn without using energy heal half your max hp.
-  icon: {fileID: -8422637646335901387, guid: 76f374e3e21aad8439cda5f0173540d7, type: 3}
-  type: 0
-  active: 0
+  Description: Ending your turn with max energy heals half your max health.
+  Icon: {fileID: -8422637646335901387, guid: 76f374e3e21aad8439cda5f0173540d7, type: 3}
+  Type: 0
+  Level: 0

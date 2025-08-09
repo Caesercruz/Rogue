@@ -35,7 +35,7 @@ public class ShowPerksSlider : MonoBehaviour
     private void SavePerks() { 
         foreach (var perk in gameScript.ActivePerks)
         {
-            switch (perk.type)
+            switch (perk.Type)
             {
                 case PerkType.Buff:
                     buffs.Add(perk);
@@ -50,14 +50,14 @@ public class ShowPerksSlider : MonoBehaviour
     {
         if(category == PerkType.Buff) {
             selected = transform.Find("Buffs");
-            selected.Find("Displayed Perk").GetComponent<Image>().sprite = buffs[0].icon;
-            selected.transform.Find("Perk Name").GetComponent<TextMeshProUGUI>().text = buffs[0].description;
+            selected.Find("Displayed Perk").GetComponent<Image>().sprite = buffs[0].Icon;
+            selected.transform.Find("Perk Name").GetComponent<TextMeshProUGUI>().text = buffs[0].Description;
         }
         else if (category == PerkType.Debuff)
         {
             selected = transform.Find("Debuffs");
-            selected.Find("Displayed Perk").GetComponent<Image>().sprite = debuffs[0].icon;
-            selected.transform.Find("Perk Name").GetComponent<TextMeshProUGUI>().text = debuffs[0].description;
+            selected.Find("Displayed Perk").GetComponent<Image>().sprite = debuffs[0].Icon;
+            selected.transform.Find("Perk Name").GetComponent<TextMeshProUGUI>().text = debuffs[0].Description;
         }
     }
 }

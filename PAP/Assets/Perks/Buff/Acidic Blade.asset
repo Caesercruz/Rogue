@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Acidic Blade
   m_EditorClassIdentifier: 
-  description: Atacking deals damage to nearby enemies.
-  icon: {fileID: 2872087027031486705, guid: 889ee41f88ec1ea49af95761b09b7487, type: 3}
-  type: 0
-  active: 1
+  Description: Your atack hits nearby enemies.
+  Icon: {fileID: 2872087027031486705, guid: 889ee41f88ec1ea49af95761b09b7487, type: 3}
+  Type: 0
+  Level: 0

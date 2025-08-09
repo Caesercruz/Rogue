@@ -28,7 +28,7 @@ public class Player : Actors
         Health = Convert.ToInt32(HealthBar.value);
         MaxHealth = Convert.ToInt32(HealthBar.maxValue);
         ChangeHealth(HealthBar, Convert.ToInt32(HealthBar.value), Convert.ToInt32(HealthBar.maxValue));
-        perkEffects.ApplyPerks(this);
+        perkEffects.ApplyPerks(gameScript.playerPrefab.GetComponent<Player>());
         ChangeEnergy(MaxEnergy, MaxEnergy);
     }
 
@@ -139,18 +139,22 @@ public class Player : Actors
         }
         if (gameScript.GameControls.PlayerControls.EndTurn.triggered)
         {
-            ExitAttackMode();
-            perkEffects.Rebound(this);
-            perkEffects.Reboot(this);
-            DamageTiles();
-            ClearAttackableTiles(false);
-            actors.isPlayersTurn = false;
-            StoredEnergy = 0;
-            weakened = false;
-            gameScript.firstTurn = false;
+            EndTurn();
+            
         }
     }
-
+    public void EndTurn()
+    {
+        ExitAttackMode();
+        perkEffects.Rebound(this);
+        perkEffects.Reboot(this);
+        DamageTiles();
+        ClearAttackableTiles(false);
+        actors.isPlayersTurn = false;
+        StoredEnergy = 0;
+        weakened = false;
+        gameScript.firstTurn = false;
+    }
     public void EnterAttackMode()
     {
         foreach (var tile in actors.GridTiles.Values)

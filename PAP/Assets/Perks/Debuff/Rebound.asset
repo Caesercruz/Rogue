@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Rebound
   m_EditorClassIdentifier: 
-  description: Unused energy deals X2 damage.
-  icon: {fileID: 4150088245714118910, guid: 62ef5352133d5ff41aab1befe1edc205, type: 3}
-  type: 1
-  active: 1
+  Description: Take 2X the amount of unused energy at the end of your turn.
+  Icon: {fileID: 4150088245714118910, guid: 62ef5352133d5ff41aab1befe1edc205, type: 3}
+  Type: 1
+  Level: 0

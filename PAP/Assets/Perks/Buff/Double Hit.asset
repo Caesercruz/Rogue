@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Double Hit
   m_EditorClassIdentifier: 
-  description: 75% chance of atacking twice
-  icon: {fileID: -3931711098014578084, guid: 89bb3f0431cb2bf43a6cec412de9407e, type: 3}
-  type: 0
-  active: 1
+  Description: 75% chance of atacking twice.
+  Icon: {fileID: -3931711098014578084, guid: 89bb3f0431cb2bf43a6cec412de9407e, type: 3}
+  Type: 0
+  Level: 0

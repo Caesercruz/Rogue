@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e97f9b36c61ba479b6f003d7b68725, type: 3}
   m_Name: Increased Reach
   m_EditorClassIdentifier: 
-  description: Increases your range by 1 tile.
-  icon: {fileID: -8967800792318746968, guid: 1e4bd0d551b650146bac46d1eb5992cf, type: 3}
-  type: 0
-  active: 1
+  Description: Increase your atack range.
+  Icon: {fileID: -8967800792318746968, guid: 1e4bd0d551b650146bac46d1eb5992cf, type: 3}
+  Type: 0
+  Level: 0

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class GameScript : MonoBehaviour
 {
@@ -45,6 +44,7 @@ public class GameScript : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject combatUIPrefab;
     [SerializeField] public GameObject boardManager;
+    [SerializeField] public GameObject playerPrefab;
     [SerializeField] private GameObject UpdateScreenPrefab;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameOver;
@@ -93,6 +93,7 @@ public class GameScript : MonoBehaviour
         boardManagerInstance = Instantiate(boardManager, gameObject.transform);
         boardManagerInstance.name = "BoardManager";
         actors = boardManagerInstance.GetComponent<Actors>();
+        playerInstance = Instantiate(playerPrefab, boardManagerInstance.transform);
         transform.Find("Canvas").GetComponent<HUDManager>().healthBarsContainer = transform.Find("Canvas/Combat UI/EnemyHealthBars");
         for (int x = 0; x < Width; x++)
         {
@@ -128,7 +129,7 @@ public class GameScript : MonoBehaviour
         // Inicia a animação
         AnimationManager animationSpawner = FindAnyObjectByType<AnimationManager>();
 
-        //StartCoroutine(animationSpawner.AnimatePopupSpawn(instance.transform));
+        StartCoroutine(animationSpawner.AnimatePopupSpawn(instance.transform));
     }
     public void StartEncounter(RoomData.Type fightType)
     {

@@ -34,7 +34,7 @@ public class PopupPerks : MonoBehaviour
         Transform label = transform.Find("Perk Name");
         if (label != null)
         {
-            label.GetComponent<TextMeshProUGUI>().text = perk.description;
+            label.GetComponent<TextMeshProUGUI>().text = perk.Description;
         }
         else
         {
